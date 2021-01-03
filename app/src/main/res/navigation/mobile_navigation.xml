@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/navigation_welcome">
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.pjt.rebis.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/navigation_QRScan"
+        android:name="com.pjt.rebis.ui.qrScan.QRCodeFragment"
+        android:label="@string/title_QRScan"
+        tools:layout="@layout/fragment_qrscan" />
+
+    <fragment
+        android:id="@+id/navigation_history"
+        android:name="com.pjt.rebis.ui.history.HistoryFragment"
+        android:label="@string/title_history"
+        tools:layout="@layout/fragment_history" />
+
+    <fragment
+        android:id="@+id/navigation_newqrRENTER"
+        android:name="com.pjt.rebis.ui.qrScan.QRcodeRenter"
+        android:label="@string/title_QRRENTER"
+        tools:layout="@layout/fragment_qrcode_renter" />
+
+    <fragment
+        android:id="@+id/navigation_welcome"
+        android:name="com.pjt.rebis.ui.welcomeFrag"
+        android:label="@string/welc_title"
+        tools:layout="@layout/fragment_welcome" />
+
+</navigation>

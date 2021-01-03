@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="panna">#FFFFF7</color>
+    <color name="lightblack">#262626</color>
+    <color name="aranciottoscuro">#7A4D09</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="lightgrey">#E38F8F8F</color>
+    <color name="panna_hint">#91D6D6D6</color>
+    <color name="arancius">#FF6B1C</color>
+    <color name="lightmaoro">#E1FFC21C</color>
+</resources>

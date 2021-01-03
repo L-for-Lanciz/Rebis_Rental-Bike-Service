@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "627613124461",
+    "firebase_url": "https://rebis-9aeb6-default-rtdb.firebaseio.com",
+    "project_id": "rebis-9aeb6",
+    "storage_bucket": "rebis-9aeb6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:627613124461:android:5ebee7bf3d18e0e4a6fc64",
+        "android_client_info": {
+          "package_name": "com.pjt.rebis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "627613124461-lpnb8d090lsnu10o784tnj2sqladpbp9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pjt.rebis",
+            "certificate_hash": "ef2db0563b0c7fb7527065734c546bab74f569d8"
+          }
+        },
+        {
+          "client_id": "627613124461-9kb7ebdvkprjoqq5resjb34fibc9nafe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASGAFduysvBt0JhVshRz00pz25Gktm3xE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "627613124461-9kb7ebdvkprjoqq5resjb34fibc9nafe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

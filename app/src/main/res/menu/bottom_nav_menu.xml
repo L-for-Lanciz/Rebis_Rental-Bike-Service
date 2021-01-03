@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:background="@color/panna">
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/profileb_navicon"
+        android:title="@string/title_profile" />
+
+    <item
+        android:id="@+id/navigation_QRScan"
+        android:icon="@drawable/qrscanb_navicon"
+        android:title="@string/title_QRScan" />
+
+    <item
+        android:id="@+id/navigation_history"
+        android:icon="@drawable/historyb_navicon"
+        android:title="@string/title_history" />
+
+</menu>
