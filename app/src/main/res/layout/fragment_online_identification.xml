@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.profile.online_identification">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/oi_constr"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/lightblack"
+        android:clickable="true">
+
+        <TextView
+            android:id="@+id/oi_title"
+            android:layout_width="match_parent"
+            android:layout_height="35sp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/revalia"
+            android:paddingStart="15dp"
+            android:text="@string/oi_title"
+            android:textAlignment="viewStart"
+            android:textColor="@color/panna"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/oi_divider"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
+            android:background="@color/panna"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/oi_title" />
+
+        <TextView
+            android:id="@+id/oi_name"
+            android:layout_width="120dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="65dp"
+            android:layout_marginTop="70dp"
+            android:background="@drawable/namesbord"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical"
+            android:text="@string/oi_uname"
+            android:textColor="@color/panna"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/oi_divider" />
+
+        <TextView
+            android:id="@+id/oi_lastname"
+            android:layout_width="120dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="65dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/namesbord"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical"
+            android:text="@string/oi_ulastname"
+            android:textColor="@color/panna"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/oi_name" />
+
+        <TextView
+            android:id="@+id/oi_country"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="35dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical"
+            android:text="@string/oi_ucountry"
+            android:textAlignment="center"
+            android:textColor="@color/panna"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/oi_birth" />
+
+        <TextView
+            android:id="@+id/oi_gender"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="35dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical"
+            android:text="@string/oi_ugender"
+            android:textAlignment="center"
+            android:textColor="@color/panna"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/oi_lastname" />
+
+        <CheckBox
+            android:id="@+id/oi_male"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:buttonTint="@color/colorAccent"
+            android:text="@string/oi_umale"
+            android:textColor="@color/panna"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/oi_female"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/oi_gender" />
+
+        <CheckBox
+            android:id="@+id/oi_female"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="100dp"
+            android:buttonTint="@color/colorAccent"
+            android:text="@string/oi_ufemale"
+            android:textColor="@color/panna"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/oi_male"
+            app:layout_constraintTop_toBottomOf="@+id/oi_gender" />
+
+        <TextView
+            android:id="@+id/oi_birth"
+            android:layout_width="120dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="65dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/namesbord"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical"
+            android:text="@string/oi_ubirth"
+            android:textColor="@color/panna"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/oi_female" />
+
+        <Button
+            android:id="@+id/oi_proceed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="100dp"
+            android:background="@color/transparent"
+            android:fontFamily="@font/sanchez"
+            android:stateListAnimator="@null"
+            android:text="@string/oi_proceed1"
+            android:textColor="@color/panna"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/oi_spinner" />
+
+        <EditText
+            android:id="@+id/oi_inpname"
+            android:layout_width="170dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="70dp"
+            android:background="@drawable/naminputbord"
+            android:paddingStart="15dp"
+            android:textColor="@color/colorAccent"
+            android:textColorHighlight="@color/panna_hint"
+            android:textColorHint="@color/panna_hint"
+            android:textColorLink="@color/panna_hint"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/oi_name"
+            app:layout_constraintTop_toBottomOf="@+id/oi_divider" />
+
+        <EditText
+            android:id="@+id/oi_inpsurname"
+            android:layout_width="170dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/naminputbord"
+            android:paddingStart="15dp"
+            android:textColor="@color/colorAccent"
+            android:textColorHighlight="@color/panna_hint"
+            android:textColorHint="@color/panna_hint"
+            android:textColorLink="@color/panna_hint"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/oi_lastname"
+            app:layout_constraintTop_toBottomOf="@+id/oi_inpname" />
+
+        <Spinner
+            android:id="@+id/oi_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/spinnerbord"
+            android:spinnerMode="dropdown"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/oi_country" />
+
+        <EditText
+            android:id="@+id/oi_inpdate"
+            android:layout_width="165dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/naminputbord"
+            android:textSize="20sp"
+            android:inputType="date"
+            android:paddingStart="15dp"
+            android:textColor="?attr/colorAccent"
+            app:layout_constraintStart_toEndOf="@+id/oi_birth"
+            app:layout_constraintTop_toBottomOf="@+id/oi_male" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

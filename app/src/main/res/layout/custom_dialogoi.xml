@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cd_constr"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:background="@drawable/dialogbox"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txt_dia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/al3_msg"
+        android:textAlignment="center"
+        android:textColor="@color/panna"
+        android:textSize="18sp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cduppername" />
+
+    <Button
+        android:id="@+id/btn_yes"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="5dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/sanchez"
+        android:text="@string/al3_ok"
+        android:textColor="@color/colorAccent"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_dia" />
+
+    <TextView
+        android:id="@+id/cduppername"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/colorAccent"
+        android:fontFamily="@font/sanchez"
+        android:gravity="center_vertical"
+        android:text="@string/al3_tit"
+        android:textAlignment="center"
+        android:textColor="@color/panna"
+        android:textSize="22sp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
