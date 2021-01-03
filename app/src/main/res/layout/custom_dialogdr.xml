@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cd_constr"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:background="@drawable/dialogbox"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/cddr_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/cddr_msg"
+        android:textAlignment="center"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:textColor="@color/panna"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cddr_title" />
+
+    <Button
+        android:id="@+id/cddr_btnYes"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="5dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/sanchez"
+        android:text="@string/cddr_bYes"
+        android:textColor="@color/colorAccent"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cddr_msg" />
+
+    <Button
+        android:id="@+id/cddr_btnNo"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="5dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/sanchez"
+        android:text="@string/cddr_bNo"
+        android:textColor="@color/colorAccent"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cddr_btnYes"
+        app:layout_constraintTop_toBottomOf="@+id/cddr_msg" />
+
+    <TextView
+        android:id="@+id/cddr_title"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/colorAccent"
+        android:fontFamily="@font/sanchez"
+        android:gravity="center_vertical"
+        android:text="@string/cddr_tit"
+        android:textAlignment="center"
+        android:textColor="@color/panna"
+        android:textSize="22sp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

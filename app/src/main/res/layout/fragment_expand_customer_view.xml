@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    tools:context=".ui.history.expandCustomerView">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/expansionbg"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp">
+
+
+        <TextView
+            android:id="@+id/ecv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/sanchez"
+            android:textColor="@color/panna"
+            android:textSize="22sp"
+            android:textAlignment="center"
+            android:text="@string/ecv_aboutCustomer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/ecv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textColor="@color/panna"
+            android:textSize="22sp"
+            app:layout_constraintStart_toEndOf="@+id/ecv_propic"
+            app:layout_constraintTop_toBottomOf="@+id/ecv_title" />
+
+        <ImageView
+            android:id="@+id/ecv_propic"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_report_image" />
+
+        <TextView
+            android:id="@+id/ecv_pcode"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="60dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical"
+            android:textColor="@color/panna"
+            android:textSize="20sp"
+            android:text=""
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ecv_country" />
+
+        <TextView
+            android:id="@+id/ecv_city"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textColor="@color/panna"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ecv_birth" />
+
+        <TextView
+            android:id="@+id/ecv_birth"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textColor="@color/panna"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ecv_propic" />
+
+        <TextView
+            android:id="@+id/ecv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textColor="@color/panna"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ecv_city" />
+
+        <TextView
+            android:id="@+id/ecv_country"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginTop="135dp"
+            android:layout_marginEnd="60dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical"
+            android:textColor="@color/panna"
+            android:textSize="20sp"
+            android:text=""
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/ecv_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textColor="@color/panna"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ecv_address" />
+
+        <TextView
+            android:id="@+id/ecv_usern"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginStart="50dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textColor="@color/panna"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/ecv_propic"
+            app:layout_constraintTop_toBottomOf="@+id/ecv_name" />
+
+        <Button
+            android:id="@+id/ecv_close"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/delete_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ecv_loading"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="39dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="135dp"
+            android:layout_marginBottom="79dp"
+            android:src="@drawable/loadingicon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ecv_propic"
+            app:layout_constraintTop_toBottomOf="@+id/ecv_title" />
+
+        <Button
+            android:id="@+id/ecv_ENDRENTAL"
+            android:layout_width="85dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/buttonend"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical"
+            android:text="@string/ecv_endRental"
+            android:textAlignment="center"
+            android:textColor="@color/panna"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
