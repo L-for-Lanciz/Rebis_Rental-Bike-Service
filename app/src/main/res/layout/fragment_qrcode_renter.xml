@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.qrScan.QRcodeRenter"
+    android:background="@color/lightblack">
+
+
+    <TextView
+        android:id="@+id/qrre_title"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/revalia"
+        android:paddingStart="15dp"
+        android:text="@string/reqr_title"
+        android:textColor="@color/panna"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/qrre_divider"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
+        android:background="@color/panna"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/qrre_title"/>
+
+
+
+    <TextView
+        android:id="@+id/qrre_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
+        android:text="@string/qrre_desc"
+        android:textColor="@color/panna"
+        android:fontFamily="@font/sanchez"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/qrre_divider" />
+
+    <TextView
+        android:id="@+id/qrre_bike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
+        android:text="@string/qrre_bike"
+        android:textColor="@color/panna"
+        android:fontFamily="@font/sanchez"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/qrre_desc" />
+
+    <EditText
+        android:id="@+id/qrre_inputbike"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/roboto_medium"
+        android:padding="15dp"
+        android:background="@drawable/input_underscore"
+        android:textColor="@color/panna"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/qrre_bike" />
+
+    <TextView
+        android:id="@+id/qrre_fee"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/sanchez"
+        android:text="@string/qrre_fee"
+        android:textAlignment="center"
+        android:textColor="@color/panna"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toStartOf="@+id/qrre_deposit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/qrre_inputbike" />
+
+    <EditText
+        android:id="@+id/qrre_inputfee"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/input_underscore"
+        android:inputType="numberDecimal"
+        android:padding="15dp"
+        android:textColor="@color/panna"
+        app:layout_constraintEnd_toStartOf="@id/qrre_inputdeposit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/qrre_fee" />
+
+    <TextView
+        android:id="@+id/qrre_deposit"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="55dp"
+        android:fontFamily="@font/sanchez"
+        android:text="@string/qrre_deposit"
+        android:textAlignment="center"
+        android:textColor="@color/panna"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/qrre_fee"
+        app:layout_constraintTop_toBottomOf="@+id/qrre_inputbike" />
+
+    <EditText
+        android:id="@+id/qrre_inputdeposit"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="80dp"
+        android:background="@drawable/input_underscore"
+        android:inputType="numberDecimal"
+        android:padding="15dp"
+        android:textColor="@color/panna"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/qrre_inputfee"
+        app:layout_constraintTop_toBottomOf="@+id/qrre_deposit" />
+
+    <TextView
+        android:id="@+id/qrre_days"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/sanchez"
+        android:text="@string/qrre_days"
+        android:textColor="@color/panna"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/qrre_inputfee" />
+
+    <EditText
+        android:id="@+id/qrre_inputdays"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/input_underscore"
+        android:inputType="numberDecimal"
+        android:padding="15dp"
+        android:textColor="@color/panna"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/qrre_days" />
+
+    <Button
+        android:id="@+id/qrre_commnand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/sanchez"
+        android:text="@string/qrre_comm"
+        android:textColor="@color/aranciottoscuro"
+        android:backgroundTint="@color/panna"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/qrre_inputdays" />
+
+    <ImageView
+        android:id="@+id/qrre_generator"
+        android:layout_width="277dp"
+        android:layout_height="303dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="135dp"
+        android:layout_marginEnd="75dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@android:drawable/stat_notify_error" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
