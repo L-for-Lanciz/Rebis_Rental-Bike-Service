@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    android:background="@android:drawable/screen_background_dark_transparent"
+    tools:context=".Authentication.storeInformations">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:background="@color/lightblack"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:id="@+id/stin_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/merienda_one"
+            android:text="@string/stin_title"
+            android:textAllCaps="true"
+            android:textColor="@color/panna"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/_dividi"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="40dp"
+            android:background="@color/panna"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stin_title" />
+
+        <TextView
+            android:id="@+id/stin_owner"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="130dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/stin_owner"
+            android:textColor="@color/panna"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/stin_inpown"
+            android:layout_width="200dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="45dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/input_underscore"
+            android:inputType="text"
+            android:padding="10dp"
+            android:textColor="@color/panna"
+            android:textColorHighlight="@color/panna_hint"
+            android:textColorHint="@color/panna_hint"
+            android:textColorLink="@color/panna_hint"
+            android:textCursorDrawable="@drawable/color_cursor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/_dividi" />
+
+        <TextView
+            android:id="@+id/stin_country"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/stin_country"
+            android:textColor="@color/panna"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stin_owner" />
+
+        <EditText
+            android:id="@+id/stin_inpcoun"
+            android:layout_width="200dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="23dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/input_underscore"
+            android:inputType="text"
+            android:padding="10dp"
+            android:textColor="@color/panna"
+            android:textColorHighlight="@color/panna_hint"
+            android:textColorHint="@color/panna_hint"
+            android:textColorLink="@color/panna_hint"
+            android:textCursorDrawable="@drawable/color_cursor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stin_inpown" />
+
+        <TextView
+            android:id="@+id/stin_zip"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/stin_zip"
+            android:textColor="@color/panna"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stin_country" />
+
+        <EditText
+            android:id="@+id/stin_inpzip"
+            android:layout_width="200dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="23dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/input_underscore"
+            android:inputType="number"
+            android:padding="10dp"
+            android:textColor="@color/panna"
+            android:textColorHighlight="@color/panna_hint"
+            android:textColorHint="@color/panna_hint"
+            android:textColorLink="@color/panna_hint"
+            android:textCursorDrawable="@drawable/color_cursor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stin_inpcoun" />
+
+        <TextView
+            android:id="@+id/stin_city"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/stin_city"
+            android:textColor="@color/panna"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stin_zip" />
+
+        <EditText
+            android:id="@+id/stin_inpcity"
+            android:layout_width="200dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="23dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/input_underscore"
+            android:inputType="text"
+            android:padding="10dp"
+            android:textColor="@color/panna"
+            android:textColorHighlight="@color/panna_hint"
+            android:textColorHint="@color/panna_hint"
+            android:textColorLink="@color/panna_hint"
+            android:textCursorDrawable="@drawable/color_cursor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stin_inpzip" />
+
+        <Button
+            android:id="@+id/stin_signup"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="10dp"
+            android:backgroundTint="@color/cardview_dark_background"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/signup"
+            android:textColor="@color/panna"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stin_phone" />
+
+        <TextView
+            android:id="@+id/stin_addr"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/stin_addr"
+            android:textColor="@color/panna"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stin_city" />
+
+        <EditText
+            android:id="@+id/stin_inpaddr"
+            android:layout_width="200dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="23dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/input_underscore"
+            android:inputType="text"
+            android:padding="10dp"
+            android:textColor="@color/panna"
+            android:textColorHighlight="@color/panna_hint"
+            android:textColorHint="@color/panna_hint"
+            android:textColorLink="@color/panna_hint"
+            android:textCursorDrawable="@drawable/color_cursor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stin_inpcity" />
+
+        <TextView
+            android:id="@+id/stin_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/stin_phone"
+            android:textColor="@color/panna"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stin_addr" />
+
+        <EditText
+            android:id="@+id/stin_inphone"
+            android:layout_width="200dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="23dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/input_underscore"
+            android:inputType="phone"
+            android:padding="10dp"
+            android:textColor="@color/panna"
+            android:textColorHighlight="@color/panna_hint"
+            android:textColorHint="@color/panna_hint"
+            android:textColorLink="@color/panna_hint"
+            android:textCursorDrawable="@drawable/color_cursor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stin_inpaddr" />
+
+        <TextView
+            android:id="@+id/stin_tellus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:textColor="@color/panna"
+            android:fontFamily="@font/sanchez"
+            android:text="@string/stin_tellus"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/_dividi" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
