@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -141,25 +140,11 @@ public class QRCodeFragment extends Fragment {
 
     private void wannaReallySpend(RentalItem givobj) {
         final RentalItem takobj = givobj;
-        double price = takobj.getFee()+takobj.getDeposit();
+        double price = takobj.getFee() + takobj.getDeposit();
         String body = getString(R.string.al1_msg) + price;
-        new AlertDialog.Builder(getContext())
-                .setTitle(getString(R.string.al1_tit))
-                .setMessage(body)
 
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        double sum = takobj.getFee() + takobj.getDeposit();
-                        transaction(takobj);
-
-                        updRentalOnDatabase(takobj);
-
-                    }
-                })
-
-                .setNegativeButton(android.R.string.no, null)
-                .setIcon(android.R.drawable.ic_dialog_info)
-                .show();
+        custom_dialogCR cdcr = new custom_dialogCR(getActivity(), getString(R.string.al1_tit), body);
+        cdcr.show();
     }
 
     private void transaction(RentalItem rentobk) {
