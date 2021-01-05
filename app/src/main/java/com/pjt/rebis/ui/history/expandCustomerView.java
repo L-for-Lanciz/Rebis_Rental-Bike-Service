@@ -85,32 +85,107 @@ public class expandCustomerView extends Fragment {
         }
 
         final DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("USERS").child(custID).child("PersonalData");
-        mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference nomeRef = mRef.child("name");
+        DatabaseReference cognomeRef = mRef.child("surname");
+        DatabaseReference etaRef = mRef.child("birthdate");
+        DatabaseReference paeseRef = mRef.child("country");
+        DatabaseReference cittaRef = mRef.child("city");
+        DatabaseReference codeRef = mRef.child("postalCode");
+        DatabaseReference addressRef = mRef.child("homeAddress");
+        DatabaseReference numberRef = mRef.child("phoneNumber");
+        DatabaseReference imageRef = mRef.child("profileImage");
+
+        nomeRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String nome = dataSnapshot.child("name").getValue(String.class) +" "+ dataSnapshot.child("surname").getValue(String.class);
+                String nome = dataSnapshot.getValue(String.class);
                 fullname.setText(nome);
                 username.setText(customer);
-                String nascita = dataSnapshot.child("birthdate").getValue(String.class);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }});
+
+        cognomeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String nomecomp = fullname.getText() +" "+dataSnapshot.getValue(String.class);
+                fullname.setText(nomecomp);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }});
+
+        etaRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String nascita = dataSnapshot.getValue(String.class);
                 birth.setText(nascita);
-                String paese = dataSnapshot.child("country").getValue(String.class);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }});
+
+        paeseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String paese = dataSnapshot.getValue(String.class);
                 country.setText(paese);
-                String citta = dataSnapshot.child("city").getValue(String.class);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }});
+
+        cittaRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String citta = dataSnapshot.getValue(String.class);
                 city.setText(citta);
-                String codpost = dataSnapshot.child("postalCode").getValue(String.class);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }});
+
+        codeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String codpost = dataSnapshot.getValue(String.class);
                 zipcode.setText(codpost);
-                String indirizzo = dataSnapshot.child("homeAddress").getValue(String.class);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }});
+
+        addressRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String indirizzo = dataSnapshot.getValue(String.class);
                 address.setText(indirizzo);
-                String telefono = dataSnapshot.child("phoneNumber").getValue(String.class);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }});
+
+        numberRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String telefono = dataSnapshot.getValue(String.class);
                 phone.setText(telefono);
-                String immagine = dataSnapshot.child("profileImage").getValue(String.class);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }});
+
+        imageRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String immagine = dataSnapshot.getValue(String.class);
                 propic.setImageBitmap(StringToBitMap(immagine));
                 loading.setVisibility(View.INVISIBLE);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }});
-
 
         return mView;
     }
