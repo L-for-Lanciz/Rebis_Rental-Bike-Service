@@ -123,11 +123,15 @@ public class ProfileFragment extends Fragment {
         currentRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String add = dataSnapshot.getValue(String.class);
-                if (add.length()>0)
-                    address.setText(add);
-                else
+                try {
+                    String add = dataSnapshot.getValue(String.class);
+                    if (add.length() > 0)
+                        address.setText(add);
+                    else
+                        address.setText(getString(R.string.emptyadd));
+                } catch(Exception e) {
                     address.setText(getString(R.string.emptyadd));
+                }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
