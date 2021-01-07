@@ -8,7 +8,11 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.pjt.rebis.R;
+import com.pjt.rebis.WebAPI.ImplementationAPI;
+import com.pjt.rebis.ui.history.RentalItem;
 
 /* This is a custom alert dialog which spawns when a customer scans a valid QR-Code. */
 public class custom_dialogCR extends Dialog implements android.view.View.OnClickListener{
@@ -16,11 +20,14 @@ public class custom_dialogCR extends Dialog implements android.view.View.OnClick
     public Dialog d;
     public Button yes,no;
     private String msg, title;
-    public custom_dialogCR(Activity a, String _title, String _msg) {
+    private RentalItem itemR;
+
+    public custom_dialogCR(Activity a, RentalItem robj, String _title, String _msg) {
         super(a);
         this.c = a;
         this.title = _title;
         this.msg = _msg;
+        this.itemR = robj;
     }
 
     @Override
@@ -46,12 +53,26 @@ public class custom_dialogCR extends Dialog implements android.view.View.OnClick
                 dismiss();
                 break;
             case R.id.cddr_btnYes:
-
+                updRentalOnDatabase(itemR);
+                transaction(itemR);
                 break;
             default:
                 break;
         }
         dismiss();
+    }
+
+    private void updRentalOnDatabase(RentalItem obj) {
+        int rid = obj.getID();
+        final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("RENTALS").child(rid+"");
+        mDatabase.child("State").setValue("rented");
+        mDatabase.child("Customer").setValue(obj.getCustomer());
+        mDatabase.child("Addresscustomer").setValue(obj.getAddressCustomer());
+    }
+
+    private void transaction(RentalItem rentobk) {
+        ImplementationAPI api = new ImplementationAPI();
+        api.post(c, rentobk);
     }
 
 }

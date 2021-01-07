@@ -78,12 +78,7 @@ public class QRCodeFragment extends Fragment {
 
                 String rentalitem = rec.substring(20);
                 String[] pieces = rentalitem.split("§");
-                double payed;
-                try {
-                    payed = Double.parseDouble(pieces[7]) + Double.parseDouble(pieces[8]);
-                } catch (Exception fonsfo) {
-                    payed=0;
-                }
+
                 boolean completed = blockchainTrx(pieces);
                 if (!completed) {
                     Toast toast = Toast.makeText(getActivity(), getString(R.string.trx_failed), Toast.LENGTH_LONG);
@@ -130,26 +125,13 @@ public class QRCodeFragment extends Fragment {
         return true;
     }
 
-    private void updRentalOnDatabase(RentalItem obj) {
-        int rid = obj.getID();
-        final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("RENTALS").child(rid+"");
-        mDatabase.child("State").setValue("rented");
-        mDatabase.child("Customer").setValue(obj.getCustomer());
-        mDatabase.child("Addresscustomer").setValue(obj.getAddressCustomer());
-    }
-
     private void wannaReallySpend(RentalItem givobj) {
         final RentalItem takobj = givobj;
         double price = takobj.getFee() + takobj.getDeposit();
         String body = getString(R.string.al1_msg) + price;
 
-        custom_dialogCR cdcr = new custom_dialogCR(getActivity(), getString(R.string.al1_tit), body);
+        custom_dialogCR cdcr = new custom_dialogCR(getActivity(), givobj, getString(R.string.al1_tit), body);
         cdcr.show();
-    }
-
-    private void transaction(RentalItem rentobk) {
-        ImplementationAPI api = new ImplementationAPI();
-        api.post(this.getActivity(), rentobk);
     }
 
 }
