@@ -29,6 +29,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import com.pjt.rebis.Authentication.SaveSharedPreference;
 import com.pjt.rebis.R;
 import com.pjt.rebis.ui.history.RentalItem;
+import com.pjt.rebis.ui.profile.custom_dialogOK;
 
 import java.time.Year;
 import java.util.Calendar;
@@ -73,9 +74,14 @@ public class QRcodeRenter extends Fragment {
             public void onClick(View v) {
 
             boolean bip = spaceToCreation();
-            if (bip)
+            boolean bop = (getCurrentAddress().length() > 0);
+            if (bip && bop)
                 generateQR();
-            else
+            else if (!bop) {
+                String error = getString(R.string.cdOK1_msg);
+                custom_dialogOK cdok = new custom_dialogOK(getActivity(), 1, error, getString(R.string.cdOK_title));
+                cdok.show();
+            } else
                 Toast.makeText(getContext(), getString(R.string.core_fail), Toast.LENGTH_LONG);
 
             }
@@ -87,8 +93,7 @@ public class QRcodeRenter extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String Addressrenter = dataSnapshot.getValue(String.class);
-                getCurrentAddress(Addressrenter);
-
+                setCurrentAddress(Addressrenter);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -257,8 +262,11 @@ public class QRcodeRenter extends Fragment {
         return saltStr;
     }
 
-    private void getCurrentAddress(String adr) {
-        curAdr = adr;
+    private void setCurrentAddress(String adr) {
+        this.curAdr = adr;
     }
 
+    private String getCurrentAddress() {
+        return this.curAdr;
+    }
 }
