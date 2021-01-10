@@ -63,23 +63,79 @@ public class expandRenterView extends Fragment{
         endr.setVisibility(View.INVISIBLE);
 
         final DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("USERS").child(custID).child("PersonalData");
-        mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference nomeRef = mRef.child("fullname");
+        DatabaseReference paeseRef = mRef.child("country");
+        DatabaseReference cittaRef = mRef.child("city");
+        DatabaseReference codeRef = mRef.child("postalCode");
+        DatabaseReference addressRef = mRef.child("address");
+        DatabaseReference numberRef = mRef.child("phonenumber");
+        DatabaseReference imageRef = mRef.child("profileImage");
+
+        nomeRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String nome = dataSnapshot.child("fullname").getValue(String.class);
-                storename.setText(renter);
+                String nome = dataSnapshot.getValue(String.class);
                 fullname.setText(nome);
-                String paese = dataSnapshot.child("country").getValue(String.class);
+                storename.setText(renter);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }});
+
+        paeseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String paese = dataSnapshot.getValue(String.class);
                 country.setText(paese);
-                String citta = dataSnapshot.child("city").getValue(String.class);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }});
+
+        cittaRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String citta = dataSnapshot.getValue(String.class);
                 city.setText(citta);
-                String codpost = dataSnapshot.child("postalcode").getValue(String.class);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }});
+
+        codeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String codpost = dataSnapshot.getValue(String.class);
                 zipcode.setText(codpost);
-                String indirizzo = dataSnapshot.child("address").getValue(String.class);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }});
+
+        addressRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String indirizzo = dataSnapshot.getValue(String.class);
                 address.setText(indirizzo);
-                String telefono = dataSnapshot.child("phonenumber").getValue(String.class);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }});
+
+        numberRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String telefono = dataSnapshot.getValue(String.class);
                 phone.setText(telefono);
-                String immagine = dataSnapshot.child("profileImage").getValue(String.class);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }});
+
+        imageRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String immagine = dataSnapshot.getValue(String.class);
                 propic.setImageBitmap(StringToBitMap(immagine));
                 loading.setVisibility(View.INVISIBLE);
             }
