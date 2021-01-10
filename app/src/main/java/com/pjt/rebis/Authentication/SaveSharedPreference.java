@@ -11,6 +11,7 @@ public class SaveSharedPreference {
     static final String PREF_USER_TYPE = "usertype";
     static final String PREF_PROPIC = "propic";
     static final String PREF_EMAIL = "email";
+    static final String PREF_IDENTIFIED = "false";
 
     static SharedPreferences getSharedPreferences(Context ctx) {
         return PreferenceManager.getDefaultSharedPreferences(ctx);
@@ -63,5 +64,16 @@ public class SaveSharedPreference {
     public static String getEmail(Context ctx) {
         return getSharedPreferences(ctx).getString(PREF_EMAIL, "");
     }
+
+    public static void setIdentified(Context ctx, String identcd) {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putString(PREF_IDENTIFIED, identcd);
+        editor.commit();
+    }
+
+    public static String getIdentified(Context ctx) {
+        return getSharedPreferences(ctx).getString(PREF_IDENTIFIED, "");
+    }
+
 
 }

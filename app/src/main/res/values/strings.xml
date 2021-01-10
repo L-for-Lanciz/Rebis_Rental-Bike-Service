@@ -159,4 +159,9 @@
     <string name="fyp_success">Recovery email sent!</string>
     <string name="fyp_failed">Input data aren\'t correct!</string>
 
+    <string name="cdOK_title">Transaction error</string>
+    <string name="cdOK1_msg">Please, provide a valid ETH address before proceeding with transactions.</string>
+    <string name="cdOK2_msg">Please, you must identify yourself before proceeding with transactions.</string>
+    <string name="cdOK3_msg">An error occurred, check your data and try again.</string>
+
 </resources>

@@ -1,6 +1,5 @@
 package com.pjt.rebis.ui.qrScan;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -21,8 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pjt.rebis.Authentication.SaveSharedPreference;
 import com.pjt.rebis.R;
-import com.pjt.rebis.WebAPI.ImplementationAPI;
 import com.pjt.rebis.ui.history.RentalItem;
+import com.pjt.rebis.ui.profile.custom_dialogOK;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
@@ -32,6 +30,7 @@ import static android.app.Activity.RESULT_OK;
     *   In the backend, a rentalitem object is built with information provided, and saved in the database. */
 public class QRCodeFragment extends Fragment {
     private String currentuser;
+    private boolean ok1, ok2;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -40,26 +39,39 @@ public class QRCodeFragment extends Fragment {
 
         currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+        areYouOK1();
+        areYouOK2();
+
         ImageView image = root.findViewById(R.id.qrc_image);
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (getOK1() && getOK2()) {
+                    try {
+                        Intent intent = new Intent("com.google.zxing.client.android.SCAN");
+                        intent.putExtra("SCAN_MODE", "QR_CODE_MODE"); // "PRODUCT_MODE for bar codes
+                        startActivityForResult(intent, 0);
 
-                try {
+                    } catch (Exception e) {
+                        Uri marketUri = Uri.parse("market://details?id=com.google.zxing.client.android");
+                        Intent marketIntent = new Intent(Intent.ACTION_VIEW, marketUri);
+                        startActivity(marketIntent);
 
-                    Intent intent = new Intent("com.google.zxing.client.android.SCAN");
-                    intent.putExtra("SCAN_MODE", "QR_CODE_MODE"); // "PRODUCT_MODE for bar codes
+                    }
 
-                    startActivityForResult(intent, 0);
-
-                } catch (Exception e) {
-
-                    Uri marketUri = Uri.parse("market://details?id=com.google.zxing.client.android");
-                    Intent marketIntent = new Intent(Intent.ACTION_VIEW, marketUri);
-                    startActivity(marketIntent);
-
+                } else if (!getOK1()) {
+                    String error = getString(R.string.cdOK1_msg);
+                    custom_dialogOK cdok = new custom_dialogOK(getActivity(), 1, error, getString(R.string.cdOK_title));
+                    cdok.show();
+                } else if (!getOK2()) {
+                    String error = getString(R.string.cdOK2_msg);
+                    custom_dialogOK cdok = new custom_dialogOK(getActivity(), 2, error, getString(R.string.cdOK_title));
+                    cdok.show();
+                } else {
+                    String error = getString(R.string.cdOK3_msg);
+                    custom_dialogOK cdok = new custom_dialogOK(getActivity(), 3, error, getString(R.string.cdOK_title));
+                    cdok.show();
                 }
-
             }
 
         });
@@ -125,6 +137,49 @@ public class QRCodeFragment extends Fragment {
         return true;
     }
 
+    private void areYouOK1() {
+        DatabaseReference curadrRef = FirebaseDatabase.getInstance().getReference().child("USERS").child(currentuser).child("Wallets");
+        curadrRef.child("Current").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String addrxcur = dataSnapshot.getValue(String.class);
+                if (addrxcur.length()>0)
+                    setOK1(true);
+                else
+                    setOK1(false);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }});
+    }
+
+    private void areYouOK2() {
+        String sspOID = SaveSharedPreference.getIdentified(getContext());
+        if (sspOID.equals("")) {
+            DatabaseReference curadrRef = FirebaseDatabase.getInstance().getReference().child("USERS").child(currentuser).child("Credentials");
+            curadrRef.child("identification").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String oidgone = dataSnapshot.getValue(String.class);
+                    try {
+                        if (oidgone.length() > 0)
+                            setOK2(true);
+                        else
+                            setOK2(false);
+                    } catch (Exception edfef) {
+                        setOK2(false);
+                    }
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        } else {
+            setOK2(true);
+        }
+
+    }
+
     private void wannaReallySpend(RentalItem givobj) {
         final RentalItem takobj = givobj;
         double price = takobj.getFee() + takobj.getDeposit();
@@ -132,6 +187,22 @@ public class QRCodeFragment extends Fragment {
 
         custom_dialogCR cdcr = new custom_dialogCR(getActivity(), givobj, getString(R.string.al1_tit), body);
         cdcr.show();
+    }
+
+    private void setOK1(boolean puffo) {
+        this.ok1 = puffo;
+    }
+
+    private boolean getOK1() {
+        return this.ok1;
+    }
+
+    private void setOK2(boolean puffo) {
+        this.ok2 = puffo;
+    }
+
+    private boolean getOK2() {
+        return this.ok2;
     }
 
 }

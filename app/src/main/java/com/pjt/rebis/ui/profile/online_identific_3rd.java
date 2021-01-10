@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.pjt.rebis.Authentication.SaveSharedPreference;
 import com.pjt.rebis.R;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -88,6 +89,9 @@ public class online_identific_3rd extends Fragment {
             mReference.child("phoneNumber").setValue(firebaseData[8]);
             mReference.child("imageID").setValue(immaginestringata);
 
+            SaveSharedPreference.setIdentified(getContext(), "true");
+            DatabaseReference identifRef = FirebaseDatabase.getInstance().getReference().child("USERS").child(currentuser).child("Credentials");
+            identifRef.child("identification").setValue("oiTrue");
             showDialogPopUp();
         } else
             Toast.makeText(getContext(), getString(R.string.oi_errorImg), Toast.LENGTH_SHORT).show();

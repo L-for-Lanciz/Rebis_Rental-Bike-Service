@@ -23,7 +23,7 @@ public class custom_dialogOI extends Dialog implements android.view.View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        requestWindowFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
         setContentView(R.layout.custom_dialogoi);
         ok = (Button) findViewById(R.id.btn_yes);
         ok.setOnClickListener(this);
