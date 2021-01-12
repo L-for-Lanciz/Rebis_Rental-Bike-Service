@@ -62,7 +62,7 @@ public class add_ABike extends Fragment {
                              Bundle savedInstanceState) {
         View frootto = inflater.inflate(R.layout.fragment_add__abike, container, false);
 
-        mStorageRef = FirebaseStorage.getInstance().getReference().child("USERS").child(currentuser).child("Bikes");;
+        mStorageRef = FirebaseStorage.getInstance().getReference().child("USERS").child(currentuser).child("Bikes");
         model = frootto.findViewById(R.id.adb_inpmodel);
         brand = frootto.findViewById(R.id.adb_inpbrand);
         year = frootto.findViewById(R.id.adb_inpyear);

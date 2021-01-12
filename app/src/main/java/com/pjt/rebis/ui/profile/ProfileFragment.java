@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +23,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -29,9 +35,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.pjt.rebis.Authentication.Login;
 import com.pjt.rebis.Authentication.SaveSharedPreference;
 import com.pjt.rebis.R;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -47,7 +57,9 @@ public class ProfileFragment extends Fragment {
     private TextView username, address, addW, changeW;
     private Button bt_wallets, bt_identification, bt_logout, bt_addimg;
     private String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    private String profilepicture="";
+    private Uri profilepicture;
+    private String cacheImg;
+    private StorageReference mStorageRef;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -59,6 +71,8 @@ public class ProfileFragment extends Fragment {
         bt_identification = root.findViewById(R.id.but_identif);
         bt_logout = root.findViewById(R.id.prf_logout);
         bt_addimg = root.findViewById(R.id.prf_plusimg);
+
+        mStorageRef = FirebaseStorage.getInstance().getReference().child("USERS").child(currentuser).child("Bikes");
 
         if (SaveSharedPreference.getUserType(this.getActivity()).equals("renter"))
             bt_identification.setVisibility(View.INVISIBLE);
@@ -86,8 +100,8 @@ public class ProfileFragment extends Fragment {
 
         oiddedOrNot();
 
-        profilepicture = SaveSharedPreference.getUserPropic(this.getActivity());
-        propic.setImageBitmap(StringToBitMap(profilepicture));
+        cacheImg = SaveSharedPreference.getUserPropic(this.getActivity());
+        propic.setImageBitmap(StringToBitMap(cacheImg));
 
         username = root.findViewById(R.id.prf_username);
         address = root.findViewById(R.id.prf_address);
@@ -206,20 +220,60 @@ public class ProfileFragment extends Fragment {
         if (resultCode == RESULT_OK) {
             try {
                 final Uri imageUri = data.getData();
-                final InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
-                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                propic.setImageBitmap(selectedImage);
-                SaveSharedPreference.setUserPropic(this.getActivity(), BitMapToString(selectedImage));
-                DatabaseReference mReferencePropic = FirebaseDatabase.getInstance().getReference().child("USERS").child(currentuser).child("PersonalData").child("profileImage");
-                mReferencePropic.setValue(BitMapToString(selectedImage));
-            } catch (FileNotFoundException e) {
+                //Uri bikeImage = Uri.parse(bI);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri);
+                propic.setImageBitmap(bitmap);
+                SaveSharedPreference.setUserPropic(this.getActivity(), BitMapToString(bitmap));
+                StorageReference propicRef = mStorageRef.child("PersonalData").child("profileImage");
+                uploadImage(imageUri, propicRef);
+
+            } catch (Exception e) {
                 e.printStackTrace();
-                Toast.makeText(this.getActivity(), "Something went wrong", Toast.LENGTH_LONG).show();
+                Toast.makeText(this.getActivity(), getString(R.string.generic_error), Toast.LENGTH_LONG).show();
             }
 
         } else {
             Toast.makeText(this.getActivity(), "You haven't picked Image",Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void uploadImage(Uri _mguri, StorageReference mRef) {
+          final StorageReference mInnerRef = mRef;
+          UploadTask uploadTask = mRef.putFile(_mguri);
+          // Register observers to listen for when the download is done or if it fails
+          uploadTask.addOnFailureListener(new OnFailureListener() {
+              @Override
+              public void onFailure(@NonNull Exception exception) {
+                  // Handle unsuccessful uploads
+              }
+          }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+              @Override
+              public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                  // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                }
+          });
+        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+              @Override
+              public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                  if (!task.isSuccessful()) {
+                      throw task.getException();
+                  }
+                  // Continue with the task to get the download URL
+                  return mInnerRef.getDownloadUrl();
+              }
+          }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+              @Override
+              public void onComplete(@NonNull Task<Uri> task) {
+                  if (task.isSuccessful()) {
+                      Uri downloadUri = task.getResult();
+                      DatabaseReference bikeRef = FirebaseDatabase.getInstance().getReference().child("USERS")
+                              .child(currentuser).child("PersonalData");
+                      bikeRef.child("profileImage").setValue(downloadUri.toString());
+                  } else {
+                      // Handle failures
+                  }
+              }
+            });
     }
 
     public Bitmap StringToBitMap(String encodedString) {
@@ -233,16 +287,13 @@ public class ProfileFragment extends Fragment {
             return null;
         }
     }
+
     public String BitMapToString(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
         byte[] b = baos.toByteArray();
         String temp = Base64.encodeToString(b, Base64.DEFAULT);
         return temp;
-    }
-
-    public void instupimg(String img) {
-        profilepicture = img;
     }
 
     private void reloadFrag() {

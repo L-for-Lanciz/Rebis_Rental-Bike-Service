@@ -1,7 +1,14 @@
 package com.pjt.rebis;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -12,13 +19,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pjt.rebis.Authentication.Login;
 import com.pjt.rebis.Authentication.SaveSharedPreference;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-    /* This is the Main Activity. It hosts the bottom navigation view, and almost every fragment.
+import java.io.ByteArrayOutputStream;
+
+/* This is the Main Activity. It hosts the bottom navigation view, and almost every fragment.
     *  It also computes operations needed in the backend to speed up or enhance processes. */
 public class MainActivity extends AppCompatActivity {
     private String _usertype, _username;
@@ -99,7 +111,22 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         String mgg = dataSnapshot.getValue(String.class);
-                        SaveSharedPreference.setUserPropic(MainActivity.this, mgg);
+                        try {
+                            Uri bikeImgUrl = Uri.parse(mgg);
+                            Picasso.get().load(bikeImgUrl).into(new Target() {
+                                @Override
+                                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                                    String tmp = BitMapToString(bitmap);
+                                    SaveSharedPreference.setUserPropic(MainActivity.this, tmp);
+                                }
+                                @Override
+                                public void onBitmapFailed(Exception sghi, Drawable errorDrawable) { }
+                                @Override
+                                public void onPrepareLoad(Drawable placeHolderDrawable) {}
+                            });
+                        } catch (Exception sdjbnsd) {
+                            sdjbnsd.printStackTrace();
+                        }
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
@@ -111,6 +138,14 @@ public class MainActivity extends AppCompatActivity {
             goToLogin();
         }
 
+    }
+
+    public String BitMapToString(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] b = baos.toByteArray();
+        String temp = Base64.encodeToString(b, Base64.DEFAULT);
+        return temp;
     }
 
     private void goToLogin() {
