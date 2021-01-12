@@ -141,8 +141,6 @@ public class bikesFragment extends Fragment {
             ImageView bk_image = (ImageView) mView.findViewById(R.id.bk_image);
             Uri bikeImage = Uri.parse(bI);
             Picasso.get().load(bikeImage).into(bk_image);
-            //Picasso.with(getContext()).load(link).into(imageView);
-            //bk_image.setImageBitmap(bI);
         }
 
         public void setModel(String bM) {

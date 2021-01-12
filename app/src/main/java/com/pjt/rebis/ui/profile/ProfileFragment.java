@@ -72,7 +72,7 @@ public class ProfileFragment extends Fragment {
         bt_logout = root.findViewById(R.id.prf_logout);
         bt_addimg = root.findViewById(R.id.prf_plusimg);
 
-        mStorageRef = FirebaseStorage.getInstance().getReference().child("USERS").child(currentuser).child("Bikes");
+        mStorageRef = FirebaseStorage.getInstance().getReference().child("USERS").child(currentuser);
 
         if (SaveSharedPreference.getUserType(this.getActivity()).equals("renter"))
             bt_identification.setVisibility(View.INVISIBLE);

@@ -6,6 +6,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -15,9 +17,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.pjt.rebis.Authentication.SaveSharedPreference;
 import com.pjt.rebis.R;
 import java.io.ByteArrayOutputStream;
@@ -33,6 +44,8 @@ public class online_identific_3rd extends Fragment {
     private ImageView anteprima;
     public static final int PICK_IMAGE = 1;
     private String immaginestringata;
+    private String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    private StorageReference mStorageRef;
     private String[] firebaseData;
 
     public online_identific_3rd(String[] data) {
@@ -54,6 +67,7 @@ public class online_identific_3rd extends Fragment {
 
         anteprima = (ImageView) tevist3.findViewById(R.id.oi_IDpicture);
 
+        mStorageRef = FirebaseStorage.getInstance().getReference().child("USERS").child(currentuser).child("PersonalData");
         addImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,26 +123,60 @@ public class online_identific_3rd extends Fragment {
                 final InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
                 final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                 anteprima.setImageBitmap(selectedImage);
-                immaginestringata = BitMapToString(selectedImage);
+
+                StorageReference picRef = mStorageRef.child("imageID");
+                uploadImage(imageUri, picRef);
+
                 picStatus.setText(getString(R.string.oi_statusv) + path);
-                //picStatus.setHeight();
                 picStatus.setTextColor(Color.parseColor("#28b028"));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 Toast.makeText(this.getActivity(), "Something went wrong", Toast.LENGTH_LONG).show();
             }
 
-        }else {
+        } else {
             Toast.makeText(this.getActivity(), "You haven't picked Image",Toast.LENGTH_LONG).show();
         }
     }
 
-    public String BitMapToString(Bitmap bitmap) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        byte[] b = baos.toByteArray();
-        String temp = Base64.encodeToString(b, Base64.DEFAULT);
-        return temp;
+    private void uploadImage(Uri _mguri, StorageReference mRef) {
+        final StorageReference mInnerRef = mRef;
+        UploadTask uploadTask = mRef.putFile(_mguri);
+        // Register observers to listen for when the download is done or if it fails
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+            }
+        });
+        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+                // Continue with the task to get the download URL
+                return mInnerRef.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    Uri downloadUri = task.getResult();
+                    DatabaseReference bikeRef = FirebaseDatabase.getInstance().getReference().child("USERS")
+                            .child(currentuser).child("PersonalData");
+                    bikeRef.child("imageID").setValue(downloadUri.toString());
+                    immaginestringata = downloadUri.toString();
+                } else {
+                    // Handle failures
+                }
+            }
+        });
     }
 
     private void showDialogPopUp() {
