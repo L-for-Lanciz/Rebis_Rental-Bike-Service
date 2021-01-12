@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             BottomNavigationView navView = findViewById(userizer);
 
             AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                    R.id.navigation_profile, R.id.navigation_QRScan, R.id.navigation_history)
+                    R.id.navigation_profile, R.id.navigation_bikes, R.id.navigation_QRScan, R.id.navigation_history)
                     .build();
             NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
             NavigationUI.setupWithNavController(navView, navController);

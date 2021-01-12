@@ -164,4 +164,24 @@
     <string name="cdOK2_msg">Please, you must identify yourself before proceeding with transactions.</string>
     <string name="cdOK3_msg">An error occurred, check your data and try again.</string>
 
+    <string name="title_bikes">Bikes</string>
+
+    <string name="oid_ruoidded">Update Personal Info</string>
+
+    <string name="adb_title">Add a Bike</string>
+    <string name="adb_brand">brand</string>
+    <string name="adb_model">model</string>
+    <string name="adb_value">value (eth)</string>
+    <string name="adb_year">year</string>
+    <string name="adb_image">image</string>
+
+    <string name="adb_errorMO">Invalid input for \'model\'</string>
+    <string name="adb_errorBR">Invalid input for \'brand\'</string>
+    <string name="adb_errorYE">Invalid input for \'year\'</string>
+    <string name="adb_errorVA">Invalid input for \'value\'</string>
+    <string name="adb_errorIM">Please, provide a picture of the bike.</string>
+    <string name="adb_errorGE">Something wrent wrong, check your data and try again.</string>
+    <string name="adb_errorFORB">Forbidden characters: \'.\', \'$\', \'[\', \']\', \'#\', \'/\'</string>
+    <string name="generic_error">Something went wrong.</string>
+
 </resources>

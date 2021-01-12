@@ -30,9 +30,16 @@
         tools:layout="@layout/fragment_qrcode_renter" />
 
     <fragment
+        android:id="@+id/navigation_bikes"
+        android:name="com.pjt.rebis.ui.bikes.bikesFragment"
+        android:label="@string/title_bikes"
+        tools:layout="@layout/fragment_bikes" />
+
+    <fragment
         android:id="@+id/navigation_welcome"
         android:name="com.pjt.rebis.ui.welcomeFrag"
         android:label="@string/welc_title"
         tools:layout="@layout/fragment_welcome" />
+
 
 </navigation>

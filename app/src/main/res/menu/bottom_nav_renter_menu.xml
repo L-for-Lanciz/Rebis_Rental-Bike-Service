@@ -9,6 +9,11 @@
         android:title="@string/title_profile"/>
 
     <item
+        android:id="@+id/navigation_bikes"
+        android:icon="@drawable/bikenavicon"
+        android:title="@string/title_bikes"/>
+
+    <item
         android:id="@+id/navigation_newqrRENTER"
         android:icon="@drawable/qrscanb_navicon"
         android:title="@string/title_QRRENTER"/>

@@ -24,7 +24,6 @@ import com.pjt.rebis.R;
     /* This is the 'main' fragment for the History section. Here, a user (both renter and customer) can look at all his
     *  present and past rental activities.  */
 public class HistoryFragment extends Fragment {
-    private static FirebaseDatabase database;
     static String c, d, f, g;
     private FirebaseRecyclerAdapter<RentalItem, PassViewHolder> mPeopleRVAdapter;
 
@@ -41,7 +40,7 @@ public class HistoryFragment extends Fragment {
         DatabaseReference mDatabase;
         RecyclerView mPeopleRV;
         String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Rentals");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("RENTALS");
         mDatabase.keepSynced(true);
         mPeopleRV = (RecyclerView) root.findViewById(R.id.his_Recyc);
 
@@ -135,7 +134,7 @@ public class HistoryFragment extends Fragment {
     }
 
     public static class PassViewHolder extends RecyclerView.ViewHolder {
-        View mView;
+        public View mView;
 
         public PassViewHolder(View itemView) {
             super(itemView);

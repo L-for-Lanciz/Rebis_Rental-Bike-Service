@@ -10,9 +10,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,23 +35,48 @@ import com.pjt.rebis.ui.history.RentalItem;
 import com.pjt.rebis.ui.profile.custom_dialogOK;
 
 import java.time.Year;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Queue;
 import java.util.Random;
 import java.util.TimeZone;
 
     /* 'main' fragment for the transaction section. Allows customers to open a qr-code scan activity, which can
     *   read a qr code and call operation to the restAPI.
     *   In the backend, information about the customer are also updated on the database for the corresponding instance. */
-public class QRcodeRenter extends Fragment {
+public class QRcodeRenter extends Fragment implements AdapterView.OnItemSelectedListener{
     private TextView tdesc, tbike, tfee, tdepo, tdays;
-    private EditText etinpbike, etinpfee, etinpdepo, etinpdays;
+    private EditText etinpfee, etinpdepo, etinpdays;
+    private Spinner spinner;
+    private ArrayAdapter<String> adapterSpin;
     private Button cmd;
     private ImageView genert;
     private String curAdr;
-    private String currentuser;
+    private String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    private ArrayList<String> bikes;
 
     public QRcodeRenter() {
+        bikes = new ArrayList<String>();
+        bikes.add("Choose a bike");
+        DatabaseReference bikesRef = FirebaseDatabase.getInstance().getReference().child("USERS").child(currentuser).child("Bikes");
+        bikesRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
+                    if (childSnapshot.child("status").getValue().equals("available")) {
+                        String parent = childSnapshot.getKey();
+                        bikes.add(parent.substring(3));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
     }
 
 
@@ -59,7 +87,7 @@ public class QRcodeRenter extends Fragment {
 
         tdesc = ruttino.findViewById(R.id.qrre_desc);
         tbike = ruttino.findViewById(R.id.qrre_bike);
-        etinpbike = ruttino.findViewById(R.id.qrre_inputbike);
+        spinner = ruttino.findViewById(R.id.qrre_spinBike);
         tfee =ruttino.findViewById(R.id.qrre_fee);
         etinpfee = ruttino.findViewById(R.id.qrre_inputfee);
         tdepo =ruttino.findViewById(R.id.qrre_deposit);
@@ -69,12 +97,20 @@ public class QRcodeRenter extends Fragment {
         genert = ruttino.findViewById(R.id.qrre_generator);
         cmd = ruttino.findViewById(R.id.qrre_commnand);
 
+        adapterSpin = new ArrayAdapter<>(getActivity(), R.layout.spinner_item, bikes);
+        spinner.setAdapter(adapterSpin);
+
         cmd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             boolean bip = spaceToCreation();
-            boolean bop = (getCurrentAddress().length() > 0);
+            boolean bop;
+            try {
+                bop = (getCurrentAddress().length() > 0);
+            } catch (Exception dsd) {
+                bop = false;
+            }
             if (bip && bop)
                 generateQR();
             else if (!bop) {
@@ -82,12 +118,11 @@ public class QRcodeRenter extends Fragment {
                 custom_dialogOK cdok = new custom_dialogOK(getActivity(), 1, error, getString(R.string.cdOK_title));
                 cdok.show();
             } else
-                Toast.makeText(getContext(), getString(R.string.core_fail), Toast.LENGTH_LONG);
+                Toast.makeText(getContext(), getString(R.string.core_fail), Toast.LENGTH_LONG).show();
 
             }
         });
 
-        currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("USERS").child(currentuser).child("Wallets").child("Current");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -181,12 +216,16 @@ public class QRcodeRenter extends Fragment {
         double inpFEE=0, inpDEPO=0;
         int inpDAYS=0;
 
-        String inpBIKE = etinpbike.getText().toString();
+        spinner.setOnItemSelectedListener(this);
+        int choice = spinner.getSelectedItemPosition();
+        String inpBIKE = bikes.get(choice);
+
+        //String inpBIKE = etinpbike.getText().toString();
         String tempFEE = etinpfee.getText().toString();
             try {
                 inpFEE = Double.parseDouble(tempFEE);
             } catch (Exception e) {
-                etinpfee.setError("Input a valid number");
+                etinpfee.setError("Deposit will be set to '0'");
                 return false;
             }
         String tempDEPO = etinpdepo.getText().toString();
@@ -203,10 +242,10 @@ public class QRcodeRenter extends Fragment {
                 return false;
             }
 
-        if ( inpBIKE.length()>2 && inpFEE >0 && inpDEPO >=0 && inpDAYS >0 ) {
+        if ( choice!=0 && inpFEE >0 && inpDEPO >=0 && inpDAYS >0 ) {
             tdesc.setVisibility(View.INVISIBLE);
             tbike.setVisibility(View.INVISIBLE);
-            etinpbike.setVisibility(View.INVISIBLE);
+            spinner.setVisibility(View.INVISIBLE);
             tfee.setVisibility(View.INVISIBLE);
             etinpfee.setVisibility(View.INVISIBLE);
             tdepo.setVisibility(View.INVISIBLE);
@@ -217,8 +256,8 @@ public class QRcodeRenter extends Fragment {
 
             genert.setVisibility(View.VISIBLE);
 
-        } else if (inpBIKE.length()<= 2) {
-            etinpbike.setError("Input a valid name");
+        } else if (choice==0) {
+           Toast.makeText(getContext(), "Input a valid bike", Toast.LENGTH_SHORT).show();
             return false;
         } else if (inpFEE <= 0) {
             etinpfee.setError("Input a valid number");
@@ -269,4 +308,12 @@ public class QRcodeRenter extends Fragment {
     private String getCurrentAddress() {
         return this.curAdr;
     }
+
+    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+        spinner.getItemAtPosition(pos);
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) { // Another interface callback
+    }
+
 }

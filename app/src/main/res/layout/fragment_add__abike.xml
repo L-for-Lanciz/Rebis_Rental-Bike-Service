@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    android:background="@android:drawable/screen_background_dark_transparent"
+    tools:context=".ui.bikes.add_ABike">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/expansionbg"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <TextView
+            android:id="@+id/adb_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/adb_title"
+            android:textColor="@color/panna"
+            android:textSize="20sp"
+            android:textAllCaps="true"
+            android:fontFamily="@font/merienda_one"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/adb_model"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:paddingStart="15dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="5dp"
+            android:text="@string/adb_model"
+            android:textColor="@color/panna"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/adb_title" />
+
+        <TextView
+            android:id="@+id/adb_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/adb_year"
+            android:textColor="@color/panna"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/adb_brand"
+            app:layout_constraintTop_toBottomOf="@+id/adb_inpmodel" />
+
+        <TextView
+            android:id="@+id/adb_brand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/adb_brand"
+            android:textColor="@color/panna"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/adb_year"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/adb_inpmodel" />
+
+        <TextView
+            android:id="@+id/adb_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/adb_value"
+            android:textColor="@color/panna"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/adb_hintimg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/adb_inpyear" />
+
+        <Button
+            android:id="@+id/adb_exit"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/delete_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/adb_inpbrand"
+            android:layout_width="120dp"
+            android:layout_height="42dp"
+            android:background="@drawable/input_underscore"
+            android:fontFamily="sans-serif-medium"
+            android:paddingStart="15dp"
+            android:textColor="@color/panna"
+            app:layout_constraintEnd_toStartOf="@+id/adb_inpyear"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/adb_brand" />
+
+        <EditText
+            android:id="@+id/adb_inpmodel"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:paddingStart="15dp"
+            android:background="@drawable/input_underscore"
+            android:textColor="@color/panna"
+            android:fontFamily="sans-serif-medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/adb_model" />
+
+        <EditText
+            android:id="@+id/adb_inpyear"
+            android:layout_width="80dp"
+            android:layout_height="42dp"
+            android:background="@drawable/input_underscore"
+            android:fontFamily="sans-serif-medium"
+            android:paddingStart="15dp"
+            android:inputType="number"
+            android:textColor="@color/panna"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/adb_inpbrand"
+            app:layout_constraintTop_toBottomOf="@+id/adb_year" />
+
+        <EditText
+            android:id="@+id/adb_inpvalue"
+            android:layout_width="120dp"
+            android:layout_height="42dp"
+            android:background="@drawable/input_underscore"
+            android:fontFamily="sans-serif-medium"
+            android:inputType="numberDecimal"
+            android:paddingStart="15dp"
+            android:textColor="@color/panna"
+            app:layout_constraintEnd_toStartOf="@+id/adb_uplpic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/adb_value" />
+
+        <Button
+            android:id="@+id/adb_uplpic"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/addimg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/adb_inpvalue"
+            app:layout_constraintTop_toBottomOf="@+id/adb_hintimg" />
+
+        <Button
+            android:id="@+id/adb_conf"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/buttonend"
+            android:fontFamily="@font/sanchez"
+            android:text="@string/oi_complete"
+            android:textColor="@color/panna"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/adb_hintimg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="sans-serif-smallcaps"
+            android:gravity="center_vertical"
+            android:text="@string/adb_image"
+            android:textColor="@color/panna"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/adb_value"
+            app:layout_constraintTop_toBottomOf="@+id/adb_inpyear" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
