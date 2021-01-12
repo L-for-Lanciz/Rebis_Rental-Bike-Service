@@ -2,6 +2,7 @@ package com.pjt.rebis.ui.history;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -21,13 +22,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pjt.rebis.R;
+import com.squareup.picasso.Picasso;
 
-    /* Fragment casted upon click on a rental item inside the recycler view. This, provides personal information about the
+/* Fragment casted upon click on a rental item inside the recycler view. This, provides personal information about the
      * renter(store) of the selected rental.   */
 public class expandRenterView extends Fragment{
     private String renter, custID;
     private TextView storename, fullname, country, city, zipcode, address, phone;
-    private ImageView propic, loading;
+    private ImageView propic;
     private Button close, endr;
 
     public expandRenterView(String _renter) {
@@ -51,7 +53,6 @@ public class expandRenterView extends Fragment{
         address = (TextView) mView.findViewById(R.id.ecv_address);
         phone = (TextView) mView.findViewById(R.id.ecv_phone);
         propic = (ImageView) mView.findViewById(R.id.ecv_propic);
-        loading = (ImageView) mView.findViewById(R.id.ecv_loading);
         close = (Button) mView.findViewById(R.id.ecv_close);
         close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,13 +137,12 @@ public class expandRenterView extends Fragment{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String immagine = dataSnapshot.getValue(String.class);
-                propic.setImageBitmap(StringToBitMap(immagine));
-                loading.setVisibility(View.INVISIBLE);
+                Uri tmp = Uri.parse(immagine);
+                Picasso.get().load(tmp).into(propic);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }});
-
 
         return mView;
     }
@@ -153,18 +153,6 @@ public class expandRenterView extends Fragment{
         Fragment frag4 = new HistoryFragment();
         ft.replace(R.id.his_const, frag4, "hisfrag");
         ft.commit();
-    }
-
-    public Bitmap StringToBitMap(String encodedString) {
-        try {
-            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0,
-                    encodeByte.length);
-            return bitmap;
-        } catch (Exception e) {
-            e.getMessage();
-            return null;
-        }
     }
 
 }

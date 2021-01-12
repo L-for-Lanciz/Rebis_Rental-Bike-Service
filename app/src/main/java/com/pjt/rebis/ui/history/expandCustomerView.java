@@ -4,6 +4,7 @@ package com.pjt.rebis.ui.history;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -27,14 +28,15 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.pjt.rebis.R;
 import com.pjt.rebis.ui.profile.ProfileFragment;
+import com.squareup.picasso.Picasso;
 
-    /* Fragment casted upon click on a rental item inside the recycler view. This, provides personal information about the
+/* Fragment casted upon click on a rental item inside the recycler view. This, provides personal information about the
     *  customer of the selected rental. */
 public class expandCustomerView extends Fragment {
     private String customer, custID;
     private int rID;
     private TextView fullname, username, birth, country, city, zipcode, address, phone;
-    private ImageView propic, loading;
+    private ImageView propic;
     private Button close, endr;
 
     public expandCustomerView() {}
@@ -60,7 +62,6 @@ public class expandCustomerView extends Fragment {
         address = (TextView) mView.findViewById(R.id.ecv_address);
         phone = (TextView) mView.findViewById(R.id.ecv_phone);
         propic = (ImageView) mView.findViewById(R.id.ecv_propic);
-        loading = (ImageView) mView.findViewById(R.id.ecv_loading);
         close = (Button) mView.findViewById(R.id.ecv_close);
         close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,8 +181,8 @@ public class expandCustomerView extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String immagine = dataSnapshot.getValue(String.class);
-                propic.setImageBitmap(StringToBitMap(immagine));
-                loading.setVisibility(View.INVISIBLE);
+                Uri tmp = Uri.parse(immagine);
+                Picasso.get().load(tmp).into(propic);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
