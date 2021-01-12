@@ -37,7 +37,7 @@ public class walletCurrent extends Fragment {
 
         corrente = vistus.findViewById(R.id.wacu_address);
 
-        Button bt_exit = vistus.findViewById(R.id.wacu_exit);
+        Button bt_exit = vistus.findViewById(R.id.adb_exit);
         bt_exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

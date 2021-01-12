@@ -139,9 +139,15 @@ public class walletMagnifier extends Fragment {
 
     public void deleteWallet(String name) {
         final String rip=name;
-
-        custom_dialogWM cddr = new custom_dialogWM(getActivity(), rip, getString(R.string.aldi_title), getString(R.string.aldi_usure)+"\n" + rip);
-        cddr.show();
+        if (corrente.getText().toString().equals(rip)) {
+            custom_dialogWM cddr = new custom_dialogWM(getActivity(), rip, getString(R.string.aldi_title),
+                    getString(R.string.aldi_usure) + "\n" + rip, true);
+            cddr.show();
+        } else {
+            custom_dialogWM cddr = new custom_dialogWM(getActivity(), rip, getString(R.string.aldi_title),
+                    getString(R.string.aldi_usure) + "\n" + rip, false);
+            cddr.show();
+        }
     }
 
 

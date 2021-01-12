@@ -23,13 +23,15 @@ public class custom_dialogWM extends Dialog implements android.view.View.OnClick
     public Dialog d;
     public Button yes,no;
     private String idref, title, msg;
+    private boolean isCurrent;
 
-    public custom_dialogWM(Activity a, String dbref, String _title, String _msg) {
+    public custom_dialogWM(Activity a, String dbref, String _title, String _msg, boolean _isCurrent) {
         super(a);
         this.c = a;
         this.idref = dbref;
         this.title = _title;
         this.msg = _msg;
+        this.isCurrent = _isCurrent;
     }
 
     @Override
@@ -54,14 +56,22 @@ public class custom_dialogWM extends Dialog implements android.view.View.OnClick
                 dismiss();
                 break;
             case R.id.cddr_btnYes:
-                String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                FirebaseDatabase.getInstance().getReference().child("USERS").child(currentuser).child("Wallets").child("List")
-                        .child(idref).removeValue();
+                deleteFromFirebase();
                 break;
             default:
                 break;
         }
         dismiss();
+    }
+
+    private void deleteFromFirebase() {
+        String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseDatabase.getInstance().getReference().child("USERS").child(currentuser).child("Wallets").child("List")
+                .child(idref).removeValue();
+        if (isCurrent) {
+            FirebaseDatabase.getInstance().getReference().child("USERS").child(currentuser).child("Wallets")
+                    .child("Current").removeValue();
+        }
     }
 
 }

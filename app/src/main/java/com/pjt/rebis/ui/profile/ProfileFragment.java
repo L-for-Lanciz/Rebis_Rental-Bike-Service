@@ -84,6 +84,8 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        oiddedOrNot();
+
         profilepicture = SaveSharedPreference.getUserPropic(this.getActivity());
         propic.setImageBitmap(StringToBitMap(profilepicture));
 
@@ -170,6 +172,23 @@ public class ProfileFragment extends Fragment {
         Fragment frag3 = new online_identification();
         ft.replace(R.id.prf_constr, frag3, "identy");
         ft.commit();
+    }
+
+    private void oiddedOrNot() {
+        DatabaseReference oiddedRef = FirebaseDatabase.getInstance().getReference()
+                .child("USERS").child(currentuser).child("PersonalData").child("imageID");
+        oiddedRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                try {
+                    String ruo = dataSnapshot.getValue(String.class);
+                    if (ruo.length() > 0)
+                        bt_identification.setText(getString(R.string.oid_ruoidded));
+                } catch(Exception e) { }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }});
     }
 
     private void logout() {
