@@ -122,9 +122,10 @@ public class QRCodeFragment extends Fragment {
                 int days = Integer.parseInt(pieces[6]);
                 double fee = Double.parseDouble(pieces[7]);
                 double dep = Double.parseDouble(pieces[8]);
+                String bike = pieces[10];
 
                 RentalItem rentalobj = new RentalItem(
-                        pieces[0], customer, pieces[2], address, id, pieces[5], days, fee, dep, "rented"
+                        pieces[0], customer, pieces[2], address, id, pieces[5], days, fee, dep, "rented", bike
                 );
 
                 wannaReallySpend(rentalobj);

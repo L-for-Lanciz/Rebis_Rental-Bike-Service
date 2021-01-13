@@ -55,6 +55,7 @@ public class QRcodeRenter extends Fragment implements AdapterView.OnItemSelected
     private String curAdr;
     private String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private ArrayList<String> bikes;
+    private String _parent;
 
     public QRcodeRenter() {
         bikes = new ArrayList<String>();
@@ -66,6 +67,7 @@ public class QRcodeRenter extends Fragment implements AdapterView.OnItemSelected
                 for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
                     if (childSnapshot.child("status").getValue().equals("available")) {
                         String parent = childSnapshot.getKey();
+                        _parent = parent;
                         bikes.add(parent.substring(3));
                     }
                 }
@@ -184,11 +186,12 @@ public class QRcodeRenter extends Fragment implements AdapterView.OnItemSelected
                         days,
                         fee,
                         depo,
-                        "pending"
+                        "pending",
+                        _parent
                 );
 
                 String output = obj.getRenter()+"§"+obj.getCustomer()+"§"+obj.getAddressRenter()+"§"+obj.getAddressCustomer()+"§"+obj.getID()+"§"+
-                        obj.getDate()+"§"+obj.getDays()+"§"+obj.getFee()+"§"+obj.getDeposit()+"§"+obj.getState()+" ";
+                        obj.getDate()+"§"+obj.getDays()+"§"+obj.getFee()+"§"+obj.getDeposit()+"§"+obj.getState()+"§"+obj.getBike()+"§ ";
 
                 createRentalOnDB(obj);
 
@@ -209,7 +212,6 @@ public class QRcodeRenter extends Fragment implements AdapterView.OnItemSelected
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }});
-
     }
 
     private boolean spaceToCreation() {
@@ -225,20 +227,20 @@ public class QRcodeRenter extends Fragment implements AdapterView.OnItemSelected
             try {
                 inpFEE = Double.parseDouble(tempFEE);
             } catch (Exception e) {
-                etinpfee.setError("Deposit will be set to '0'");
+                etinpfee.setError(getString(R.string.invalid_number));
                 return false;
             }
         String tempDEPO = etinpdepo.getText().toString();
             try {
                 inpDEPO = Double.parseDouble(tempDEPO);
             } catch (Exception e) {
-                etinpdepo.setError("Input a valid number");
+                etinpdepo.setError(getString(R.string.invalid_deposit));
             }
         String tempDAYS = etinpdays.getText().toString();
             try {
                 inpDAYS = Integer.parseInt(tempDAYS);
             } catch (Exception e) {
-                etinpdays.setError("Input a valid number");
+                etinpdays.setError(getString(R.string.invalid_number));
                 return false;
             }
 
@@ -286,6 +288,7 @@ public class QRcodeRenter extends Fragment implements AdapterView.OnItemSelected
         dbInp.child("Fee").setValue(obj.getFee());
         dbInp.child("Deposit").setValue(obj.getDeposit());
         dbInp.child("State").setValue(obj.getState());
+        dbInp.child("Bike").setValue(obj.getBike());
 
     }
 

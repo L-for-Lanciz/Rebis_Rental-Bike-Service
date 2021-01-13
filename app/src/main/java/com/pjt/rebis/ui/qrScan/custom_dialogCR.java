@@ -8,8 +8,11 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.pjt.rebis.R;
 import com.pjt.rebis.WebAPI.ImplementationAPI;
 import com.pjt.rebis.ui.history.RentalItem;
@@ -68,6 +71,24 @@ public class custom_dialogCR extends Dialog implements android.view.View.OnClick
         mDatabase.child("State").setValue("rented");
         mDatabase.child("Customer").setValue(obj.getCustomer());
         mDatabase.child("Addresscustomer").setValue(obj.getAddressCustomer());
+
+        String[] tmp = obj.getRenter().split("#@&@#");
+        final DatabaseReference mBikeRef = FirebaseDatabase.getInstance().getReference().child("USERS").child(tmp[1])
+                .child("Bikes").child(obj.getBike());
+        mBikeRef.child("status").setValue("unavailable");
+        mBikeRef.child("rentedCNT").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String scnt = dataSnapshot.getValue(String.class);
+                try {
+                    int cnt = Integer.parseInt(scnt);
+                    mBikeRef.child("rentedCNT").setValue(cnt++);
+                } catch (Exception fd) {
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }});
     }
 
     private void transaction(RentalItem rentobk) {

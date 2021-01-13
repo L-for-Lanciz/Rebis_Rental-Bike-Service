@@ -105,12 +105,13 @@ public class MainActivity extends AppCompatActivity {
 
 
             String profilepicture = SaveSharedPreference.getUserPropic(this);
-            if (profilepicture.length() == 0) {
-                DatabaseReference mReferencePropic = FirebaseDatabase.getInstance().getReference().child("USERS").child(currentuser).child("PersonalData").child("profileImage");
-                mReferencePropic.addListenerForSingleValueEvent(new ValueEventListener() {
+            if (profilepicture.length() < 100) {
+                DatabaseReference mReferencePropic = FirebaseDatabase.getInstance().getReference().child("USERS").child(currentuser).child("PersonalData");
+                mReferencePropic.child("profileImage").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         String mgg = dataSnapshot.getValue(String.class);
+                        SaveSharedPreference.setUserPropic(MainActivity.this, mgg);
                         try {
                             Uri bikeImgUrl = Uri.parse(mgg);
                             Picasso.get().load(bikeImgUrl).into(new Target() {

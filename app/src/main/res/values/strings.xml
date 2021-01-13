@@ -184,4 +184,7 @@
     <string name="adb_errorFORB">Forbidden characters: \'.\', \'$\', \'[\', \']\', \'#\', \'/\'</string>
     <string name="generic_error">Something went wrong.</string>
 
+    <string name="invalid_number">Input a valid number</string>
+    <string name="invalid_deposit">Deposit will be set to \'0\'</string>
+
 </resources>

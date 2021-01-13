@@ -95,9 +95,9 @@ public class HistoryFragment extends Fragment {
                                 deleteNotRented(model.getID());
                             } else {
                                 if(model.getState().equals("ended"))
-                                    showCustomerInfo(trafficlight, 0);
+                                    showCustomerInfo(trafficlight, 0, "");
                                 else
-                                    showCustomerInfo(trafficlight, model.getID());
+                                    showCustomerInfo(trafficlight, model.getID(), model.getBike());
                             }
                         } else {
                             showRenterInfo(model.getRenter());
@@ -205,10 +205,10 @@ public class HistoryFragment extends Fragment {
         ft.commit();
     }
 
-    private void showCustomerInfo(String cust, int _id) {
+    private void showCustomerInfo(String cust, int _id, String bike) {
         FragmentManager fm = getActivity().getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        Fragment frag3 = new expandCustomerView(cust, _id);
+        Fragment frag3 = new expandCustomerView(cust, _id, bike);
         ft.replace(R.id.his_const, frag3, "expandCust");
         ft.commit();
     }
