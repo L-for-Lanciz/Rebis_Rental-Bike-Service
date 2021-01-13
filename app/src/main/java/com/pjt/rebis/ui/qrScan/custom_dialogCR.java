@@ -79,10 +79,10 @@ public class custom_dialogCR extends Dialog implements android.view.View.OnClick
         mBikeRef.child("rentedCNT").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String scnt = dataSnapshot.getValue(String.class);
+                Integer scnt = dataSnapshot.getValue(Integer.class);
                 try {
-                    int cnt = Integer.parseInt(scnt);
-                    mBikeRef.child("rentedCNT").setValue(cnt++);
+                    //int cnt = Integer.parseInt(scnt);
+                    mBikeRef.child("rentedCNT").setValue(scnt+1);
                 } catch (Exception fd) {
                 }
             }
