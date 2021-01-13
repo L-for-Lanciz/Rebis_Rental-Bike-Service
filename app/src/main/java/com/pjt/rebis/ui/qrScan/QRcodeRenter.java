@@ -65,11 +65,13 @@ public class QRcodeRenter extends Fragment implements AdapterView.OnItemSelected
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
-                    if (childSnapshot.child("status").getValue().equals("available")) {
-                        String parent = childSnapshot.getKey();
-                        _parent = parent;
-                        bikes.add(parent.substring(3));
-                    }
+                    try {
+                        if (childSnapshot.child("status").getValue().equals("available")) {
+                            String parent = childSnapshot.getKey();
+                            _parent = parent;
+                            bikes.add(parent.substring(3));
+                        }
+                    } catch (Exception e23e) {}
                 }
             }
 

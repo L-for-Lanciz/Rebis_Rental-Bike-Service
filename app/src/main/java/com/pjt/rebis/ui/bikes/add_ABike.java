@@ -142,8 +142,6 @@ public class add_ABike extends Fragment {
         anno = year.getText().toString();
         valore = value.getText().toString();
 
-
-
         boolean moCHECK = (modello.length() > 0);
         boolean forbiddenCHECK = (!modello.contains(".")) && (!modello.contains("$")) && (!modello.contains("#")) &&
                                 (!modello.contains("[")) && (!modello.contains("]")) && (!modello.contains("/"));
