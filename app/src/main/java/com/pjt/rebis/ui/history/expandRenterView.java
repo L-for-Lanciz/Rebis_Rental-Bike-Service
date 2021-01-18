@@ -138,7 +138,7 @@ public class expandRenterView extends Fragment{
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String immagine = dataSnapshot.getValue(String.class);
                 Uri tmp = Uri.parse(immagine);
-                Picasso.get().load(tmp).into(propic);
+                Picasso.get().load(tmp).resize(600,600).onlyScaleDown().into(propic);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

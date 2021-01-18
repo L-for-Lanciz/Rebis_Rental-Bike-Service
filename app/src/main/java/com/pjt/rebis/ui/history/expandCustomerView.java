@@ -79,6 +79,7 @@ public class expandCustomerView extends Fragment {
                     DatabaseReference bikeRef = FirebaseDatabase.getInstance().getReference().child("USERS").child(currentuser)
                             .child("Bikes").child(bike);
                     bikeRef.child("status").setValue("available");
+                    bikeRef.child("customer").setValue("");
                     closeFrag();
                 }
             });
@@ -181,7 +182,7 @@ public class expandCustomerView extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String immagine = dataSnapshot.getValue(String.class);
                 Uri tmp = Uri.parse(immagine);
-                Picasso.get().load(tmp).into(propic);
+                Picasso.get().load(tmp).resize(600,600).onlyScaleDown().into(propic);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

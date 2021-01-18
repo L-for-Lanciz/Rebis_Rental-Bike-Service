@@ -3,6 +3,7 @@ package com.pjt.rebis.ui.profile;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -42,6 +43,7 @@ import com.pjt.rebis.Authentication.Login;
 import com.pjt.rebis.Authentication.SaveSharedPreference;
 import com.pjt.rebis.R;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -57,7 +59,6 @@ public class ProfileFragment extends Fragment {
     private TextView username, address, addW, changeW;
     private Button bt_wallets, bt_identification, bt_logout, bt_addimg;
     private String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    private Uri profilepicture;
     private String cacheImg;
     private StorageReference mStorageRef;
 
@@ -101,7 +102,36 @@ public class ProfileFragment extends Fragment {
         oiddedOrNot();
 
         cacheImg = SaveSharedPreference.getUserPropic(this.getActivity());
-        propic.setImageBitmap(StringToBitMap(cacheImg));
+        if (cacheImg.length() < 100) {
+            DatabaseReference mReferencePropic = FirebaseDatabase.getInstance().getReference().child("USERS").child(currentuser).child("PersonalData");
+            mReferencePropic.child("profileImage").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String myPic = dataSnapshot.getValue(String.class);
+                    try {
+                        Uri profilepicture = Uri.parse(myPic);
+                        Picasso.get().load(profilepicture).resize(600,600).onlyScaleDown().into(propic);
+                       // Picasso.get().load(profilepicture).into(new Target() {
+                       //     @Override
+                       //     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                       //         String tmp = BitMapToString(bitmap);
+                       //         SaveSharedPreference.setUserPropic(getActivity(), tmp);
+                       //     }
+                       //     @Override
+                       //     public void onBitmapFailed(Exception sghi, Drawable errorDrawable) { }
+                       //     @Override
+                       //     public void onPrepareLoad(Drawable placeHolderDrawable) {}
+                       // });
+                    } catch (Exception sdjbnsd) {
+                        sdjbnsd.printStackTrace();
+                    }
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }});
+        } else {
+          //  propic.setImageBitmap(StringToBitMap(cacheImg));
+        }
 
         username = root.findViewById(R.id.prf_username);
         address = root.findViewById(R.id.prf_address);
@@ -223,7 +253,6 @@ public class ProfileFragment extends Fragment {
                 //Uri bikeImage = Uri.parse(bI);
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri);
                 propic.setImageBitmap(bitmap);
-                SaveSharedPreference.setUserPropic(this.getActivity(), BitMapToString(bitmap));
                 StorageReference propicRef = mStorageRef.child("PersonalData").child("profileImage");
                 uploadImage(imageUri, propicRef);
 
@@ -287,7 +316,7 @@ public class ProfileFragment extends Fragment {
             return null;
         }
     }
-
+/*
     public String BitMapToString(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
@@ -295,7 +324,7 @@ public class ProfileFragment extends Fragment {
         String temp = Base64.encodeToString(b, Base64.DEFAULT);
         return temp;
     }
-
+*/
     private void reloadFrag() {
         // Reload current fragment
         FragmentTransaction ft = getFragmentManager().beginTransaction();

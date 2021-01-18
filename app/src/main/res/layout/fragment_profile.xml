@@ -53,9 +53,10 @@
         android:layout_height="100dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="40dp"
+        android:background="@drawable/toolsavatar"
+        android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/prf_divider"
-        android:scaleType="centerCrop"
         app:srcCompat="@drawable/toolsavatar" />
 
     <TextView
