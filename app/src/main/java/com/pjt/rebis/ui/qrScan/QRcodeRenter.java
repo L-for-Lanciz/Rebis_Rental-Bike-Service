@@ -55,11 +55,12 @@ public class QRcodeRenter extends Fragment implements AdapterView.OnItemSelected
     private String curAdr;
     private String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private ArrayList<String> bikes;
-    private String _parent;
+    private ArrayList<String> _parent = new ArrayList<String>();
 
     public QRcodeRenter() {
         bikes = new ArrayList<String>();
         bikes.add("Choose a bike");
+        _parent.add("nullvalue");
         DatabaseReference bikesRef = FirebaseDatabase.getInstance().getReference().child("USERS").child(currentuser).child("Bikes");
         bikesRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -68,7 +69,7 @@ public class QRcodeRenter extends Fragment implements AdapterView.OnItemSelected
                     try {
                         if (childSnapshot.child("status").getValue().equals("available")) {
                             String parent = childSnapshot.getKey();
-                            _parent = parent;
+                            _parent.add(parent);
                             bikes.add(parent.substring(3));
                         }
                     } catch (Exception e23e) {}
@@ -177,6 +178,8 @@ public class QRcodeRenter extends Fragment implements AdapterView.OnItemSelected
                     fee=0;
                     depo=0;
                 }
+                int tmpchoice = spinner.getSelectedItemPosition();
+                String bike = _parent.get(tmpchoice);
 
                 RentalItem obj = new RentalItem(
                         SaveSharedPreference.getUserName(getActivity())+"#@&@#"+currentuser,
@@ -189,7 +192,7 @@ public class QRcodeRenter extends Fragment implements AdapterView.OnItemSelected
                         fee,
                         depo,
                         "pending",
-                        _parent
+                        bike
                 );
 
                 String output = obj.getRenter()+"§"+obj.getCustomer()+"§"+obj.getAddressRenter()+"§"+obj.getAddressCustomer()+"§"+obj.getID()+"§"+

@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -29,11 +31,20 @@ import com.google.firebase.storage.StorageReference;
 import com.pjt.rebis.R;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 public class bikesFragment extends Fragment {
     private FirebaseRecyclerAdapter<Bicicletta, PassViewHolder> mBikesRVAdapter;
     private StorageReference mStorageRef;
+    private Button ava, unava, all;
+    private int querier=0;
+    private Button addNew;
 
     public bikesFragment() {
+    }
+
+    public bikesFragment(int _querier) {
+        this.querier = _querier;
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -45,13 +56,52 @@ public class bikesFragment extends Fragment {
         String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
         RecyclerView mBikesRV = (RecyclerView) root.findViewById(R.id.bk_Recyc);
 
+        ava = (Button) root.findViewById(R.id.bk_qrAVAB);
+        all = (Button) root.findViewById(R.id.bk_qeALL);
+        unava = (Button) root.findViewById(R.id.bk_qrUNAV);
+
+        addNew = (Button) root.findViewById(R.id.bk_addBike);
+
+        checkWhichConstructorIs();
+
+        ava.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                querier = 1;
+                reloadFrag();
+            }
+        });
+
+        all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                querier = 0;
+                reloadFrag();
+            }
+        });
+
+        unava.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                querier = 2;
+                reloadFrag();
+            }
+        });
+
         DatabaseReference bikesRef = FirebaseDatabase.getInstance().getReference().child("USERS").child(currentuser).child("Bikes");
         bikesRef.keepSynced(true);
-        Query bikesQuery = bikesRef.orderByChild("name");
+        Query bikesQuery;
+        if (querier==1) {
+            bikesQuery = bikesRef.orderByChild("status").equalTo("available");
+        } else if (querier==2) {
+            bikesQuery = bikesRef.orderByChild("status").equalTo("unavailable");
+        } else {
+            bikesQuery = bikesRef.orderByChild("name");
+        }
 
         mBikesRV.hasFixedSize();
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this.getActivity(), 2);
-        mBikesRV.setLayoutManager(gridLayoutManager);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getActivity());
+        mBikesRV.setLayoutManager(linearLayoutManager);
 
         FirebaseRecyclerOptions personsOptions = new FirebaseRecyclerOptions.Builder<Bicicletta>().setQuery(bikesQuery, Bicicletta.class).build();
 
@@ -66,6 +116,8 @@ public class bikesFragment extends Fragment {
                     holder.setValue("Value(ETH): " + model.getValue());
                     holder.setCounter("rented: " + model.getRentedCNT());
                     holder.setImage(model.getImage());
+                    if (model.getStatus().equals("unavailable"))
+                        holder.setCustomer(model.getCustomer());
 
                     holder.mView.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -88,7 +140,6 @@ public class bikesFragment extends Fragment {
 
         mBikesRV.setAdapter(mBikesRVAdapter);
 
-        Button addNew = (Button) root.findViewById(R.id.bk_addBike);
         addNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,22 +176,21 @@ public class bikesFragment extends Fragment {
 
         public void setName(String bN) {
             TextView bk_name = (TextView) mView.findViewById(R.id.bk_name);
-            bk_name.setText(bN);
+            bk_name.setText(bN.toLowerCase());
         }
 
         public void setStatus(String bS) {
-            TextView bk_status = (TextView) mView.findViewById(R.id.bk_status);
-            bk_status.setText(bS);
+            ImageView bk_status = (ImageView) mView.findViewById(R.id.bk_status);
             if (bS.equals("AVAILABLE"))
-                bk_status.setTextColor(Color.GREEN);
+                bk_status.setBackgroundResource(R.color.strong_green);
             else
-                bk_status.setTextColor(Color.RED);
+                bk_status.setBackgroundResource(R.color.strong_red);
         }
 
         public void setImage(String bI) {
             ImageView bk_image = (ImageView) mView.findViewById(R.id.bk_image);
             Uri bikeImage = Uri.parse(bI);
-            Picasso.get().load(bikeImage).into(bk_image);
+            Picasso.get().load(bikeImage).resize(750,500).onlyScaleDown().into(bk_image);
         }
 
         public void setModel(String bM) {
@@ -162,7 +212,88 @@ public class bikesFragment extends Fragment {
             TextView bk_counter = (TextView) mView.findViewById(R.id.bk_counter);
             bk_counter.setText(bC);
         }
+
+        public void setCustomer(String bR) {
+            TextView bk_customer = (TextView) mView.findViewById(R.id.bk_customer);
+            String cippa[] = bR.split("#@&@#");
+            String output = "[ "+cippa[0]+" - "+cippa[1]+" ]";
+            bk_customer.setText(output);
+        }
+
     }
 
+    private void checkWhichConstructorIs() {
+        if (querier == 1) {
+            // THIS IS THE 'AVAILABLE' QUERY
+            ava.setBackgroundResource(R.drawable.buttonbg);
+            unava.setBackgroundResource(R.color.transparent);
+            all.setBackgroundResource(R.color.transparent);
+
+            ava.setTextColor(getResources().getColor(R.color.colorAccent));
+            unava.setTextColor(getResources().getColor(R.color.avorio));
+            all.setTextColor(getResources().getColor(R.color.avorio));
+
+            addNew.setVisibility(View.INVISIBLE);
+        } else if (querier == 2) {
+            // THIS IS THE 'UNAVAILABLE' QUERY
+            unava.setBackgroundResource(R.drawable.buttonbg);
+            ava.setBackgroundResource(R.color.transparent);
+            all.setBackgroundResource(R.color.transparent);
+
+            unava.setTextColor(getResources().getColor(R.color.colorAccent));
+            ava.setTextColor(getResources().getColor(R.color.avorio));
+            all.setTextColor(getResources().getColor(R.color.avorio));
+
+            addNew.setVisibility(View.INVISIBLE);
+        } else {
+            // THIS IS THE 'ALL' BASIC QUERY
+            all.setBackgroundResource(R.drawable.buttonbg);
+            ava.setBackgroundResource(R.color.transparent);
+            unava.setBackgroundResource(R.color.transparent);
+
+            all.setTextColor(getResources().getColor(R.color.colorAccent));
+            unava.setTextColor(getResources().getColor(R.color.avorio));
+            ava.setTextColor(getResources().getColor(R.color.avorio));
+
+            addNew.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void reloadFrag() {
+        // Reload current fragment
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        if (Build.VERSION.SDK_INT >= 26) {
+            ft.setReorderingAllowed(false);
+        }
+        ft.detach(this).attach(this).commit();
+    }
+
+    /* This method causes:
+        'java.lang.NullPointerException: Attempt to invoke virtual method 'void androidx.fragment.app.Fragment.setNextAnim(int)'
+            on a null object reference'
+       Probably is useless.
+    private void deleteOldBoys() {
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        if (querier == 1) {
+            try {
+                ft.remove(fm.findFragmentByTag("unava"));
+                ft.remove(fm.findFragmentByTag("all"));
+            } catch (Exception ennul) {
+            }
+            ft.commit();
+        } else if (querier == 2) {
+            try {
+                ft.remove(fm.findFragmentByTag("ava"));
+                ft.remove(fm.findFragmentByTag("all"));
+            } catch (Exception ennul) {
+            }
+            ft.commit();
+        } else {
+            ft.remove(fm.findFragmentByTag("ava"));
+            ft.remove(fm.findFragmentByTag("unava"));
+        }
+    }
+    */
 
 }

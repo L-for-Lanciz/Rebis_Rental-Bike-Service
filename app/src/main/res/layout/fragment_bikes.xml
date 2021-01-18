@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/lightblack"
+    android:clickable="true"
     tools:context=".ui.bikes.bikesFragment">
 
     <TextView
@@ -41,19 +42,18 @@
         android:id="@+id/bk_scroller"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:fadeScrollbars="false"
         android:fastScrollAlwaysVisible="true"
         android:fastScrollEnabled="false"
-        android:paddingTop="10dp"
-        android:paddingBottom="120dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="180dp"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         android:scrollbarStyle="outsideInset"
         android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bk_divider">
+        app:layout_constraintTop_toBottomOf="@+id/bk_qrAVAB">
 
-        <GridLayout
+        <LinearLayout
             android:id="@+id/bk_griglia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
 
             </androidx.recyclerview.widget.RecyclerView>
 
-        </GridLayout>
+        </LinearLayout>
 
     </ScrollView>
 
@@ -86,6 +86,54 @@
         android:background="@drawable/addbike_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/bk_qrAVAB"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/transparent"
+        android:fontFamily="@font/sanchez"
+        android:gravity="center_vertical"
+        android:text="@string/bike_availb"
+        android:textAlignment="center"
+        android:textColor="@color/avorio"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/bk_qeALL"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bk_divider" />
+
+    <Button
+        android:id="@+id/bk_qeALL"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/transparent"
+        android:fontFamily="@font/sanchez"
+        android:gravity="center_vertical"
+        android:text="@string/bike_all"
+        android:textAlignment="center"
+        android:textColor="@color/avorio"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/bk_qrUNAV"
+        app:layout_constraintStart_toEndOf="@+id/bk_qrAVAB"
+        app:layout_constraintTop_toBottomOf="@+id/bk_divider" />
+
+    <Button
+        android:id="@+id/bk_qrUNAV"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/transparent"
+        android:fontFamily="@font/sanchez"
+        android:gravity="center_vertical"
+        android:text="@string/bike_unavailb"
+        android:textAlignment="center"
+        android:textColor="@color/avorio"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bk_qeALL"
+        app:layout_constraintTop_toBottomOf="@+id/bk_divider" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -103,50 +103,10 @@ public class MainActivity extends AppCompatActivity {
             NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
             NavigationUI.setupWithNavController(navView, navController);
 
-
-            String profilepicture = SaveSharedPreference.getUserPropic(this);
-            if (profilepicture.length() < 100) {
-                DatabaseReference mReferencePropic = FirebaseDatabase.getInstance().getReference().child("USERS").child(currentuser).child("PersonalData");
-                mReferencePropic.child("profileImage").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        String mgg = dataSnapshot.getValue(String.class);
-                        SaveSharedPreference.setUserPropic(MainActivity.this, mgg);
-                        try {
-                            Uri bikeImgUrl = Uri.parse(mgg);
-                            Picasso.get().load(bikeImgUrl).into(new Target() {
-                                @Override
-                                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                                    String tmp = BitMapToString(bitmap);
-                                    SaveSharedPreference.setUserPropic(MainActivity.this, tmp);
-                                }
-                                @Override
-                                public void onBitmapFailed(Exception sghi, Drawable errorDrawable) { }
-                                @Override
-                                public void onPrepareLoad(Drawable placeHolderDrawable) {}
-                            });
-                        } catch (Exception sdjbnsd) {
-                            sdjbnsd.printStackTrace();
-                        }
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }});
-            }
-
         } catch (Exception stopit) {
             stopit.printStackTrace();
             goToLogin();
         }
-
-    }
-
-    public String BitMapToString(Bitmap bitmap) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        byte[] b = baos.toByteArray();
-        String temp = Base64.encodeToString(b, Base64.DEFAULT);
-        return temp;
     }
 
     private void goToLogin() {
@@ -158,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
     private void upusertype(String user) {
         _usertype = user;
     }
-
 }
 
 /*

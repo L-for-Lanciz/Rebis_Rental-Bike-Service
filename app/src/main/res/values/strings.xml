@@ -187,4 +187,8 @@
     <string name="invalid_number">Input a valid number</string>
     <string name="invalid_deposit">Deposit will be set to \'0\'</string>
 
+    <string name="bike_all">ALL</string>
+    <string name="bike_availb">Available</string>
+    <string name="bike_unavailb">Unavailable</string>
+
 </resources>

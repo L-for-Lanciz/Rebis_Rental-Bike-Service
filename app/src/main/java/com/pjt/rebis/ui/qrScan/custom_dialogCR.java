@@ -17,6 +17,11 @@ import com.pjt.rebis.R;
 import com.pjt.rebis.WebAPI.ImplementationAPI;
 import com.pjt.rebis.ui.history.RentalItem;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /* This is a custom alert dialog which spawns when a customer scans a valid QR-Code. */
 public class custom_dialogCR extends Dialog implements android.view.View.OnClickListener{
     public Activity c;
@@ -24,6 +29,8 @@ public class custom_dialogCR extends Dialog implements android.view.View.OnClick
     public Button yes,no;
     private String msg, title;
     private RentalItem itemR;
+    private Calendar cal = Calendar.getInstance();
+    private static final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
     public custom_dialogCR(Activity a, RentalItem robj, String _title, String _msg) {
         super(a);
@@ -67,8 +74,10 @@ public class custom_dialogCR extends Dialog implements android.view.View.OnClick
 
     private void updRentalOnDatabase(RentalItem obj) {
         int rid = obj.getID();
+        String customer[] = obj.getCustomer().split("#@&@#");
         final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("RENTALS").child(rid+"");
         mDatabase.child("State").setValue("rented");
+
         mDatabase.child("Customer").setValue(obj.getCustomer());
         mDatabase.child("Addresscustomer").setValue(obj.getAddressCustomer());
 
@@ -76,6 +85,13 @@ public class custom_dialogCR extends Dialog implements android.view.View.OnClick
         final DatabaseReference mBikeRef = FirebaseDatabase.getInstance().getReference().child("USERS").child(tmp[1])
                 .child("Bikes").child(obj.getBike());
         mBikeRef.child("status").setValue("unavailable");
+        try {
+            Date date1 = new SimpleDateFormat("yyyy/MM/dd").parse(obj.getDate());
+            cal.setTime(date1);
+            cal.add(Calendar.DAY_OF_MONTH, obj.getDays());
+            Date finalDate = cal.getTime();
+            mBikeRef.child("customer").setValue(customer[0]+"#@&@#"+dateFormat.format(finalDate));
+        } catch (Exception e) { }
         mBikeRef.child("rentedCNT").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

@@ -15,4 +15,7 @@
     <color name="rebis_transp">#16262626</color>
     <color name="avorio">#FFFFF0</color>
     <color name="avorio_trx">#A0FFFFE8</color>
+    <color name="strong_green">#08d115</color>
+    <color name="strong_red">#d1083a</color>
+
 </resources>
