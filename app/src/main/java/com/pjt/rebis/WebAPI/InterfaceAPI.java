@@ -12,4 +12,7 @@ public interface InterfaceAPI {
     @POST("/rentals")
     Call<RentalItem> createRental(@Body RentalItem obj);
 
+    @POST("/ending")
+    Call<RentalItem> endingRental(@Body RentalItem obj);
+
 }

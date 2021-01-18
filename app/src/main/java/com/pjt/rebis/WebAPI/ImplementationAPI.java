@@ -24,7 +24,7 @@ public class ImplementationAPI {
         api = retrofit.create(InterfaceAPI.class);
     }
 
-    public void post(Context _ctx, RentalItem item) {
+    public void payTransaction(Context _ctx, RentalItem item) {
         final RentalItem rentalobj = item;
         final Context ctx = _ctx;
 
@@ -40,6 +40,34 @@ public class ImplementationAPI {
                     Log.i("RESPONSE", "OUTPUT: " + payed);
                     String trxresult = ctx.getString(R.string.trx_suxes) +" "+ payed + " ETH";
                     Toast.makeText(ctx, trxresult, Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(ctx, ctx.getString(R.string.trx_failed), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RentalItem> call, Throwable t) {
+                Log.e("FAILURE", "ERROR: " + t.toString());
+                Toast.makeText(ctx, ctx.getString(R.string.trx_failed), Toast.LENGTH_LONG).show();
+            }
+
+        });
+    }
+
+    public void endTransaction(Context _ctx, RentalItem item) {
+        final RentalItem rentalobj = item;
+        final Context ctx = _ctx;
+
+        Call<RentalItem> call = api.endingRental(rentalobj);
+        call.enqueue(new Callback<RentalItem>() {
+            @Override
+            public void onResponse(Call<RentalItem> call, Response<RentalItem> response) {
+                RentalItem itm = response.body();
+                int status = response.code();
+                Log.e("STATUS_CODE", status+"");
+                if (itm != null && status==200) {
+                    String endresult = ctx.getString(R.string.trx_endOK) + itm.getDeposit() + " ETH";
+                    Toast.makeText(ctx, endresult, Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(ctx, ctx.getString(R.string.trx_failed), Toast.LENGTH_LONG).show();
                 }

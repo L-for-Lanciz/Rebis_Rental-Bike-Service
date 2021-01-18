@@ -109,7 +109,7 @@ public class custom_dialogCR extends Dialog implements android.view.View.OnClick
 
     private void transaction(RentalItem rentobk) {
         ImplementationAPI api = new ImplementationAPI();
-        api.post(c, rentobk);
+        api.payTransaction(c, rentobk);
     }
 
 }

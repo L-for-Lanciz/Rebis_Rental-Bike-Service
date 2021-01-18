@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pjt.rebis.R;
+import com.pjt.rebis.WebAPI.ImplementationAPI;
 import com.squareup.picasso.Picasso;
 
 /* Fragment casted upon click on a rental item inside the recycler view. This, provides personal information about the
@@ -31,7 +32,8 @@ public class expandCustomerView extends Fragment {
     private TextView fullname, username, birth, country, city, zipcode, address, phone;
     private ImageView propic;
     private Button close, endr;
-    String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    private String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    private RentalItem ritm;
 
     public expandCustomerView() {}
 
@@ -41,6 +43,15 @@ public class expandCustomerView extends Fragment {
         this.custID = tmp[1];
         this.rID =_id;
         this.bike = _bike;
+    }
+
+    public expandCustomerView(RentalItem _ritm) {
+        this.ritm = _ritm;
+        String[] tmp = ritm.getCustomer().split("#@&@#");
+        this.customer = tmp[0];
+        this.custID = tmp[1];
+        this.rID = ritm.getID();
+        this.bike = ritm.getBike();
     }
 
     @Override
@@ -73,14 +84,7 @@ public class expandCustomerView extends Fragment {
             endr.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DatabaseReference endRef = FirebaseDatabase.getInstance().getReference().child("RENTALS").child(rID + "");
-                    endRef.child("State").setValue("ended");
-
-                    DatabaseReference bikeRef = FirebaseDatabase.getInstance().getReference().child("USERS").child(currentuser)
-                            .child("Bikes").child(bike);
-                    bikeRef.child("status").setValue("available");
-                    bikeRef.child("customer").setValue("");
-                    closeFrag();
+                   endOfTransaction();
                 }
             });
         }
@@ -189,6 +193,21 @@ public class expandCustomerView extends Fragment {
             }});
 
         return mView;
+    }
+
+    private void endOfTransaction() {
+        DatabaseReference endRef = FirebaseDatabase.getInstance().getReference().child("RENTALS").child(rID + "");
+        endRef.child("State").setValue("ended");
+
+        DatabaseReference bikeRef = FirebaseDatabase.getInstance().getReference().child("USERS").child(currentuser)
+                .child("Bikes").child(bike);
+        bikeRef.child("status").setValue("available");
+        bikeRef.child("customer").setValue("");
+
+        ImplementationAPI api = new ImplementationAPI();
+        api.endTransaction(getContext(), ritm);
+
+        closeFrag();
     }
 
     private void closeFrag() {

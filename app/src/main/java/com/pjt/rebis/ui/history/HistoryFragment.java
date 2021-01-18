@@ -90,14 +90,26 @@ public class HistoryFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         if (_type.equals("renter")) {
-                            String trafficlight = model.getCustomer();
-                            if (trafficlight.equals("void")) {
-                                deleteNotRented(model.getID());
+                            RentalItem ritm = new RentalItem(
+                              model.getRenter(),
+                              model.getCustomer(),
+                              model.getAddressRenter(),
+                              model.getAddressCustomer(),
+                              model.getID(),
+                              model.getDate(),
+                              model.getDays(),
+                              model.getFee(),
+                              model.getDeposit(),
+                              model.getState(),
+                              model.getBike()
+                            );
+                            if (ritm.getCustomer().equals("void")) {
+                                deleteNotRented(ritm.getID());
                             } else {
-                                if(model.getState().equals("ended"))
-                                    showCustomerInfo(trafficlight, 0, "");
+                                if(ritm.getState().equals("ended"))
+                                    showCustomerInfo(ritm.getCustomer(), 0, "");
                                 else
-                                    showCustomerInfo(trafficlight, model.getID(), model.getBike());
+                                    showCustomerInfo(ritm);
                             }
                         } else {
                             showRenterInfo(model.getRenter());
@@ -209,6 +221,14 @@ public class HistoryFragment extends Fragment {
         FragmentManager fm = getActivity().getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         Fragment frag3 = new expandCustomerView(cust, _id, bike);
+        ft.replace(R.id.his_const, frag3, "expandCust");
+        ft.commit();
+    }
+
+    private void showCustomerInfo(RentalItem _ritm) {
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        Fragment frag3 = new expandCustomerView(_ritm);
         ft.replace(R.id.his_const, frag3, "expandCust");
         ft.commit();
     }

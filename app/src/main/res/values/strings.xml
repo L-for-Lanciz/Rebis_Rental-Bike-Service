@@ -130,6 +130,7 @@
 
     <string name="trx_failed">Transaction Failed!</string>
     <string name="trx_suxes">Transaction Succedeed, PAYED:</string>
+    <string name="trx_endOK">Ended - Deposit Cashback: </string>
 
     <string name="oi_errorName">Invalid name</string>
     <string name="oi_errorSurname">Invalid surname</string>
