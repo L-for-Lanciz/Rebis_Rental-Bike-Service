@@ -29,8 +29,6 @@ public class custom_dialogCR extends Dialog implements android.view.View.OnClick
     public Button yes,no;
     private String msg, title;
     private RentalItem itemR;
-    private Calendar cal = Calendar.getInstance();
-    private static final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
     public custom_dialogCR(Activity a, RentalItem robj, String _title, String _msg) {
         super(a);
@@ -63,7 +61,7 @@ public class custom_dialogCR extends Dialog implements android.view.View.OnClick
                 dismiss();
                 break;
             case R.id.cddr_btnYes:
-                updRentalOnDatabase(itemR);
+                //updRentalOnDatabase(itemR); //this is going to be done on the successful result upon transaction
                 transaction(itemR);
                 break;
             default:
@@ -72,6 +70,12 @@ public class custom_dialogCR extends Dialog implements android.view.View.OnClick
         dismiss();
     }
 
+    private void transaction(RentalItem rentobk) {
+        ImplementationAPI api = new ImplementationAPI();
+        api.payTransaction(c, rentobk);
+    }
+
+    /* this has been moved on the "ImplementationAPI.java" class
     private void updRentalOnDatabase(RentalItem obj) {
         int rid = obj.getID();
         String customer[] = obj.getCustomer().split("#@&@#");
@@ -106,10 +110,6 @@ public class custom_dialogCR extends Dialog implements android.view.View.OnClick
             public void onCancelled(DatabaseError databaseError) {
             }});
     }
-
-    private void transaction(RentalItem rentobk) {
-        ImplementationAPI api = new ImplementationAPI();
-        api.payTransaction(c, rentobk);
-    }
+    */
 
 }

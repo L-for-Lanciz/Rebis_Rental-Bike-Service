@@ -196,16 +196,8 @@ public class expandCustomerView extends Fragment {
     }
 
     private void endOfTransaction() {
-        DatabaseReference endRef = FirebaseDatabase.getInstance().getReference().child("RENTALS").child(rID + "");
-        endRef.child("State").setValue("ended");
-
-        DatabaseReference bikeRef = FirebaseDatabase.getInstance().getReference().child("USERS").child(currentuser)
-                .child("Bikes").child(bike);
-        bikeRef.child("status").setValue("available");
-        bikeRef.child("customer").setValue("");
-
         ImplementationAPI api = new ImplementationAPI();
-        api.endTransaction(getContext(), ritm);
+        api.endTransaction(getContext(), ritm, currentuser);
 
         closeFrag();
     }
