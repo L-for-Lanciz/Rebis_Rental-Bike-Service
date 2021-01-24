@@ -147,12 +147,14 @@
             android:id="@+id/ecv_usern"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
-            android:layout_marginStart="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:fontFamily="sans-serif-medium"
             android:gravity="center_vertical"
             android:text=""
             android:textColor="@color/panna"
             android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ecv_propic"
             app:layout_constraintTop_toBottomOf="@+id/ecv_name" />
 
@@ -181,6 +183,43 @@
             android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+
+        <View
+            android:id="@+id/ecv_divider1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="45dp"
+            android:background="@color/panna_hint"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ecv_birth" />
+
+        <View
+            android:id="@+id/ecv_divider2"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="45dp"
+            android:background="@color/panna_hint"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ecv_city" />
+
+        <View
+            android:id="@+id/ecv_divider3"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="130dp"
+            android:background="@color/panna_hint"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ecv_address" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

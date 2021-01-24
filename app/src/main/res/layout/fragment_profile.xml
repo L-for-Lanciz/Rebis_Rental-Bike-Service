@@ -10,18 +10,17 @@
 
     <TextView
         android:id="@+id/text_profile"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="35sp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
         android:fontFamily="@font/revalia"
         android:paddingStart="15dp"
         android:text="@string/title_profile"
         android:textAlignment="viewStart"
         android:textColor="@color/panna"
         android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/prf_notify"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -219,6 +218,31 @@
         android:background="@android:drawable/ic_menu_add"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/prf_divider" />
+
+    <Button
+        android:id="@+id/prf_notify"
+        android:layout_width="30dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/notify_full"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toTopOf="@+id/prf_divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/prf_notCounter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="33dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/rounded_corner"
+        android:fontFamily="@font/merienda_one"
+        android:text=""
+        android:textColor="@color/colorAccent"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toTopOf="@+id/prf_divider"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

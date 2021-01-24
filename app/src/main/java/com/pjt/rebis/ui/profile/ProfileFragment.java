@@ -41,13 +41,17 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.pjt.rebis.Authentication.Login;
 import com.pjt.rebis.Authentication.SaveSharedPreference;
+import com.pjt.rebis.Notification.NotificationActivity;
+import com.pjt.rebis.Notification.NotifySender;
 import com.pjt.rebis.R;
+import com.pjt.rebis.ui.history.RentalItem;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -61,6 +65,8 @@ public class ProfileFragment extends Fragment {
     private String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private String cacheImg;
     private StorageReference mStorageRef;
+    private Button bt_notify;
+    private TextView notfCounter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -72,6 +78,10 @@ public class ProfileFragment extends Fragment {
         bt_identification = root.findViewById(R.id.but_identif);
         bt_logout = root.findViewById(R.id.prf_logout);
         bt_addimg = root.findViewById(R.id.prf_plusimg);
+        bt_notify = root.findViewById(R.id.prf_notify);
+        notfCounter = root.findViewById(R.id.prf_notCounter);
+
+        handleNotifications();
 
         mStorageRef = FirebaseStorage.getInstance().getReference().child("USERS").child(currentuser);
 
@@ -305,6 +315,35 @@ public class ProfileFragment extends Fragment {
             });
     }
 
+    private void handleNotifications() {
+        ArrayList<RentalItem> notificationList = NotifySender.notificationList;
+        int counter = notificationList.size();
+        if (counter > 0) {
+            notfCounter.setVisibility(View.VISIBLE);
+            bt_notify.setBackgroundResource(R.drawable.notify_full);
+            notfCounter.setText(counter+"");
+            bt_notify.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent login = new Intent(getActivity(), NotificationActivity.class);
+                    startActivity(login);
+                    getActivity().finish();
+                }
+            });
+        } else {
+            bt_notify.setBackgroundResource(R.drawable.notify_clean);
+            notfCounter.setVisibility(View.INVISIBLE);
+            bt_notify.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(), getString(R.string.ntf_nonotfs), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+    }
+
+    /*
     public Bitmap StringToBitMap(String encodedString) {
         try {
             byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
@@ -316,7 +355,6 @@ public class ProfileFragment extends Fragment {
             return null;
         }
     }
-/*
     public String BitMapToString(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);

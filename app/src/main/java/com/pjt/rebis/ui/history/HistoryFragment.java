@@ -1,9 +1,11 @@
 package com.pjt.rebis.ui.history;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -21,7 +23,13 @@ import com.google.firebase.database.Query;
 import com.pjt.rebis.Authentication.SaveSharedPreference;
 import com.pjt.rebis.R;
 
-    /* This is the 'main' fragment for the History section. Here, a user (both renter and customer) can look at all his
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+
+/* This is the 'main' fragment for the History section. Here, a user (both renter and customer) can look at all his
     *  present and past rental activities.  */
 public class HistoryFragment extends Fragment {
     static String c, d, f, g;
@@ -85,6 +93,19 @@ public class HistoryFragment extends Fragment {
                 holder.setDeposit(model.getDeposit()+"");
                 holder.setDate(model.getDate());
                 holder.setDays(model.getDays()+"");
+
+                try {
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+                    Date date = new Date();
+                    Calendar c = Calendar.getInstance();
+                    c.setTime(sdf.parse(model.getDate()));
+                    c.add(Calendar.DATE, model.getDays());  // number of days to add
+                    String rendatetmp = sdf.format(c.getTime());
+                    Date rendate = sdf.parse(rendatetmp);
+
+                    if ((!model.getState().equals("ended")) && (date.compareTo(rendate) > 0))
+                        holder.mView.setBackgroundResource(R.color.red_panned);
+                } catch (Exception szig) {}
 
                 holder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -166,10 +187,13 @@ public class HistoryFragment extends Fragment {
 
         public void setImage(String pass) {
             ImageView cc_image = (ImageView) mView.findViewById(R.id.cc_image);
-            if (pass.equals("ended"))
+            if (pass.equals("ended")) {
+                mView.setBackgroundResource(R.color.green_panned);
                 cc_image.setBackgroundResource(R.drawable.his_ended);
-            else
+            } else {
+                mView.setBackgroundResource(R.color.blue_panned);
                 cc_image.setBackgroundResource(R.drawable.his_pending);
+            }
         }
 
         public void setAddress(String pass) {

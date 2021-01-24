@@ -1,14 +1,7 @@
 package com.pjt.rebis;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,16 +12,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pjt.rebis.Authentication.Login;
 import com.pjt.rebis.Authentication.SaveSharedPreference;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
+import com.pjt.rebis.Notification.NotifySender;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
-import java.io.ByteArrayOutputStream;
 
 /* This is the Main Activity. It hosts the bottom navigation view, and almost every fragment.
     *  It also computes operations needed in the backend to speed up or enhance processes. */
@@ -102,6 +92,9 @@ public class MainActivity extends AppCompatActivity {
                     .build();
             NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
             NavigationUI.setupWithNavController(navView, navController);
+
+            if (NotifySender.mutex)
+                new NotifySender(this, this).checkForNotificationToPrompt();
 
         } catch (Exception stopit) {
             stopit.printStackTrace();

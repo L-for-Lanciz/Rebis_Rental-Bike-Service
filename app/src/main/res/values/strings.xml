@@ -192,4 +192,11 @@
     <string name="bike_availb">Available</string>
     <string name="bike_unavailb">Unavailable</string>
 
+    <string name="ntf_title">Notifications</string>
+    <string name="ntf_nonotfs">There are no new notifications.</string>
+
+    <string name="ni_rentaldate">Rent.Date:</string>
+    <string name="ni_expdate">Exp.Date:</string>
+    <string name="ni_calll">CALL</string>
+
 </resources>

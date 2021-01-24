@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimary">#262626</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="panna">#FFFFF7</color>
     <color name="lightblack">#262626</color>
+    <color name="dark_theme">#444444</color>
     <color name="aranciottoscuro">#7A4D09</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="lightgrey">#E38F8F8F</color>
@@ -17,5 +18,8 @@
     <color name="avorio_trx">#A0FFFFE8</color>
     <color name="strong_green">#08d115</color>
     <color name="strong_red">#d1083a</color>
+    <color name="red_panned">#3CD1083A</color>
+    <color name="green_panned">#3C2C9409</color>
+    <color name="blue_panned">#3C085CD1</color>
 
 </resources>
