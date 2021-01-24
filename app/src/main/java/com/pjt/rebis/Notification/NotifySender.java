@@ -40,7 +40,7 @@ public class NotifySender {
     private Activity act;
     private Context ctx;
     private NotificationManager notificationManager;
-    private PendingIntent pendingIntent, dismissPendingIntent;
+    private PendingIntent pendingIntent;
     public static boolean mutex = true;
 
     public NotifySender() {
@@ -51,6 +51,7 @@ public class NotifySender {
         this.ctx = _ctx;
         createNotificationChannel();
         setNotificationEvenHandler();
+        notificationList.clear();
     }
 
     public void checkForNotificationToPrompt() {

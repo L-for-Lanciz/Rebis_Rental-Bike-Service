@@ -112,16 +112,7 @@ public class Notification_RecyclerViewAdapter extends RecyclerView.Adapter<Notif
             viewHolder.setDate(date);
             viewHolder.setExpiry(expiry);
             viewHolder.setDeposit(depo);
-
-            final Button expand  = viewHolder.onClickExpand();
-            final View forexpansionView = viewHolder.expanserView();
-            final View fullView = viewHolder.fullView();
-            expand.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    expansionEr(forexpansionView, fullView, robj, expand);
-                }
-            });
+            viewHolder.onClickExpand(type, robj, mRef);
 
         } catch (Exception dds) {
             dds.printStackTrace();
@@ -130,6 +121,7 @@ public class Notification_RecyclerViewAdapter extends RecyclerView.Adapter<Notif
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public View mView;
+        private int ping;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -171,19 +163,161 @@ public class Notification_RecyclerViewAdapter extends RecyclerView.Adapter<Notif
             return call;
         }
 
-        public Button onClickExpand() {
-            Button expand = (Button) mView.findViewById(R.id.ni_expand);
-            return expand;
+        public void onClickExpand(String _type, RentalItem _robj, DatabaseReference _mRef) {
+            final String type = _type;
+            final RentalItem robj = _robj;
+            final DatabaseReference mRef = _mRef;
+            final Button expand = (Button) mView.findViewById(R.id.ni_expand);
+            final View expanser = (View) mView.findViewById(R.id.ni_expansionView);
+            final View fullconstr = (View) mView.findViewById(R.id.ni_constr);
+            expand.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int width = fullconstr.getLayoutParams().width;
+                    if (ping == 0) {
+                        expanser.setVisibility(View.VISIBLE);
+                        expand.setBackgroundResource(R.drawable.dropdown_iconrib);
+                        setData(type, robj, mRef);
+                        int heigth = 650;
+                        fullconstr.setLayoutParams(new FrameLayout.LayoutParams(width, heigth));
+                        ping = 1;
+                    } else {
+                        expanser.setVisibility(View.GONE);
+                        expand.setBackgroundResource(R.drawable.dropdown_icon2);
+                        int heigth = 320;
+                        fullconstr.setLayoutParams(new FrameLayout.LayoutParams(width, heigth));
+                        ping = 0;
+                    }
+                }
+            });
         }
 
-        public View expanserView() {
-            View expanser = (View) mView.findViewById(R.id.ni_expansionView);
-            return expanser;
-        }
+        public void setData(String type, RentalItem robj, DatabaseReference mRef) {
+            final TextView tvfullname = mView.findViewById(R.id.eni_fullname);
+            final TextView tvcity = mView.findViewById(R.id.eni_city);
+            final TextView tvpcode = mView.findViewById(R.id.eni_pcode);
+            final TextView tvcountry = mView.findViewById(R.id.eni_country);
+            final TextView tvaddress = mView.findViewById(R.id.eni_address);
+            final ImageView imimage = mView.findViewById(R.id.eni_propic);
 
-        public View fullView() {
-            View fullconstr = (View) mView.findViewById(R.id.ni_constr);
-            return fullconstr;
+            DatabaseReference dataRef;
+            if (type.equals("renter")) {
+                String[] user = robj.getCustomer().split("#@&@#");
+                dataRef= mRef.child(user[1]).child("PersonalData");
+            } else {
+                String[] user = robj.getRenter().split("#@&@#");
+                dataRef= mRef.child(user[1]).child("PersonalData");
+            }
+
+            dataRef.child("city").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String city = dataSnapshot.getValue(String.class);
+                    tvcity.setText(city);
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }});
+
+            dataRef.child("country").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String country = dataSnapshot.getValue(String.class);
+                    tvcountry.setText(country);
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }});
+
+            if (type.equals("customer")) {
+                dataRef.child("fullname").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String name = dataSnapshot.getValue(String.class);
+                        tvfullname.setText(name);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+
+                dataRef.child("address").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String address = dataSnapshot.getValue(String.class);
+                        tvaddress.setText(address);
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }});
+
+                dataRef.child("postalcode").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String code = dataSnapshot.getValue(String.class);
+                        tvpcode.setText(code);
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }});
+
+            } else {
+                dataRef.child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String name = dataSnapshot.getValue(String.class);
+                        tvfullname.setText(name);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+                dataRef.child("surname").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String surname = dataSnapshot.getValue(String.class);
+                        String fullname = tvfullname.getText().toString() + " " +surname;
+                        tvfullname.setText(fullname);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+
+                dataRef.child("homeAddress").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String address = dataSnapshot.getValue(String.class);
+                        tvaddress.setText(address);
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }});
+
+                dataRef.child("postalCode").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String code = dataSnapshot.getValue(String.class);
+                        tvpcode.setText(code);
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }});
+            }
+
+            dataRef.child("profileImage").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String image = dataSnapshot.getValue(String.class);
+                    Uri imagination = Uri.parse(image);
+                    Picasso.get().load(imagination).into(imimage);
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }});
         }
 
     }
@@ -213,153 +347,6 @@ public class Notification_RecyclerViewAdapter extends RecyclerView.Adapter<Notif
         Intent intent = new Intent(Intent.ACTION_DIAL);
         intent.setData(Uri.parse("tel:" + number.substring(4)));
         act.startActivity(intent);
-    }
-
-    private void expansionEr(View expanser, View full, RentalItem obj, Button button) {
-        int width = full.getLayoutParams().width;
-        if (ping == 0) {
-            expanser.setVisibility(View.VISIBLE);
-            completeViewData(obj);
-            button.setBackgroundResource(R.drawable.dropdown_iconrib);
-            int heigth = 650;
-            full.setLayoutParams(new FrameLayout.LayoutParams(width, heigth));
-            ping = 1;
-        } else {
-            expanser.setVisibility(View.GONE);
-            button.setBackgroundResource(R.drawable.dropdown_icon2);
-            int heigth = 320;
-            full.setLayoutParams(new FrameLayout.LayoutParams(width, heigth));
-            ping = 0;
-        }
-    }
-
-    private void completeViewData(RentalItem robj) {
-        final TextView tvfullname = rootView.findViewById(R.id.eni_fullname);
-        final TextView tvcity = rootView.findViewById(R.id.eni_city);
-        final TextView tvpcode = rootView.findViewById(R.id.eni_pcode);
-        final TextView tvcountry = rootView.findViewById(R.id.eni_country);
-        final TextView tvaddress = rootView.findViewById(R.id.eni_address);
-        final ImageView imimage = rootView.findViewById(R.id.eni_propic);
-
-        DatabaseReference dataRef;
-        if (type.equals("renter")) {
-            String[] user = robj.getCustomer().split("#@&@#");
-            dataRef= mRef.child(user[1]).child("PersonalData");
-        } else {
-            String[] user = robj.getRenter().split("#@&@#");
-            dataRef= mRef.child(user[1]).child("PersonalData");
-        }
-
-        dataRef.child("city").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String city = dataSnapshot.getValue(String.class);
-                tvcity.setText(city);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }});
-
-        dataRef.child("country").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String country = dataSnapshot.getValue(String.class);
-                tvcountry.setText(country);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }});
-
-        if (type.equals("customer")) {
-            dataRef.child("fullname").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    String name = dataSnapshot.getValue(String.class);
-                    tvfullname.setText(name);
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-            });
-
-            dataRef.child("address").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    String address = dataSnapshot.getValue(String.class);
-                    tvaddress.setText(address);
-                }
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }});
-
-            dataRef.child("postalcode").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    String code = dataSnapshot.getValue(String.class);
-                    tvpcode.setText(code);
-                }
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }});
-
-        } else {
-            dataRef.child("name").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    String name = dataSnapshot.getValue(String.class);
-                    tvfullname.setText(name);
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-            });
-            dataRef.child("surname").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    String surname = dataSnapshot.getValue(String.class);
-                    String fullname = tvfullname.getText().toString() + " " +surname;
-                    tvfullname.setText(fullname);
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-            });
-
-            dataRef.child("homeAddress").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    String address = dataSnapshot.getValue(String.class);
-                    tvaddress.setText(address);
-                }
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }});
-
-            dataRef.child("postalCode").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    String code = dataSnapshot.getValue(String.class);
-                    tvpcode.setText(code);
-                }
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }});
-        }
-
-        dataRef.child("profileImage").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String image = dataSnapshot.getValue(String.class);
-                Uri imagination = Uri.parse(image);
-                Picasso.get().load(imagination).into(imimage);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }});
-
     }
 
 }
