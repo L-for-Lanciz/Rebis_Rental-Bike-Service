@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:background="@color/dark_theme">
+
+        <ImageView
+            android:id="@+id/eni_propic"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_report_image" />
+
+        <TextView
+            android:id="@+id/eni_pcode"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textColor="@color/panna"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/eni_address"
+            app:layout_constraintTop_toBottomOf="@+id/eni_divider1" />
+
+        <TextView
+            android:id="@+id/eni_city"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginTop="36dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textColor="@color/panna"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/eni_country"
+            app:layout_constraintTop_toBottomOf="@+id/eni_fullname" />
+
+        <TextView
+            android:id="@+id/eni_address"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textColor="@color/panna"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/eni_pcode"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eni_divider1" />
+
+        <TextView
+            android:id="@+id/eni_country"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginTop="100dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textColor="@color/panna"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/eni_city"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/eni_fullname"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical"
+            android:text=""
+            android:textColor="@color/panna"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/eni_propic"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/eni_divider1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="45dp"
+            android:background="@color/panna_hint"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eni_city" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
