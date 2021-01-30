@@ -199,4 +199,9 @@
     <string name="ni_expdate">Exp.Date:</string>
     <string name="ni_calll">CALL</string>
 
+    <string name="adwa_pubadr">Type below the PUBLIC address</string>
+    <string name="adwa_mnemo">Type below the MNEMONIC of your wallet</string>
+    <string name="adwa_hintMne">mnemonic passphrase</string>
+
+
 </resources>

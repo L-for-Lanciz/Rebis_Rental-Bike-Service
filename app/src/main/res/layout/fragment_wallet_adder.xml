@@ -10,11 +10,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="500dp"
         android:layout_gravity="center_vertical"
-        android:background="@drawable/expansionbg"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:layout_marginRight="10dp"
+        android:background="@drawable/expansionbg">
 
         <TextView
             android:id="@+id/adwa_title"
@@ -51,11 +51,10 @@
             android:layout_width="0dp"
             android:layout_height="47dp"
             android:layout_marginStart="40dp"
-            android:layout_marginTop="15dp"
             android:layout_marginEnd="40dp"
             android:background="@drawable/edittxt_cont"
             android:ems="10"
-            android:fontFamily="@font/roboto_medium"
+            android:fontFamily="sans-serif-medium"
             android:hint="@string/add_hint"
             android:inputType="textEmailAddress"
             android:padding="15dp"
@@ -65,23 +64,23 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/adwa_hint" />
+            app:layout_constraintTop_toBottomOf="@+id/adwa_pubadrHint" />
 
         <Button
             android:id="@+id/adwa_add"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="5dp"
             android:layout_marginEnd="8dp"
-            android:text="@string/addW"
-            android:background="@color/panna_hint"
+            android:background="@color/colorAccent"
             android:fontFamily="@font/merienda_one"
-            android:textSize="20sp"
+            android:text="@string/addW"
             android:textColor="@color/panna"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/adwa_address" />
+            app:layout_constraintTop_toBottomOf="@+id/adwa_inputMnemonic" />
 
         <Button
             android:id="@+id/adwa_exit"
@@ -92,6 +91,64 @@
             android:background="@drawable/delete_icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/adwa_mnemonicHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/adwa_mnemo"
+            android:textColor="@color/panna"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/adwa_address" />
+
+        <EditText
+            android:id="@+id/adwa_inputMnemonic"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="80dp"
+            android:fontFamily="sans-serif-medium"
+            android:hint="@string/adwa_hintMne"
+            android:background="@drawable/mnemo_bg"
+            android:padding="10dp"
+            android:gravity="top"
+            android:textColor="@color/panna"
+            android:textColorHighlight="@color/panna_hint"
+            android:textColorHint="@color/panna_hint"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/adwa_sample" />
+
+        <TextView
+            android:id="@+id/adwa_pubadrHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/adwa_pubadr"
+            android:textColor="@color/panna"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/adwa_hint" />
+
+        <ImageView
+            android:id="@+id/adwa_sample"
+            android:layout_width="0dp"
+            android:layout_height="140dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/adwa_mnemonicHint"
+            android:src="@drawable/mnemo_sample" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

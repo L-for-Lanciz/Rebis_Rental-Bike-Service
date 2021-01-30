@@ -2,12 +2,14 @@ package com.pjt.rebis.ui.qrScan;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
+//import com.coinbase.android.sdk.OAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -15,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pjt.rebis.R;
 import com.pjt.rebis.WebAPI.ImplementationAPI;
+import com.pjt.rebis.WebAPI.Payload;
 import com.pjt.rebis.ui.history.RentalItem;
 
 import java.text.DateFormat;
@@ -29,13 +32,18 @@ public class custom_dialogCR extends Dialog implements android.view.View.OnClick
     public Button yes,no;
     private String msg, title;
     private RentalItem itemR;
+    private Payload payloadItm;
+    public static Payload payloadObjectTMP;
+    static final String REDIRECT_URI = "rebis://coinbase-oauth";
+    private final String CLIENT_ID = "0ab8763e1079d920050d3316f198736a91572633be35a383bfe2b5972dbf365f";
 
-    public custom_dialogCR(Activity a, RentalItem robj, String _title, String _msg) {
+    public custom_dialogCR(Activity a, Payload pobj, String _title, String _msg) {
         super(a);
         this.c = a;
         this.title = _title;
         this.msg = _msg;
-        this.itemR = robj;
+        this.itemR = pobj.getRentalItem();
+        this.payloadItm = pobj;
     }
 
     @Override
@@ -62,7 +70,7 @@ public class custom_dialogCR extends Dialog implements android.view.View.OnClick
                 break;
             case R.id.cddr_btnYes:
                 //updRentalOnDatabase(itemR); //this is going to be done on the successful result upon transaction
-                transaction(itemR);
+                transaction(payloadItm);
                 break;
             default:
                 break;
@@ -70,46 +78,24 @@ public class custom_dialogCR extends Dialog implements android.view.View.OnClick
         dismiss();
     }
 
-    private void transaction(RentalItem rentobk) {
-        ImplementationAPI api = new ImplementationAPI();
-        api.payTransaction(c, rentobk);
-    }
+    private void transaction(Payload payobk) {
+        payloadObjectTMP = payobk;
 
-    /* this has been moved on the "ImplementationAPI.java" class
-    private void updRentalOnDatabase(RentalItem obj) {
-        int rid = obj.getID();
-        String customer[] = obj.getCustomer().split("#@&@#");
-        final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("RENTALS").child(rid+"");
-        mDatabase.child("State").setValue("rented");
+        // TRUST WALLET
+        //Intent login = new Intent(c, Transaction_intent.class);
+        //c.startActivity(login);
+        //c.finish();
 
-        mDatabase.child("Customer").setValue(obj.getCustomer());
-        mDatabase.child("Addresscustomer").setValue(obj.getAddressCustomer());
-
-        String[] tmp = obj.getRenter().split("#@&@#");
-        final DatabaseReference mBikeRef = FirebaseDatabase.getInstance().getReference().child("USERS").child(tmp[1])
-                .child("Bikes").child(obj.getBike());
-        mBikeRef.child("status").setValue("unavailable");
+        //COINWALLET
+        // Launch the web browser or Coinbase app to authenticate the user.
         try {
-            Date date1 = new SimpleDateFormat("yyyy/MM/dd").parse(obj.getDate());
-            cal.setTime(date1);
-            cal.add(Calendar.DAY_OF_MONTH, obj.getDays());
-            Date finalDate = cal.getTime();
-            mBikeRef.child("customer").setValue(customer[0]+"#@&@#"+dateFormat.format(finalDate));
-        } catch (Exception e) { }
-        mBikeRef.child("rentedCNT").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Integer scnt = dataSnapshot.getValue(Integer.class);
-                try {
-                    //int cnt = Integer.parseInt(scnt);
-                    mBikeRef.child("rentedCNT").setValue(scnt+1);
-                } catch (Exception fd) {
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }});
+        //    OAuth.beginAuthorization(getContext(), CLIENT_ID, "user", REDIRECT_URI, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //LOCAL ENCRYPTION
+       // ImplementationAPI api = new ImplementationAPI();
+       // api.payTransaction(c, payobk);
     }
-    */
 
 }

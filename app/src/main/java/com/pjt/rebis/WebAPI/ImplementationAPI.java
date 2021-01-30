@@ -33,21 +33,23 @@ public class ImplementationAPI {
     public ImplementationAPI() {
         //Gson gson = new GsonBuilder().setLenient().create();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.8:3100/") //local url ipv4: http://192.168.1.x:3000
+                .baseUrl("http://192.168.1.10:3100/") //local url ipv4: http://192.168.1.x:3000
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         api = retrofit.create(InterfaceAPI.class);
     }
 
-    public void payTransaction(Context _ctx, RentalItem item) {
-        final RentalItem rentalobj = item;
+    public void payTransaction(Context _ctx, Payload item) {
+        final Payload payloadobj = item;
+        final RentalItem rentalobj = payloadobj.getRentalItem();
         final Context ctx = _ctx;
 
-        Call<RentalItem> call = api.createRental(rentalobj);
-        call.enqueue(new Callback<RentalItem>() {
+        Call<Payload> call = api.createRental(payloadobj);
+        call.enqueue(new Callback<Payload>() {
             @Override
-            public void onResponse(Call<RentalItem> call, Response<RentalItem> response) {
-                RentalItem itm = response.body();
+            public void onResponse(Call<Payload> call, Response<Payload> response) {
+                Payload item = response.body();
+                RentalItem itm = item.getRentalItem();
                 int status = response.code();
                 Log.e("STATUS_CODE", status+"");
                 if (itm != null && status==200) {
@@ -62,7 +64,7 @@ public class ImplementationAPI {
             }
 
             @Override
-            public void onFailure(Call<RentalItem> call, Throwable t) {
+            public void onFailure(Call<Payload> call, Throwable t) {
                 Log.e("FAILURE", "ERROR: " + t.toString());
                 Toast.makeText(ctx, ctx.getString(R.string.trx_failed), Toast.LENGTH_LONG).show();
             }
@@ -70,15 +72,17 @@ public class ImplementationAPI {
         });
     }
 
-    public void endTransaction(Context _ctx, RentalItem item, String _currentuser) {
-        final RentalItem rentalobj = item;
+    public void endTransaction(Context _ctx, Payload item, String _currentuser) {
+        final Payload payloadobj = item;
+        final RentalItem rentalobj = payloadobj.getRentalItem();
         final Context ctx = _ctx;
         final String __currentuser = _currentuser;
-        Call<RentalItem> call = api.endingRental(rentalobj);
-        call.enqueue(new Callback<RentalItem>() {
+        Call<Payload> call = api.endingRental(payloadobj);
+        call.enqueue(new Callback<Payload>() {
             @Override
-            public void onResponse(Call<RentalItem> call, Response<RentalItem> response) {
-                RentalItem itm = response.body();
+            public void onResponse(Call<Payload> call, Response<Payload> response) {
+                Payload item = response.body();
+                RentalItem itm = item.getRentalItem();
                 int status = response.code();
                 Log.e("STATUS_CODE", status+"");
                 if (itm != null && status==200) {
@@ -91,7 +95,7 @@ public class ImplementationAPI {
             }
 
             @Override
-            public void onFailure(Call<RentalItem> call, Throwable t) {
+            public void onFailure(Call<Payload> call, Throwable t) {
                 Log.e("FAILURE", "ERROR: " + t.toString());
                 Toast.makeText(ctx, ctx.getString(R.string.trx_failed), Toast.LENGTH_LONG).show();
             }

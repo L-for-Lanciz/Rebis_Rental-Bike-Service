@@ -29,16 +29,14 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
-import com.pjt.rebis.Authentication.SaveSharedPreference;
+import com.pjt.rebis.Utility.SaveSharedPreference;
 import com.pjt.rebis.R;
 import com.pjt.rebis.ui.history.RentalItem;
 import com.pjt.rebis.ui.profile.custom_dialogOK;
 
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Queue;
 import java.util.Random;
 import java.util.TimeZone;
 

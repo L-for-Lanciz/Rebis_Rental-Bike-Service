@@ -23,8 +23,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.pjt.rebis.MainActivity;
 import com.pjt.rebis.R;
+import com.pjt.rebis.Utility.SaveSharedPreference;
 
-    /* Login Activity: allows users to access the service. Of course it requires registered and confirmed accounts. */
+/* Login Activity: allows users to access the service. Of course it requires registered and confirmed accounts. */
 public class Login extends AppCompatActivity {
     public static int makethedifference;
     EditText emailfield,passfield;

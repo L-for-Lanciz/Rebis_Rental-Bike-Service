@@ -10,12 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.pjt.rebis.Authentication.SaveSharedPreference;
+import com.pjt.rebis.Utility.SaveSharedPreference;
 import com.pjt.rebis.R;
 
-import org.w3c.dom.Text;
-
-    /* Just an easy welcome fragment which shows the account the user is logged in with, and asks the user
+/* Just an easy welcome fragment which shows the account the user is logged in with, and asks the user
     *  to pick an action.  */
 public class welcomeFrag extends Fragment {
 

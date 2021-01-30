@@ -17,8 +17,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.pjt.rebis.Authentication.SaveSharedPreference;
+import com.pjt.rebis.Utility.AES;
+import com.pjt.rebis.Utility.InternalStorage;
+import com.pjt.rebis.Utility.SaveSharedPreference;
 import com.pjt.rebis.R;
+import com.pjt.rebis.WebAPI.Payload;
 import com.pjt.rebis.ui.history.RentalItem;
 import com.pjt.rebis.ui.profile.custom_dialogOK;
 
@@ -186,8 +189,18 @@ public class QRCodeFragment extends Fragment {
         double price = takobj.getFee() + takobj.getDeposit();
         String body = getString(R.string.al1_msg) + price;
 
-        custom_dialogCR cdcr = new custom_dialogCR(getActivity(), givobj, getString(R.string.al1_tit), body);
+        String mnemo = getMnemonic(givobj.getAddressCustomer());
+        Payload payloadobj = new Payload(givobj, mnemo);
+        custom_dialogCR cdcr = new custom_dialogCR(getActivity(), payloadobj, getString(R.string.al1_tit), body);
         cdcr.show();
+    }
+
+    private String getMnemonic(String address) {
+        String encryptedKey = InternalStorage.getWalletKey(getContext(), currentuser);
+        String walletKey = AES.decrypt(encryptedKey, InternalStorage.layendarmal);
+        String encryptedMnemo = InternalStorage.getWalletList(getContext(), currentuser).get(address);
+        String mnemo = AES.decrypt(encryptedMnemo, walletKey);
+        return mnemo;
     }
 
     private void setOK1(boolean puffo) {

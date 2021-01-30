@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -21,8 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.pjt.rebis.Authentication.SaveSharedPreference;
-import com.pjt.rebis.MainActivity;
+import com.pjt.rebis.Utility.SaveSharedPreference;
 import com.pjt.rebis.R;
 import com.pjt.rebis.ui.history.RentalItem;
 import com.squareup.picasso.Picasso;
@@ -30,8 +27,6 @@ import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.ResourceBundle;
 
 public class Notification_RecyclerViewAdapter extends RecyclerView.Adapter<Notification_RecyclerViewAdapter.ViewHolder> {
     private ArrayList<RentalItem> mData;

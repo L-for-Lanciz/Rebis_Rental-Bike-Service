@@ -17,16 +17,20 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pjt.rebis.R;
+import com.pjt.rebis.Utility.AES;
+import com.pjt.rebis.Utility.InternalStorage;
 
 import java.util.ArrayList;
+import java.util.Random;
 
-    /* Fragment which allows the user to give an address which will be added to his list. */
+/* Fragment which allows the user to give an address which will be added to his list. */
 public class wallet_adder extends Fragment {
-    private EditText et_address;
+    private EditText et_address, et_mnemonic;
     private DatabaseReference mRef, listRef;
+    private String currentuser;
 
     public wallet_adder() {
-        String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
         mRef = FirebaseDatabase.getInstance().getReference().child("USERS").child(currentuser).child("Wallets");
         listRef = mRef.child("List");
     }
@@ -37,6 +41,8 @@ public class wallet_adder extends Fragment {
 
         View vista = inflater.inflate(R.layout.fragment_wallet_adder, container, false);
         et_address = vista.findViewById(R.id.adwa_address);
+
+        et_mnemonic = vista.findViewById(R.id.adwa_inputMnemonic);
 
         Button bt_exit = vista.findViewById(R.id.adwa_exit);
         bt_exit.setOnClickListener(new View.OnClickListener() {
@@ -59,14 +65,20 @@ public class wallet_adder extends Fragment {
 
     private void addNew() {
         String input = et_address.getText().toString();
+        String mnemo = et_mnemonic.getText().toString();
 
-        if (input.equals("") || input.equals(" ") || input.contains(" ")) {
+        if (input.length() < 40) {
             et_address.setError("Input a valid address");
-        } else if (input.length() < 40) {
-            et_address.setError("Input a valid address");
+        } else if (mnemo.length() < 40) {
+            et_mnemonic.setError("Input a valid mnemonic passphrase");
         } else {
             // Add the given address to the db
             listRef.child(input).child("address").setValue(input);
+            checkWalletStatus();
+            String encryptedMnemo = encryptTheMnemonic(mnemo);
+            WalletItem walItem = new WalletItem(input, encryptedMnemo);
+            InternalStorage.addToWalletList(getContext(), currentuser, walItem);
+
             exit();
         }
     }
@@ -79,5 +91,30 @@ public class wallet_adder extends Fragment {
         ft.commit();
     }
 
+    private void checkWalletStatus() {
+        if (!InternalStorage.doesWalletKeyExist(getContext(), currentuser)) {
+            String random = randomString(20);
+            String encryptedKey = AES.encrypt(random, InternalStorage.layendarmal);
+            InternalStorage.setWalletKey(getContext(), currentuser, encryptedKey);
+        }
+    }
 
+    private String encryptTheMnemonic(String mnemo) {
+        String walletKey = InternalStorage.getWalletKey(getContext(), currentuser);
+        String plainKey = AES.decrypt(walletKey, InternalStorage.layendarmal);
+        String mnemonic = AES.encrypt(mnemo, plainKey);
+        return mnemonic;
+    }
+
+    public String randomString(int cap) {
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmonpqrstuvwxyz1234567890@#$%!?',";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < cap) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr;
+    }
 }

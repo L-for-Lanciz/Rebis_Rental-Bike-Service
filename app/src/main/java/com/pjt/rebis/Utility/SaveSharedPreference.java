@@ -1,10 +1,13 @@
-package com.pjt.rebis.Authentication;
+package com.pjt.rebis.Utility;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-    /* Allows to store some useful variable as 'data cache' on the device. That allows to speed up
+import java.util.HashSet;
+import java.util.Set;
+
+/* Allows to store some useful variable as 'data cache' on the device. That allows to speed up
     *  some operations, avoiding redundant queries to the database. */
 public class SaveSharedPreference {
     static final String PREF_USER_NAME= "username";
@@ -74,6 +77,5 @@ public class SaveSharedPreference {
     public static String getIdentified(Context ctx) {
         return getSharedPreferences(ctx).getString(PREF_IDENTIFIED, "");
     }
-
 
 }

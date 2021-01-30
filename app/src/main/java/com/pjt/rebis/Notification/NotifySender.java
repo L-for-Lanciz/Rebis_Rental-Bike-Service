@@ -4,12 +4,10 @@ import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
-import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
@@ -20,19 +18,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.pjt.rebis.Authentication.Login;
-import com.pjt.rebis.Authentication.SaveSharedPreference;
-import com.pjt.rebis.MainActivity;
+import com.pjt.rebis.Utility.SaveSharedPreference;
 import com.pjt.rebis.R;
-import com.pjt.rebis.ui.history.HistoryFragment;
 import com.pjt.rebis.ui.history.RentalItem;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-
-import static android.app.Notification.EXTRA_NOTIFICATION_ID;
 
 public class NotifySender {
     private String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();

@@ -3,6 +3,7 @@ package com.pjt.rebis;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -11,7 +12,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pjt.rebis.Authentication.Login;
-import com.pjt.rebis.Authentication.SaveSharedPreference;
+import com.pjt.rebis.Utility.SaveSharedPreference;
 import com.pjt.rebis.Notification.NotifySender;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -112,31 +113,3 @@ public class MainActivity extends AppCompatActivity {
         _usertype = user;
     }
 }
-
-/*
-    activity.requestPermissions(new String[]{Manifest.permission.CAMERA}, 1011);
-    //  Then override the method that will be called after the permission dialog result:
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-    String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case 1011: {
-
-        // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-        // Here user granted the permission
-                } else {
-
-        // permission denied, boo! Disable the
-        // functionality that depends on this permission.
-                    Toast.makeText(MainActivity.this, "Permission denied to read your Camera", Toast.LENGTH_SHORT).show();
-                }
-            return;
-            }
-        }
-    }
-
-*/

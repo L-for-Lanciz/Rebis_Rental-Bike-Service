@@ -21,7 +21,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pjt.rebis.R;
+import com.pjt.rebis.Utility.AES;
+import com.pjt.rebis.Utility.InternalStorage;
 import com.pjt.rebis.WebAPI.ImplementationAPI;
+import com.pjt.rebis.WebAPI.Payload;
 import com.squareup.picasso.Picasso;
 
 /* Fragment casted upon click on a rental item inside the recycler view. This, provides personal information about the
@@ -197,9 +200,19 @@ public class expandCustomerView extends Fragment {
 
     private void endOfTransaction() {
         ImplementationAPI api = new ImplementationAPI();
-        api.endTransaction(getContext(), ritm, currentuser);
+        String mnemo = getMnemonic(ritm.getAddressRenter());
+        Payload pitm = new Payload(ritm, mnemo);
+        api.endTransaction(getContext(), pitm, currentuser);
 
         closeFrag();
+    }
+
+    private String getMnemonic(String address) {
+        String encryptedKey = InternalStorage.getWalletKey(getContext(), currentuser);
+        String walletKey = AES.decrypt(encryptedKey, InternalStorage.layendarmal);
+        String encryptedMnemo = InternalStorage.getWalletList(getContext(), currentuser).get(address);
+        String mnemo = AES.decrypt(encryptedMnemo, walletKey);
+        return mnemo;
     }
 
     private void closeFrag() {
