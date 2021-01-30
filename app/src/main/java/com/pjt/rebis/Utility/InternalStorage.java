@@ -13,7 +13,7 @@ import java.util.Hashtable;
 
 public class InternalStorage {
     //final static String FILEUSER_ADDRESSESLIST = null;
-    public static final String layendarmal = "MEfXKy!(&c7}7FH]G~k}";
+    public static final String layendarmal = *SECRET*;
     static Hashtable<String, String> walletList = null;
 
     public static Hashtable<String, String> getWalletList(Context mContext, String FILEUSER_ADDRESSESLIST) {
