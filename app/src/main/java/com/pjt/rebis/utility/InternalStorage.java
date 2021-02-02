@@ -1,4 +1,4 @@
-package com.pjt.rebis.utility;
+package com.pjt.rebis.Utility;
 
 import android.content.Context;
 
@@ -13,7 +13,7 @@ import java.util.Hashtable;
 
 public class InternalStorage {
     //final static String FILEUSER_ADDRESSESLIST = null;
-    public static final String layendarmal = "2r)t<3NtLFM~;gkWvHBU]j-eLz(?63";
+    public static final String layendarmal = *SECRET*;
     static Hashtable<String, String> walletList = null;
 
     public static Hashtable<String, String> getWalletList(Context mContext, String FILEUSER_ADDRESSESLIST) {
