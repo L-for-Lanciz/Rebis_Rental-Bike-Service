@@ -17,11 +17,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.pjt.rebis.Utility.AES;
-import com.pjt.rebis.Utility.InternalStorage;
-import com.pjt.rebis.Utility.SaveSharedPreference;
+import com.pjt.rebis.utility.AES;
+import com.pjt.rebis.utility.InternalStorage;
+import com.pjt.rebis.utility.SaveSharedPreference;
 import com.pjt.rebis.R;
-import com.pjt.rebis.WebAPI.Payload;
+import com.pjt.rebis.webAPI.Payload;
 import com.pjt.rebis.ui.history.RentalItem;
 import com.pjt.rebis.ui.profile.custom_dialogOK;
 
@@ -189,7 +189,7 @@ public class QRCodeFragment extends Fragment {
         double price = takobj.getFee() + takobj.getDeposit();
         String body = getString(R.string.al1_msg) + price;
 
-        String mnemo = getMnemonic(givobj.getAddressCustomer());
+        String mnemo = "bip";//getMnemonic(givobj.getAddressCustomer());
         Payload payloadobj = new Payload(givobj, mnemo);
         custom_dialogCR cdcr = new custom_dialogCR(getActivity(), payloadobj, getString(R.string.al1_tit), body);
         cdcr.show();

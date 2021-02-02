@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.pjt.rebis.Utility.SaveSharedPreference;
+import com.pjt.rebis.utility.SaveSharedPreference;
 import com.pjt.rebis.R;
 
 /* Just an easy welcome fragment which shows the account the user is logged in with, and asks the user

@@ -1,6 +1,5 @@
-package com.pjt.rebis.WebAPI;
+package com.pjt.rebis.webAPI;
 
-import com.pjt.rebis.Utility.InternalStorage;
 import com.pjt.rebis.ui.history.RentalItem;
 
 public class Payload {
@@ -22,5 +21,6 @@ public class Payload {
     public String getMnemonic() {
         return mnemonic;
     }
+
 
 }

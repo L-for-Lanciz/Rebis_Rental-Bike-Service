@@ -1,4 +1,4 @@
-package com.pjt.rebis.Utility;
+package com.pjt.rebis.utility;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;

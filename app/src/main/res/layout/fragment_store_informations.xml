@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:clickable="true"
     android:background="@android:drawable/screen_background_dark_transparent"
-    tools:context=".Authentication.storeInformations">
+    tools:context=".authentication.storeInformations">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

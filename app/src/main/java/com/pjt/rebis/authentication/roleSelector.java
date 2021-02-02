@@ -1,4 +1,4 @@
-package com.pjt.rebis.Authentication;
+package com.pjt.rebis.authentication;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,8 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import com.pjt.rebis.Authentication.Login;
-import com.pjt.rebis.Authentication.Register;
+
 import com.pjt.rebis.R;
 
     /* Fragment which handles role selection. When a user asks for sign up, this fragment is casted.

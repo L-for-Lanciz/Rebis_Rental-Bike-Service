@@ -1,5 +1,6 @@
 package com.pjt.rebis.ui.history;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -21,10 +22,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pjt.rebis.R;
-import com.pjt.rebis.Utility.AES;
-import com.pjt.rebis.Utility.InternalStorage;
-import com.pjt.rebis.WebAPI.ImplementationAPI;
-import com.pjt.rebis.WebAPI.Payload;
+import com.pjt.rebis.utility.AES;
+import com.pjt.rebis.utility.InternalStorage;
+import com.pjt.rebis.utility.SaveSharedPreference;
+import com.pjt.rebis.webAPI.ImplementationAPI;
+import com.pjt.rebis.webAPI.Payload;
+import com.pjt.rebis.webAPI.Transaction_metamask;
 import com.squareup.picasso.Picasso;
 
 /* Fragment casted upon click on a rental item inside the recycler view. This, provides personal information about the
@@ -200,13 +203,48 @@ public class expandCustomerView extends Fragment {
 
     private void endOfTransaction() {
         ImplementationAPI api = new ImplementationAPI();
-        String mnemo = getMnemonic(ritm.getAddressRenter());
+        String mnemo =""; //getMnemonic(ritm.getAddressRenter());
+
         Payload pitm = new Payload(ritm, mnemo);
-        api.endTransaction(getContext(), pitm, currentuser);
+
+        if (ritm.getDeposit()==0)
+            api.endTransaction(getContext(), pitm, currentuser);
+        else {
+            //METAMASK DEEPLINK
+            String addressTo;
+            if (SaveSharedPreference.getUserType(getContext()).equals("renter"))
+                addressTo= pitm.getRentalItem().getAddressCustomer();
+            else
+                addressTo= pitm.getRentalItem().getAddressRenter();
+
+            Double value = pitm.getRentalItem().getDeposit();
+            String DEEP_LINK_URL = "https://metamask.app.link/send/pay-" + addressTo + "@3?value=" + value + "e18";
+
+            String[] array = new String[] {
+                    pitm.getRentalItem().getRenter(),
+                    pitm.getRentalItem().getCustomer(),
+                    pitm.getRentalItem().getAddressRenter(),
+                    pitm.getRentalItem().getAddressCustomer(),
+                    pitm.getRentalItem().getID()+"",
+                    pitm.getRentalItem().getDate(),
+                    pitm.getRentalItem().getDays()+"",
+                    pitm.getRentalItem().getFee()+"",
+                    pitm.getRentalItem().getDeposit()+"",
+                    pitm.getRentalItem().getState(),
+                    pitm.getRentalItem().getBike(),
+                    pitm.getMnemonic()
+            };
+
+            Intent trxInt = new Intent(getContext(), Transaction_metamask.class);
+            trxInt.putExtra("DEEPLINK", DEEP_LINK_URL);
+            trxInt.putExtra("PAYLOAD_OBJECT", array);
+            getActivity().startActivity(trxInt);
+            getActivity().finish();
+        }
 
         closeFrag();
     }
-
+/*
     private String getMnemonic(String address) {
         String encryptedKey = InternalStorage.getWalletKey(getContext(), currentuser);
         String walletKey = AES.decrypt(encryptedKey, InternalStorage.layendarmal);
@@ -214,7 +252,7 @@ public class expandCustomerView extends Fragment {
         String mnemo = AES.decrypt(encryptedMnemo, walletKey);
         return mnemo;
     }
-
+*/
     private void closeFrag() {
         FragmentManager fm = getActivity().getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();

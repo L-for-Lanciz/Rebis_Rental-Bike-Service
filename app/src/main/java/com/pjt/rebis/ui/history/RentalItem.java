@@ -1,6 +1,6 @@
 package com.pjt.rebis.ui.history;
 
-    /* 'RentalItem' object constructor class. */
+/* 'RentalItem' object constructor class. */
 public class RentalItem {
     private String Renter, Customer;
     private String Addressrenter, Addresscustomer, Date, State, Bike;
@@ -11,7 +11,7 @@ public class RentalItem {
     public RentalItem() { }
 
     public RentalItem(String _Renter, String _Customer, String _Addressrenter, String _Addresscustomer,
-                        int _ID, String _Date, int _Days, double _Fee, double _Deposit, String _State, String _Bike) {
+                      int _ID, String _Date, int _Days, double _Fee, double _Deposit, String _State, String _Bike) {
         this.Renter = _Renter;
         this.Customer = _Customer;
         this.Addressrenter = _Addressrenter;
@@ -66,7 +66,7 @@ public class RentalItem {
     }
 
     public String getBike() {
-            return this.Bike;
-        }
+        return this.Bike;
+    }
 
 }

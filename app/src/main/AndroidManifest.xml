@@ -16,10 +16,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Notification.NotificationActivity"></activity>
-        <activity android:name=".Authentication.RegisterRenter" />
-        <activity android:name=".Authentication.Register" />
-        <activity android:name=".Authentication.Login" />
+        <activity android:name=".webAPI.Transaction_metamask">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:scheme="app"
+                    android:host="https://metamask.app.link"/>
+                    <!-- android:pathPattern="some regex" -->
+
+            </intent-filter>
+        </activity>
+        <activity android:name=".walletconnect_metamask.Trx_connectMask" />
+        <activity android:name=".notification.NotificationActivity" />
+        <activity android:name=".authentication.RegisterRenter" />
+        <activity android:name=".authentication.Register" />
+        <activity android:name=".authentication.Login" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">

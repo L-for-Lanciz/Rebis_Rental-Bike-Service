@@ -1,11 +1,8 @@
-package com.pjt.rebis.Utility;
+package com.pjt.rebis.utility;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /* Allows to store some useful variable as 'data cache' on the device. That allows to speed up
     *  some operations, avoiding redundant queries to the database. */

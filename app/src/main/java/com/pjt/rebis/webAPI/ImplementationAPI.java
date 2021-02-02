@@ -1,4 +1,4 @@
-package com.pjt.rebis.WebAPI;
+package com.pjt.rebis.webAPI;
 
 import android.content.Context;
 import android.util.Log;
@@ -49,14 +49,14 @@ public class ImplementationAPI {
             @Override
             public void onResponse(Call<Payload> call, Response<Payload> response) {
                 Payload item = response.body();
-                RentalItem itm = item.getRentalItem();
+                RentalItem itm = item.rentalItem;
                 int status = response.code();
                 Log.e("STATUS_CODE", status+"");
                 if (itm != null && status==200) {
                     double payed = (itm.getFee()) + (itm.getDeposit());
                     Log.i("RESPONSE", "OUTPUT: " + payed);
-                    String trxresult = ctx.getString(R.string.trx_suxes) +" "+ payed + " ETH";
-                    Toast.makeText(ctx, trxresult, Toast.LENGTH_LONG).show();
+           //         String trxresult = ctx.getString(R.string.trx_suxes) +" "+ payed + " ETH";
+           //         Toast.makeText(ctx, trxresult, Toast.LENGTH_LONG).show();
                     updRentalOnDatabase(rentalobj);
                 } else {
                     Toast.makeText(ctx, ctx.getString(R.string.trx_failed), Toast.LENGTH_LONG).show();
@@ -76,6 +76,7 @@ public class ImplementationAPI {
         final Payload payloadobj = item;
         final RentalItem rentalobj = payloadobj.getRentalItem();
         final Context ctx = _ctx;
+Log.e("#1212", ""+payloadobj.getRentalItem().getID());
         final String __currentuser = _currentuser;
         Call<Payload> call = api.endingRental(payloadobj);
         call.enqueue(new Callback<Payload>() {
@@ -108,7 +109,7 @@ public class ImplementationAPI {
         String customer[] = obj.getCustomer().split("#@&@#");
         final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("RENTALS").child(rid+"");
         mDatabase.child("State").setValue("rented");
-        mDatabase.child("Customer").setValue(obj.getCustomer());
+        //mDatabase.child("Customer").setValue(obj.getCustomer());      NOW DONE AT SERVER SIDE
         mDatabase.child("Addresscustomer").setValue(obj.getAddressCustomer());
 
         String[] tmp = obj.getRenter().split("#@&@#");
@@ -142,7 +143,7 @@ public class ImplementationAPI {
 
     private void updRentalOnEndingOnDatabase(RentalItem item, String currentuser) {
         DatabaseReference endRef = FirebaseDatabase.getInstance().getReference().child("RENTALS").child(item.getID() + "");
-        endRef.child("State").setValue("ended");
+        //endRef.child("State").setValue("ended");      NOW DONE AT SERVER SIDE
 
         DatabaseReference bikeRef = FirebaseDatabase.getInstance().getReference().child("USERS").child(currentuser)
                 .child("Bikes").child(item.getBike());

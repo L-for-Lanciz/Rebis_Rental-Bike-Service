@@ -1,4 +1,4 @@
-package com.pjt.rebis.Authentication;
+package com.pjt.rebis.authentication;
 
 
 import android.os.Bundle;

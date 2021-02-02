@@ -1,6 +1,4 @@
-package com.pjt.rebis.WebAPI;
-
-import com.pjt.rebis.ui.history.RentalItem;
+package com.pjt.rebis.webAPI;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

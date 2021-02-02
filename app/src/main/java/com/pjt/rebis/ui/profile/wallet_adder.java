@@ -17,10 +17,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pjt.rebis.R;
-import com.pjt.rebis.Utility.AES;
-import com.pjt.rebis.Utility.InternalStorage;
+import com.pjt.rebis.utility.AES;
+import com.pjt.rebis.utility.InternalStorage;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 /* Fragment which allows the user to give an address which will be added to his list. */
@@ -93,7 +92,7 @@ public class wallet_adder extends Fragment {
 
     private void checkWalletStatus() {
         if (!InternalStorage.doesWalletKeyExist(getContext(), currentuser)) {
-            String random = randomString(20);
+            String random = randomString(30);
             String encryptedKey = AES.encrypt(random, InternalStorage.layendarmal);
             InternalStorage.setWalletKey(getContext(), currentuser, encryptedKey);
         }

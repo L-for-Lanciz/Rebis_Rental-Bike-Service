@@ -1,4 +1,4 @@
-package com.pjt.rebis.Authentication;
+package com.pjt.rebis.authentication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,7 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.pjt.rebis.MainActivity;
 import com.pjt.rebis.R;
-import com.pjt.rebis.Utility.SaveSharedPreference;
+import com.pjt.rebis.utility.SaveSharedPreference;
 
 /* Login Activity: allows users to access the service. Of course it requires registered and confirmed accounts. */
 public class Login extends AppCompatActivity {

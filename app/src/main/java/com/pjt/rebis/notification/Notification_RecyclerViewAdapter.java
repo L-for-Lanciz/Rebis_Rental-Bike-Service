@@ -1,4 +1,4 @@
-package com.pjt.rebis.Notification;
+package com.pjt.rebis.notification;
 
 import android.app.Activity;
 import android.content.Context;
@@ -19,7 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.pjt.rebis.Utility.SaveSharedPreference;
+import com.pjt.rebis.utility.SaveSharedPreference;
 import com.pjt.rebis.R;
 import com.pjt.rebis.ui.history.RentalItem;
 import com.squareup.picasso.Picasso;

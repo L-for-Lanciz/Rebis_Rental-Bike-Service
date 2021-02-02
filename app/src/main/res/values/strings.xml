@@ -203,5 +203,12 @@
     <string name="adwa_mnemo">Type below the MNEMONIC of your wallet</string>
     <string name="adwa_hintMne">mnemonic passphrase</string>
 
+    <string name="txmm_title">Verifying Transaction</string>
+    <string name="txmm_desc">Your transaction is now being processed.\nIt may take up to 40 seconds depending on the chain net.
+                                \nYou can leave this page.</string>
+    <string name="txmm_menu">Go back to Menu</string>
+    <string name="txmm_retry">Repeat the Transaction</string>
+    <string name="txmm_trybut">&#8634;</string>
+    <string name="txmm_menubut">&#9750;</string>
 
 </resources>
