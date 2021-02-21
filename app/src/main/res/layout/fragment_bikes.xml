@@ -5,38 +5,21 @@
     android:id="@+id/bk_constr"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightblack"
+    android:background="@color/dark_theme"
     android:clickable="true"
+    android:layout_marginTop="55dp"
     tools:context=".ui.bikes.bikesFragment">
-
-    <TextView
-        android:id="@+id/bike_title"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
-        android:fontFamily="@font/revalia"
-        android:paddingStart="15dp"
-        android:text="@string/title_bikes"
-        android:textAlignment="viewStart"
-        android:textColor="@color/panna"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/bk_divider"
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="5dp"
         android:background="@color/panna"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bike_title" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:id="@+id/bk_scroller"
@@ -46,7 +29,7 @@
         android:fastScrollAlwaysVisible="true"
         android:fastScrollEnabled="false"
         android:paddingTop="5dp"
-        android:paddingBottom="180dp"
+        android:paddingBottom="125dp"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         android:scrollbarStyle="outsideInset"
         android:scrollbars="vertical"
@@ -82,6 +65,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginEnd="10dp"
+        android:stateListAnimator="@null"
         android:layout_marginBottom="80dp"
         android:background="@drawable/addbike_icon"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -95,6 +79,7 @@
         android:background="@color/transparent"
         android:fontFamily="@font/sanchez"
         android:gravity="center_vertical"
+        android:stateListAnimator="@null"
         android:text="@string/bike_availb"
         android:textAlignment="center"
         android:textColor="@color/avorio"
@@ -111,6 +96,7 @@
         android:background="@color/transparent"
         android:fontFamily="@font/sanchez"
         android:gravity="center_vertical"
+        android:stateListAnimator="@null"
         android:text="@string/bike_all"
         android:textAlignment="center"
         android:textColor="@color/avorio"
@@ -128,6 +114,7 @@
         android:fontFamily="@font/sanchez"
         android:gravity="center_vertical"
         android:text="@string/bike_unavailb"
+        android:stateListAnimator="@null"
         android:textAlignment="center"
         android:textColor="@color/avorio"
         android:textSize="14sp"

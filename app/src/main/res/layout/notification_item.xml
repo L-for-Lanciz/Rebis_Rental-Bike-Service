@@ -7,7 +7,6 @@
     android:background="@null"
 
     android:orientation="horizontal"
-    app:cardBackgroundColor="@color/dark_theme"
     app:cardCornerRadius="10dp"
     android:layout_marginStart="5dp"
     android:layout_marginEnd="5dp"
@@ -20,7 +19,8 @@
         android:id="@+id/ni_constr"
         android:layout_width="match_parent"
         android:layout_height="190dp"
-        android:background="@drawable/upperbound_his">
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="@color/rebis_transp">
 
         <TextView
             android:id="@+id/ni_username"

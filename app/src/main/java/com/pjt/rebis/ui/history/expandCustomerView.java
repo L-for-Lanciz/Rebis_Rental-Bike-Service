@@ -1,12 +1,15 @@
 package com.pjt.rebis.ui.history;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +32,8 @@ import com.pjt.rebis.webAPI.ImplementationAPI;
 import com.pjt.rebis.webAPI.Payload;
 import com.pjt.rebis.webAPI.Transaction_metamask;
 import com.squareup.picasso.Picasso;
+
+import java.math.BigDecimal;
 
 /* Fragment casted upon click on a rental item inside the recycler view. This, provides personal information about the
     *  customer of the selected rental. */
@@ -68,11 +73,17 @@ public class expandCustomerView extends Fragment {
         fullname = (TextView) mView.findViewById(R.id.ecv_name);
         username = (TextView) mView.findViewById(R.id.ecv_usern);
         birth = (TextView) mView.findViewById(R.id.ecv_birth);
+            birth.setPaintFlags(birth.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         country = (TextView) mView.findViewById(R.id.ecv_country);
+            country.setPaintFlags(country.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         city = (TextView) mView.findViewById(R.id.ecv_city);
+            city.setPaintFlags(city.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         zipcode = (TextView) mView.findViewById(R.id.ecv_pcode);
+            zipcode.setPaintFlags(zipcode.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         address = (TextView) mView.findViewById(R.id.ecv_address);
+            address.setPaintFlags(address.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         phone = (TextView) mView.findViewById(R.id.ecv_phone);
+            phone.setPaintFlags(phone.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         propic = (ImageView) mView.findViewById(R.id.ecv_propic);
         close = (Button) mView.findViewById(R.id.ecv_close);
         close.setOnClickListener(new View.OnClickListener() {
@@ -207,18 +218,13 @@ public class expandCustomerView extends Fragment {
 
         Payload pitm = new Payload(ritm, mnemo);
 
-        if (ritm.getDeposit()==0)
+        if (ritm.getDeposit() == 0)
             api.endTransaction(getContext(), pitm, currentuser);
         else {
             //METAMASK DEEPLINK
-            String addressTo;
-            if (SaveSharedPreference.getUserType(getContext()).equals("renter"))
-                addressTo= pitm.getRentalItem().getAddressCustomer();
-            else
-                addressTo= pitm.getRentalItem().getAddressRenter();
-
-            Double value = pitm.getRentalItem().getDeposit();
-            String DEEP_LINK_URL = "https://metamask.app.link/send/pay-" + addressTo + "@3?value=" + value + "e18";
+            String contract_address = "0x86e43bf70244816Df7DA68471daB0C68f5A553D8";
+            double value = pitm.getRentalItem().getDeposit();
+            String DEEP_LINK_URL = "https://metamask.app.link/send/pay-" + contract_address + "@3?value=" + value + "e18";
 
             String[] array = new String[] {
                     pitm.getRentalItem().getRenter(),
@@ -254,10 +260,7 @@ public class expandCustomerView extends Fragment {
     }
 */
     private void closeFrag() {
-        FragmentManager fm = getActivity().getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        Fragment frag4 = new HistoryFragment();
-        ft.replace(R.id.his_const, frag4, "hisfrag");
-        ft.commit();
+        NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+        navController.navigate(R.id.navigation_history);
     }
 }

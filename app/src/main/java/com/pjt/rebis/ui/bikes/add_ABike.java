@@ -12,6 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -252,11 +255,8 @@ public class add_ABike extends Fragment {
     }
 
     private void exitFrg() {
-        FragmentManager fm = getActivity().getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        Fragment fragBBK = new bikesFragment();
-        ft.replace(R.id.bk_constr, fragBBK, "bikkky");
-        ft.commit();
+        NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+        navController.navigate(R.id.navigation_bikes);
     }
 
 }

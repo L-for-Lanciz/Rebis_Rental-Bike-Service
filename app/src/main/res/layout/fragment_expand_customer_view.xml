@@ -11,9 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_gravity="center_vertical"
-        android:background="@drawable/expansionbg"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp">
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/cdi">
 
 
         <TextView
@@ -23,11 +23,11 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:fontFamily="@font/sanchez"
-            android:textColor="@color/panna"
-            android:textSize="22sp"
+            android:fontFamily="@font/revalia"
+            android:text="@string/ecv_aboutUser"
             android:textAlignment="center"
-            android:text="@string/ecv_aboutCustomer"
+            android:textColor="@color/panna"
+            android:textSize="21sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -52,7 +52,7 @@
             android:id="@+id/ecv_propic"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="50dp"
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
@@ -67,9 +67,9 @@
             android:layout_marginEnd="60dp"
             android:fontFamily="sans-serif-medium"
             android:gravity="center_vertical"
+            android:text=""
             android:textColor="@color/panna"
             android:textSize="20sp"
-            android:text=""
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ecv_country" />
 
@@ -123,9 +123,9 @@
             android:layout_marginEnd="60dp"
             android:fontFamily="sans-serif-medium"
             android:gravity="center_vertical"
+            android:text=""
             android:textColor="@color/panna"
             android:textSize="20sp"
-            android:text=""
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -160,65 +160,33 @@
 
         <Button
             android:id="@+id/ecv_close"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/delete_icon"
+            android:backgroundTint="@color/colorAccent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/ecv_ENDRENTAL"
-            android:layout_width="85dp"
-            android:layout_height="60dp"
+            android:layout_width="80dp"
+            android:layout_height="45dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/buttonend"
-            android:fontFamily="sans-serif-medium"
-            android:gravity="center_vertical"
+            android:background="@drawable/rounded_corner"
+            android:backgroundTint="@color/colorAccent"
+            android:fontFamily="@font/revalia"
+            android:gravity="top"
             android:text="@string/ecv_endRental"
+            android:textStyle="bold"
+            android:textAllCaps="false"
             android:textAlignment="center"
             android:textColor="@color/panna"
-            android:textSize="17sp"
+            android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
-
-        <View
-            android:id="@+id/ecv_divider1"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="45dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="45dp"
-            android:background="@color/panna_hint"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ecv_birth" />
-
-        <View
-            android:id="@+id/ecv_divider2"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="45dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="45dp"
-            android:background="@color/panna_hint"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ecv_city" />
-
-        <View
-            android:id="@+id/ecv_divider3"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="45dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="130dp"
-            android:background="@color/panna_hint"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ecv_address" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

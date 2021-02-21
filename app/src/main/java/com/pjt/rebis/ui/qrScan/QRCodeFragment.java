@@ -2,14 +2,17 @@ package com.pjt.rebis.ui.qrScan;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Binder;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -25,6 +28,12 @@ import com.pjt.rebis.webAPI.Payload;
 import com.pjt.rebis.ui.history.RentalItem;
 import com.pjt.rebis.ui.profile.custom_dialogOK;
 
+import org.web3j.contracts.token.ERC20BasicInterface;
+import org.web3j.protocol.core.methods.response.EthGetBalance;
+
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
@@ -34,6 +43,7 @@ import static android.app.Activity.RESULT_OK;
 public class QRCodeFragment extends Fragment {
     private String currentuser;
     private boolean ok1, ok2;
+    private TextView address;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -41,9 +51,15 @@ public class QRCodeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_qrscan, container, false);
 
         currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        address = root.findViewById(R.id.qrc_address);
+        setCurrent();
 
         areYouOK1();
         areYouOK2();
+
+        Toolbar myToolbar = (Toolbar) getActivity().findViewById(R.id.myToolbar);
+        TextView textView = (TextView) myToolbar.findViewById(R.id.toolbarTextView);
+        textView.setText(getString(R.string.title_QRScan));
 
         ImageView image = root.findViewById(R.id.qrc_image);
         image.setOnClickListener(new View.OnClickListener() {
@@ -127,7 +143,7 @@ public class QRCodeFragment extends Fragment {
                 double dep = Double.parseDouble(pieces[8]);
                 String bike = pieces[10];
 
-                RentalItem rentalobj = new RentalItem(
+                RentalItem rentalobj = new RentalItem (
                         pieces[0], customer, pieces[2], address, id, pieces[5], days, fee, dep, "rented", bike
                 );
 
@@ -195,12 +211,26 @@ public class QRCodeFragment extends Fragment {
         cdcr.show();
     }
 
-    private String getMnemonic(String address) {
-        String encryptedKey = InternalStorage.getWalletKey(getContext(), currentuser);
-        String walletKey = AES.decrypt(encryptedKey, InternalStorage.layendarmal);
-        String encryptedMnemo = InternalStorage.getWalletList(getContext(), currentuser).get(address);
-        String mnemo = AES.decrypt(encryptedMnemo, walletKey);
-        return mnemo;
+    private void setCurrent() {
+        String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final DatabaseReference currentRef = FirebaseDatabase.getInstance().getReference().child("USERS").child(currentuser).child("Wallets").child("Current");
+        currentRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                try {
+                    String add = dataSnapshot.getValue(String.class);
+                    String conctn = (add.substring(0, 8)).concat("...").concat(add.substring(34, 42));
+                    if (add != null)
+                        address.setText(conctn);
+                    else
+                        address.setText(getString(R.string.emptyadd));
+                } catch(Exception e) {
+                    address.setText(getString(R.string.emptyadd));
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }});
     }
 
     private void setOK1(boolean puffo) {

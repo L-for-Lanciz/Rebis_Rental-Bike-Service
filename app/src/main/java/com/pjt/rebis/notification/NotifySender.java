@@ -43,7 +43,7 @@ public class NotifySender {
         this.act = _act;
         this.ctx = _ctx;
         createNotificationChannel();
-        setNotificationEvenHandler();
+        setNotificationEventHandler();
         notificationList.clear();
     }
 
@@ -108,14 +108,14 @@ public class NotifySender {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "bip"; //getString(R.string.channel_name);
-            String description = "bop"; //getString(R.string.channel_description);
+            CharSequence name = "expire"; //getString(R.string.channel_name);
+            String description = "notify"; //getString(R.string.channel_description);
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel("CHANNEL_ID", name, importance);
             channel.enableLights(true);
             channel.setLightColor(Color.RED);
             channel.enableVibration(true);
-            channel.setVibrationPattern(new long[]{1000, 2000});
+            //channel.setVibrationPattern(new long[]{1000, 2000});
             channel.setDescription(description);
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
@@ -127,16 +127,12 @@ public class NotifySender {
     private void createNewNotificationRENTER(Context ctx, int id, RentalItem robj, boolean expired) {
         String[] customer = robj.getCustomer().split("#@&@#");
         String bike = robj.getBike().substring(3);
-        String notificationTitle;
+        String notificationTitle, notificationBody;
         if (expired) {
             notificationTitle = "A rental is already expired";
-        } else {
-            notificationTitle = "A Rental is expiring today";
-        }
-        String notificationBody;
-        if (expired) {
             notificationBody = "The bike '"+bike+"' should have been already returned from '"+customer[0]+"'.";
         } else {
+            notificationTitle = "A Rental is expiring today";
             notificationBody = "The bike '"+bike+"' should be returned from '"+customer[0]+"' today.";
         }
 
@@ -188,7 +184,7 @@ public class NotifySender {
         notificationManager.notify(id, builder.build());
     }
 
-    private void setNotificationEvenHandler() {
+    private void setNotificationEventHandler() {
         // Create an explicit intent for an Activity in your app
         Intent intent = new Intent(ctx, NotificationActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

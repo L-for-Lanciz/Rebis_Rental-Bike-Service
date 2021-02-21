@@ -2,22 +2,14 @@ package com.pjt.rebis.ui.qrScan;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.ComponentName;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.google.firebase.database.Transaction;
 import com.pjt.rebis.R;
 import com.pjt.rebis.utility.SaveSharedPreference;
-import com.pjt.rebis.walletconnect_metamask.TransactionHandler;
-import com.pjt.rebis.walletconnect_metamask.Trx_connectMask;
-import com.pjt.rebis.webAPI.ImplementationAPI;
 import com.pjt.rebis.webAPI.Payload;
 import com.pjt.rebis.ui.history.RentalItem;
 import com.pjt.rebis.webAPI.Transaction_metamask;
@@ -85,21 +77,11 @@ public class custom_dialogCR extends Dialog implements android.view.View.OnClick
         //ImplementationAPI api = new ImplementationAPI();
         //api.payTransaction(c, payobk);
 
-        //METAMASK MOBILE & WALLET CONNECT
-        //Intent trx_mtmask = new Intent(c, Trx_connectMask.class);
-        //new TransactionHandler();
-        //c.startActivity(trx_mtmask);
-        //c.finish();
-
         //METAMASK DEEPLINK
-        String addressTo;
-        if (SaveSharedPreference.getUserType(getContext()).equals("renter"))
-            addressTo= payobj.getRentalItem().getAddressCustomer();
-        else
-            addressTo= payobj.getRentalItem().getAddressRenter();
+        String contract_address = "0x86e43bf70244816Df7DA68471daB0C68f5A553D8";
 
-        Double value = payobj.getRentalItem().getFee() + payobj.getRentalItem().getDeposit();
-        String DEEP_LINK_URL = "https://metamask.app.link/send/pay-" + addressTo + "@3?value=" + value + "e18";
+        double value = payobj.getRentalItem().getFee() + payobj.getRentalItem().getDeposit();
+        String DEEP_LINK_URL = "https://metamask.app.link/send/pay-" + contract_address + "@3?value=SPLIT" + value;// + "e18";
 
         String[] array = new String[] {
                 payobj.getRentalItem().getRenter(),

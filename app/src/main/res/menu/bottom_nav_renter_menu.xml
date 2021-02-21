@@ -4,11 +4,6 @@
     app:background="@color/panna">
 
     <item
-        android:id="@+id/navigation_profile"
-        android:icon="@drawable/profileb_navicon"
-        android:title="@string/title_profile"/>
-
-    <item
         android:id="@+id/navigation_bikes"
         android:icon="@drawable/bikenavicon"
         android:title="@string/title_bikes"/>

@@ -4,12 +4,13 @@
     <string name="title_QRScan">QR-Scan</string>
     <string name="title_history">History</string>
 
-    <string name="wallets">Wallet</string>
+    <string name="wallets">Ethereum Wallet</string>
     <string name="mainwal">&#8226; Change Current Address &#8226;</string>
     <string name="addwal">&#8226; Add an Address &#8226;</string>
     <string name="currentwal">Current Address:</string>
     <string name="idenfitification">Online Identification</string>
-    <string name="logouter">LOGOUT</string>
+    <string name="logouter">Logout</string>
+    <string name="usrtp">Account type: </string>
 
     <string name="sectHist_title">Rental History</string>
 
@@ -27,8 +28,8 @@
     <string name="got_account">Already have an Account?</string>
     <string name="username">username</string>
 
-    <string name="wa_actual">your current address:</string>
-    <string name="wa_others">all your addresses:</string>
+    <string name="wa_actual">Current address:</string>
+    <string name="wa_others">All your addresses:</string>
 
     <string name="add_wallet">Add an Address</string>
     <string name="adwahint">Insert the new address</string>
@@ -77,21 +78,21 @@
     <string name="welc_proceed">Select an Activity!</string>
 
     <string name="oi_title">Personal Identification</string>
-    <string name="oi_uname">Name</string>
-    <string name="oi_ulastname">Last Name</string>
-    <string name="oi_ucountry">Country</string>
-    <string name="oi_ugender">Gender</string>
+    <string name="oi_uname">Name:</string>
+    <string name="oi_ulastname">Last Name:</string>
+    <string name="oi_ucountry">Country:</string>
+    <string name="oi_ugender">Gender:</string>
     <string name="oi_umale">Male</string>
     <string name="oi_ufemale">Female</string>
-    <string name="oi_ubirth">Birth Date</string>
-    <string name="oi_ucity">City</string>
-    <string name="oi_uadddress">Home Address</string>
-    <string name="oi_upostal">Postal Code</string>
-    <string name="oi_unumber">Phone Number</string>
+    <string name="oi_ubirth">Birth Date:</string>
+    <string name="oi_ucity">City:</string>
+    <string name="oi_uadddress">Home Address:</string>
+    <string name="oi_upostal">Postal Code:</string>
+    <string name="oi_unumber">Phone Number:</string>
     <string name="oi_identify">Identify</string>
     <string name="oi_proceed1">&#10173; PROCEED &#10173;</string>
     <string name="oi_noho">No.</string>
-    <string name="oi_3desc">You are almost there! Just a last step&#8230;\n We need now a copy of your ID card to verify your data.
+    <string name="oi_3desc">You are almost there! Just a last step&#8230;\n We need a photo of your ID card to verify your data.
                             \nDon\'t worry, your personal data wont\'t be shared with anyone!
                             \n Please, provide a clear picture of both front and rear side of the document.</string>
     <string name="oi_complete">COMPLETE! &#10004;</string>
@@ -144,9 +145,8 @@
     <string name="oi_errorNumber">Invalid phone number</string>
     <string name="oi_errorImg">Please, select an image.</string>
 
-    <string name="ecv_aboutCustomer">About the Customer</string>
-    <string name="ecv_aboutRenter">About the Renter</string>
-    <string name="ecv_endRental">END RENTAL</string>
+    <string name="ecv_aboutUser">User Identification</string>
+    <string name="ecv_endRental">End Rental</string>
 
     <string name="cddr_tit">Delete Transaction</string>
     <string name="cddr_msg">Are you sure you want to delete this pending transaction?</string>
@@ -202,6 +202,7 @@
     <string name="adwa_pubadr">Type below the PUBLIC address</string>
     <string name="adwa_mnemo">Type below the MNEMONIC of your wallet</string>
     <string name="adwa_hintMne">mnemonic passphrase</string>
+    <string name="adwa_new">Add a new address</string>
 
     <string name="txmm_title">Verifying Transaction</string>
     <string name="txmm_desc">Your transaction is now being processed.\nIt may take up to 40 seconds depending on the chain net.
@@ -210,5 +211,20 @@
     <string name="txmm_retry">Repeat the Transaction</string>
     <string name="txmm_trybut">&#8634;</string>
     <string name="txmm_menubut">&#9750;</string>
+
+    <string name="adwa_onlyreceiver">This will be ONLY your RECEIVING address. Here you\'ll receive your deposit back in case of need.
+                You can change this anytime.</string>
+
+    <string name="title_book">Book a bike</string>
+    <string name="title_booking">Booking</string>
+
+    <string name="navigation_drawer_open">Open navigation</string>
+    <string name="navigation_drawer_close">Close navigation</string>
+    <string name="dr_wallets">Wallet</string>
+    <string name="dr_identf">Online Identification</string>
+    <string name="dr_logout">Logout</string>
+    <string name="dr_exit">Exit</string>
+
+    <string name="not_title">Notifications</string>
 
 </resources>

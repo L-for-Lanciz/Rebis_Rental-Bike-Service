@@ -1,40 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constr_qrre"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.qrScan.QRcodeRenter"
-    android:background="@color/lightblack">
-
-
-    <TextView
-        android:id="@+id/qrre_title"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/revalia"
-        android:paddingStart="15dp"
-        android:text="@string/reqr_title"
-        android:textColor="@color/panna"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:layout_marginTop="55dp"
+    android:background="@color/dark_theme"
+    tools:context=".ui.qrScan.QRcodeRenter">
 
     <View
         android:id="@+id/qrre_divider"
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="5dp"
         android:background="@color/panna"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/qrre_title"/>
-
-
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/qrre_desc"
@@ -43,9 +27,9 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="10dp"
+        android:fontFamily="@font/sanchez"
         android:text="@string/qrre_desc"
         android:textColor="@color/panna"
-        android:fontFamily="@font/sanchez"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,9 +42,9 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="10dp"
+        android:fontFamily="@font/sanchez"
         android:text="@string/qrre_bike"
         android:textColor="@color/panna"
-        android:fontFamily="@font/sanchez"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,6 +57,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         android:background="@drawable/input_underscore"
+        android:popupBackground="@color/dark_theme"
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -175,6 +160,7 @@
         android:layout_marginEnd="10dp"
         android:backgroundTint="@color/panna"
         android:fontFamily="@font/sanchez"
+        android:stateListAnimator="@null"
         android:text="@string/qrre_comm"
         android:textColor="@color/colorAccent"
         android:textSize="18sp"

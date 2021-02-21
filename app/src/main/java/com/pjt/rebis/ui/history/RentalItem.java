@@ -1,5 +1,7 @@
 package com.pjt.rebis.ui.history;
 
+import java.math.BigDecimal;
+
 /* 'RentalItem' object constructor class. */
 public class RentalItem {
     private String Renter, Customer;
@@ -69,4 +71,7 @@ public class RentalItem {
         return this.Bike;
     }
 
+    public void setFee(double _fee) {
+        this.Fee = _fee;
+    }
 }

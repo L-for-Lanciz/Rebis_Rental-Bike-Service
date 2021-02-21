@@ -21,8 +21,8 @@
             android:layout_width="40dp"
             android:layout_height="35dp"
             android:layout_marginStart="20dp"
-            android:layout_marginBottom="15dp"
-            android:background="@drawable/dropdown_icon"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/dropdown_icon2"
             app:layout_constraintBottom_toTopOf="@+id/notf_divider"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -31,7 +31,7 @@
             android:layout_width="0dp"
             android:layout_height="35dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="8dp"
             android:fontFamily="@font/revalia"
             android:paddingStart="15dp"

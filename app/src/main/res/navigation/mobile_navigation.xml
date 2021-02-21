@@ -3,13 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/navigation_welcome">
-
-    <fragment
-        android:id="@+id/navigation_profile"
-        android:name="com.pjt.rebis.ui.profile.ProfileFragment"
-        android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile" />
+    app:startDestination="@id/navigation_history">
 
     <fragment
         android:id="@+id/navigation_QRScan"
@@ -36,10 +30,9 @@
         tools:layout="@layout/fragment_bikes" />
 
     <fragment
-        android:id="@+id/navigation_welcome"
-        android:name="com.pjt.rebis.ui.welcomeFrag"
-        android:label="@string/welc_title"
-        tools:layout="@layout/fragment_welcome" />
-
+        android:id="@+id/navigation_booking"
+        android:name="com.pjt.rebis.ui.booking.bike_booking"
+        android:label="@string/title_book"
+        tools:layout="@layout/fragment_bike_booking" />
 
 </navigation>

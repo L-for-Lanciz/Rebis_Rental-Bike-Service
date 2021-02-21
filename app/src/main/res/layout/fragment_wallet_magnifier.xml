@@ -10,24 +10,18 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
-        android:background="@drawable/expansionbg"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:background="@color/dark_theme"
+        android:paddingHorizontal="10dp">
 
-        <TextView
-            android:id="@+id/wama_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="8dp"
-            android:text="@string/wallets"
-            android:textColor="@color/panna"
-            android:textSize="20sp"
-            android:textAllCaps="true"
-            android:fontFamily="@font/merienda_one"
+        <View
+            android:id="@+id/oi3_divider"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="@color/panna"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -36,15 +30,14 @@
             android:id="@+id/wama_scroller"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="5dp"
             android:fadeScrollbars="false"
             android:fastScrollAlwaysVisible="true"
             android:fastScrollEnabled="false"
-            android:paddingTop="10dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="40dp"
             android:scrollbarAlwaysDrawVerticalTrack="true"
             android:scrollbarStyle="outsideInset"
             android:scrollbars="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/wama_allrest">
 
@@ -73,42 +66,64 @@
         <TextView
             android:id="@+id/wama_address"
             android:layout_width="0dp"
-            android:layout_height="45dp"
+            android:layout_height="40dp"
             android:layout_marginStart="10dp"
-            android:fontFamily="@font/revalia"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="sans-serif-medium"
             android:paddingStart="15dp"
             android:paddingEnd="5dp"
             android:paddingBottom="5dp"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
             android:text="id: "
-            android:textColor="@color/panna"
+            android:textColor="@color/colorAccent"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/wama_principal" />
 
+        <View
+            android:id="@+id/oi3_divider32"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="@color/panna"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.578"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/wama_address" />
+
         <TextView
             android:id="@+id/wama_allrest"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="10dp"
-            android:fontFamily="sans-serif-smallcaps"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/revalia"
             android:text="@string/wa_others"
             android:textColor="@color/panna"
             android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/wama_address" />
+            app:layout_constraintTop_toBottomOf="@+id/oi3_divider32" />
 
         <TextView
             android:id="@+id/wama_principal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="60dp"
-            android:fontFamily="sans-serif-smallcaps"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/revalia"
             android:text="@string/wa_actual"
             android:textColor="@color/panna"
             android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -117,10 +132,110 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/delete_icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/oi3_divider33"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="@color/panna"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.578"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/wama_scroller" />
+
+        <TextView
+            android:id="@+id/wama_addnew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:drawableStart="@drawable/iconwallet"
+            android:drawablePadding="15dp"
+            android:fontFamily="@font/revalia"
+            android:textStyle="bold"
+            android:text="@string/adwa_new"
+            android:textColor="@color/panna"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/oi3_divider33" />
+
+        <TextView
+            android:id="@+id/adwa_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/merienda_one"
+            android:text="@string/adwahint"
+            android:textColor="@color/panna"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/wama_addnew" />
+
+        <TextView
+            android:id="@+id/adwa_comment"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/rounded_corner"
+            android:backgroundTint="@color/yellou"
+            android:drawableStart="@drawable/info1"
+            android:drawablePadding="15dp"
+            android:fontFamily="sans-serif-medium"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:text="@string/adwa_onlyreceiver"
+            android:textAlignment="center"
+            android:textColor="@color/dark_theme"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/adwa_hint" />
+
+        <EditText
+            android:id="@+id/adwa_address"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/textbg"
+            android:ems="10"
+            android:fontFamily="sans-serif-medium"
+            android:hint="@string/add_hint"
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            android:textColor="@color/panna"
+            android:textColorHighlight="@color/panna_hint"
+            android:textColorHint="@color/panna_hint"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/adwa_comment" />
+
+        <Button
+            android:id="@+id/adwa_add"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rounded_corner"
+            android:backgroundTint="@color/colorAccent"
+            android:fontFamily="@font/merienda_one"
+            android:text="@string/addW"
+            android:textColor="@color/panna"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/adwa_address" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

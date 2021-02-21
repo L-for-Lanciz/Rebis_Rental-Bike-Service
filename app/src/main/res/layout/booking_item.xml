@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@null"
+
+    android:orientation="vertical"
+    app:cardBackgroundColor="@color/transparent"
+    app:cardCornerRadius="1dp"
+    app:cardElevation="2dp"
+    app:cardMaxElevation="0dp"
+    app:cardPreventCornerOverlap="false"
+    app:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:background="@color/lightblack">
+
+        <TextView
+            android:id="@+id/bok_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="100dp"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/revalia"
+            android:text="storename"
+            android:textColor="@color/panna"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_toEndOf="@id/bok_currating"/>
+
+        <TextView
+            android:id="@+id/bok_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="city"
+            android:textColor="@color/panna"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/bok_addrx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="street address"
+            android:layout_marginTop="93dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="50dp"
+            android:textColor="@color/panna"
+            android:textSize="17sp"/>
+
+        <TextView
+            android:id="@+id/bok_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="0332334455"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="126dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/panna"
+            android:textSize="17sp"/>
+
+        <Button
+            android:id="@+id/bok_bikes"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/title_bikes"
+            android:textAllCaps="false"
+            android:background="@drawable/rounded_corner"
+            android:backgroundTint="@color/colorAccent"
+            android:layout_marginTop="100dp"
+            android:layout_marginStart="280dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/panna"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/bok_currating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="5dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="100dp"
+            android:drawableStart="@drawable/star_lil"
+            android:fontFamily="sans-serif-medium"
+            android:text="0.0"
+            android:textColor="@color/lightgrey"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/bok_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="280dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="10dp"
+            android:text="null"
+            android:drawableStart="@drawable/distance_small"
+            android:drawableTint="@color/colorAccent"
+            android:drawablePadding="5dp"
+            android:textSize="18sp"
+            android:textColor="@color/avorio"
+            android:textStyle="bold"/>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

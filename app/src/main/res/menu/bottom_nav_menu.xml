@@ -4,9 +4,9 @@
     app:background="@color/panna">
 
     <item
-        android:id="@+id/navigation_profile"
-        android:icon="@drawable/profileb_navicon"
-        android:title="@string/title_profile" />
+        android:id="@+id/navigation_booking"
+        android:icon="@drawable/bikeicon"
+        android:title="@string/title_booking" />
 
     <item
         android:id="@+id/navigation_QRScan"

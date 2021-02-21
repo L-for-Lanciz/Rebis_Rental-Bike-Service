@@ -2,6 +2,7 @@ package com.pjt.rebis.ui.history;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,16 +45,19 @@ public class expandRenterView extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View mView =  inflater.inflate(R.layout.fragment_expand_customer_view, container, false);
-        TextView title = (TextView) mView.findViewById(R.id.ecv_title);
-        title.setText(getString(R.string.ecv_aboutRenter));
 
         storename = (TextView) mView.findViewById(R.id.ecv_name);
         fullname = (TextView) mView.findViewById(R.id.ecv_usern);
         country = (TextView) mView.findViewById(R.id.ecv_birth);
+            country.setPaintFlags(country.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         city = (TextView) mView.findViewById(R.id.ecv_city);
+            city.setPaintFlags(city.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         zipcode = (TextView) mView.findViewById(R.id.ecv_pcode);
+            zipcode.setPaintFlags(zipcode.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         address = (TextView) mView.findViewById(R.id.ecv_address);
+            address.setPaintFlags(address.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         phone = (TextView) mView.findViewById(R.id.ecv_phone);
+            phone.setPaintFlags(phone.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         propic = (ImageView) mView.findViewById(R.id.ecv_propic);
         close = (Button) mView.findViewById(R.id.ecv_close);
         close.setOnClickListener(new View.OnClickListener() {
@@ -148,11 +154,8 @@ public class expandRenterView extends Fragment{
     }
 
     private void closeFrag() {
-        FragmentManager fm = getActivity().getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        Fragment frag4 = new HistoryFragment();
-        ft.replace(R.id.his_const, frag4, "hisfrag");
-        ft.commit();
+        NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+        navController.navigate(R.id.navigation_history);
     }
 
 }

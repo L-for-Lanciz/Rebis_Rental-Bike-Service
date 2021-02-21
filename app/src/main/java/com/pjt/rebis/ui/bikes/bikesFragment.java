@@ -10,9 +10,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -23,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.pjt.rebis.MainActivity;
 import com.pjt.rebis.R;
 import com.squareup.picasso.Picasso;
 
@@ -30,7 +34,7 @@ public class bikesFragment extends Fragment {
     private FirebaseRecyclerAdapter<Bicicletta, PassViewHolder> mBikesRVAdapter;
     private StorageReference mStorageRef;
     private Button ava, unava, all;
-    private int querier=0;
+    private static int querier = 0;
     private Button addNew;
 
     public bikesFragment() {
@@ -44,6 +48,10 @@ public class bikesFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_bikes, container, false);
+
+        Toolbar myToolbar = (Toolbar) getActivity().findViewById(R.id.myToolbar);
+        TextView textView = (TextView) myToolbar.findViewById(R.id.toolbarTextView);
+        textView.setText(getString(R.string.title_bikes));
 
         mStorageRef = FirebaseStorage.getInstance().getReference();
         String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -253,40 +261,7 @@ public class bikesFragment extends Fragment {
     }
 
     private void reloadFrag() {
-        // Reload current fragment
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        if (Build.VERSION.SDK_INT >= 26) {
-            ft.setReorderingAllowed(false);
-        }
-        ft.detach(this).attach(this).commit();
+        NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+        navController.navigate(R.id.navigation_bikes);
     }
-
-    /* This method causes:
-        'java.lang.NullPointerException: Attempt to invoke virtual method 'void androidx.fragment.app.Fragment.setNextAnim(int)'
-            on a null object reference'
-       Probably is useless.
-    private void deleteOldBoys() {
-        FragmentManager fm = getActivity().getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        if (querier == 1) {
-            try {
-                ft.remove(fm.findFragmentByTag("unava"));
-                ft.remove(fm.findFragmentByTag("all"));
-            } catch (Exception ennul) {
-            }
-            ft.commit();
-        } else if (querier == 2) {
-            try {
-                ft.remove(fm.findFragmentByTag("ava"));
-                ft.remove(fm.findFragmentByTag("all"));
-            } catch (Exception ennul) {
-            }
-            ft.commit();
-        } else {
-            ft.remove(fm.findFragmentByTag("ava"));
-            ft.remove(fm.findFragmentByTag("unava"));
-        }
-    }
-    */
-
 }

@@ -12,6 +12,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.pjt.rebis.R;
 import com.pjt.rebis.ui.history.RentalItem;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -53,7 +54,7 @@ public class ImplementationAPI {
                 int status = response.code();
                 Log.e("STATUS_CODE", status+"");
                 if (itm != null && status==200) {
-                    double payed = (itm.getFee()) + (itm.getDeposit());
+                    double payed = itm.getFee() + itm.getDeposit();
                     Log.i("RESPONSE", "OUTPUT: " + payed);
            //         String trxresult = ctx.getString(R.string.trx_suxes) +" "+ payed + " ETH";
            //         Toast.makeText(ctx, trxresult, Toast.LENGTH_LONG).show();
@@ -76,7 +77,6 @@ public class ImplementationAPI {
         final Payload payloadobj = item;
         final RentalItem rentalobj = payloadobj.getRentalItem();
         final Context ctx = _ctx;
-Log.e("#1212", ""+payloadobj.getRentalItem().getID());
         final String __currentuser = _currentuser;
         Call<Payload> call = api.endingRental(payloadobj);
         call.enqueue(new Callback<Payload>() {

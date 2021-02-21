@@ -2,9 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:id="@+id/constr_welc"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightblack"
+    android:layout_marginTop="0dp"
+    android:background="@color/dark_theme"
+    android:orientation="vertical"
     tools:context=".ui.welcomeFrag">
 
     <TextView
@@ -12,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="10dp"
         android:fontFamily="@font/merienda_one"
         android:text="@string/welc_title"
@@ -25,16 +28,16 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@drawable/applogo"
-        tools:srcCompat="@drawable/applogo" />
+        app:srcCompat="@drawable/applogo1"
+        tools:srcCompat="@drawable/applogo1" />
 
     <TextView
         android:id="@+id/welc_user"

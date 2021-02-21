@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/menu_top"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/dr_wallets"
+            android:title="@string/dr_wallets"
+            android:icon="@drawable/wallet"/>
+
+        <item
+            android:id="@+id/dr_identf"
+            android:title="@string/dr_identf"
+            android:icon="@drawable/profileb_navicon"/>
+
+        <item
+            android:id="@+id/dr_notify"
+            android:title="@string/not_title"
+            android:icon="@drawable/notify_clean"/>
+
+    </group>
+
+    <group
+        android:id="@+id/menu_bottom"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/dr_logout"
+            android:title="@string/dr_logout"
+            android:icon="@drawable/logout"/>
+
+        <item
+            android:id="@+id/dr_exit"
+            android:title="@string/dr_exit"
+            android:icon="@drawable/exit"/>
+
+    </group>
+
+</menu>

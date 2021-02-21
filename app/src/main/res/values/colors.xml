@@ -16,10 +16,12 @@
     <color name="rebis_transp">#16262626</color>
     <color name="avorio">#FFFFF0</color>
     <color name="avorio_trx">#A0FFFFE8</color>
-    <color name="strong_green">#08d115</color>
+    <color name="strong_green">#08D115</color>
     <color name="strong_red">#d1083a</color>
     <color name="red_panned">#3CD1083A</color>
     <color name="green_panned">#3C2C9409</color>
     <color name="blue_panned">#3C085CD1</color>
-
+    <color name="yellou">#fdfd8a</color>
+    <color name="sadred">#B61E00</color>
+    <color name="lightgreen">#A4E215</color>
 </resources>

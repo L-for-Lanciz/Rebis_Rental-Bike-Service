@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -34,6 +35,7 @@ import com.pjt.rebis.R;
 import com.pjt.rebis.ui.history.RentalItem;
 import com.pjt.rebis.ui.profile.custom_dialogOK;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -99,6 +101,10 @@ public class QRcodeRenter extends Fragment implements AdapterView.OnItemSelected
         etinpdays = ruttino.findViewById(R.id.qrre_inputdays);
         genert = ruttino.findViewById(R.id.qrre_generator);
         cmd = ruttino.findViewById(R.id.qrre_commnand);
+
+        Toolbar myToolbar = (Toolbar) getActivity().findViewById(R.id.myToolbar);
+        TextView textView = (TextView) myToolbar.findViewById(R.id.toolbarTextView);
+        textView.setText(getString(R.string.title_QRRENTER));
 
         adapterSpin = new ArrayAdapter<>(getActivity(), R.layout.spinner_item, bikes);
         spinner.setAdapter(adapterSpin);

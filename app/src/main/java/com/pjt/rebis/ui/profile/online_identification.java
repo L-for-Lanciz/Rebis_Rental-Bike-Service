@@ -2,6 +2,8 @@ package com.pjt.rebis.ui.profile;
 
 
 import android.os.Bundle;
+
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -16,6 +18,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.pjt.rebis.R;
 import java.util.Calendar;
@@ -69,6 +72,9 @@ public class online_identification extends Fragment implements AdapterView.OnIte
                              Bundle savedInstanceState) {
         View tevist =  inflater.inflate(R.layout.fragment_online_identification, container, false);
 
+        Toolbar myToolbar = (Toolbar) getActivity().findViewById(R.id.myToolbar);
+        ((TextView) myToolbar.findViewById(R.id.toolbarTextView)).setText(getString(R.string.idenfitification));
+
         name = (EditText) tevist.findViewById(R.id.oi_inpname);
         surname = (EditText) tevist.findViewById(R.id.oi_inpsurname);
 
@@ -98,7 +104,11 @@ public class online_identification extends Fragment implements AdapterView.OnIte
         prosid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkDataAndProceed();
+                try {
+                    checkDataAndProceed();
+                } catch (Exception fat) {
+                    Toast.makeText(getActivity(), getString(R.string.cdOK3_msg), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -181,6 +191,7 @@ public class online_identification extends Fragment implements AdapterView.OnIte
         boolean nomeOK =  (nome.length()>1) && (nome.length()<20);
         boolean cognomeOK = (cognome.length()>1) && (cognome.length()<20);
         boolean paeseOK = (choice != 0);
+
         int getYear=0;
         if (data.length()>6)
             getYear = Integer.parseInt(data.substring(6));

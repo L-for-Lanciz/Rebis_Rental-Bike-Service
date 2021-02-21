@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:id="@+id/myToolbar"
+    android:background="@color/lightblack"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <TextView
+        android:id="@+id/toolbarTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="25sp"
+        android:fontFamily="@font/revalia"
+        android:text="Rebis"
+        android:textColor="@color/panna"
+        android:visibility="visible" />
+
+</androidx.appcompat.widget.Toolbar>

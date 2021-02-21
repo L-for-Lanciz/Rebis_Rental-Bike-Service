@@ -3,6 +3,7 @@ package com.pjt.rebis.ui;
 
 import android.os.Bundle;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -27,6 +28,11 @@ public class welcomeFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View lilrut = inflater.inflate(R.layout.fragment_welcome, container, false);
+
+
+        Toolbar myToolbar = (Toolbar) getActivity().findViewById(R.id.myToolbar);
+        TextView textView = (TextView) myToolbar.findViewById(R.id.toolbarTextView);
+        textView.setText(getString(R.string.app_name));
 
         TextView user = lilrut.findViewById(R.id.welc_user);
         TextView type = lilrut.findViewById(R.id.welc_type);

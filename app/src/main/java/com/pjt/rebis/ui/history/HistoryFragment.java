@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -40,6 +41,10 @@ public class HistoryFragment extends Fragment {
         f = getString(R.string.hsmd_fee);
         d = getString(R.string.hsmd_depo);
         g = getString(R.string.hsmd_days);
+
+        Toolbar myToolbar = (Toolbar) getActivity().findViewById(R.id.myToolbar);
+        TextView textView = (TextView) myToolbar.findViewById(R.id.toolbarTextView);
+        textView.setText(getString(R.string.title_history));
 
         DatabaseReference mDatabase;
         RecyclerView mPeopleRV;
@@ -84,7 +89,10 @@ public class HistoryFragment extends Fragment {
                     holder.setUsername(other);
                 holder.setCounter(position+1+"");
                 holder.setImage(model.getState());
-                holder.setAddress(odress+"");
+                if (odress.length() == 42)
+                    holder.setAddress("« "+odress.substring(0,10)+"..."+odress.substring(32,42)+" »", odress+"");
+                else
+                    holder.setAddress("empty", "empty");
                 holder.setFee(model.getFee()+"");
                 holder.setDeposit(model.getDeposit()+"");
                 holder.setDate(model.getDate());
@@ -182,19 +190,26 @@ public class HistoryFragment extends Fragment {
         }
 
         public void setImage(String pass) {
-            ImageView cc_image = (ImageView) mView.findViewById(R.id.cc_image);
             if (pass.equals("ended")) {
                 mView.setBackgroundResource(R.color.green_panned);
-                cc_image.setBackgroundResource(R.drawable.his_ended);
             } else {
                 mView.setBackgroundResource(R.color.blue_panned);
-                cc_image.setBackgroundResource(R.drawable.his_pending);
             }
         }
 
-        public void setAddress(String pass) {
-            TextView cc_address = (TextView) mView.findViewById(R.id.cc_address);
-            cc_address.setText(pass);
+        public void setAddress(String _limited, String _full) {
+            final TextView cc_address = (TextView) mView.findViewById(R.id.cc_address);
+            cc_address.setText(_limited);
+            final String limited = _limited, full = _full;
+            cc_address.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (cc_address.getText().toString().length() < 40)
+                        cc_address.setText(full);
+                    else
+                        cc_address.setText(limited);
+                }
+            });
         }
 
         public void setFee(String pass) {

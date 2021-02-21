@@ -50,8 +50,8 @@ public class NotificationActivity extends AppCompatActivity implements Notificat
     }
 
     private void backToMain() {
-        Intent login = new Intent(NotificationActivity.this, MainActivity.class);
-        startActivity(login);
+        Intent main = new Intent(NotificationActivity.this, MainActivity.class);
+        startActivity(main);
         finish();
     }
 

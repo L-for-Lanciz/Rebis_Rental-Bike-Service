@@ -22,9 +22,9 @@
             android:id="@+id/cc_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="15dp"
-            android:layout_marginEnd="50dp"
+            android:layout_marginEnd="16dp"
             android:fontFamily="@font/revalia"
             android:paddingStart="10dp"
             android:paddingEnd="5dp"
@@ -33,7 +33,7 @@
             android:textColor="@color/panna"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/cc_image"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -47,19 +47,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cc_username" />
-
-        <ImageView
-            android:id="@+id/cc_image"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="35dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="79dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toStartOf="@+id/cc_rentalcounter"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/cc_address"
