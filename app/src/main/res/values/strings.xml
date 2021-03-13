@@ -170,11 +170,11 @@
     <string name="oid_ruoidded">Update Personal Info</string>
 
     <string name="adb_title">Add a Bike</string>
-    <string name="adb_brand">brand</string>
-    <string name="adb_model">model</string>
-    <string name="adb_value">value (eth)</string>
-    <string name="adb_year">year</string>
-    <string name="adb_image">image</string>
+    <string name="adb_brand">Brand</string>
+    <string name="adb_model">Model</string>
+    <string name="adb_value">Value (euro)</string>
+    <string name="adb_year">Year</string>
+    <string name="adb_image">Image</string>
 
     <string name="adb_errorMO">Invalid input for \'model\'</string>
     <string name="adb_errorBR">Invalid input for \'brand\'</string>
@@ -211,6 +211,8 @@
     <string name="txmm_retry">Repeat the Transaction</string>
     <string name="txmm_trybut">&#8634;</string>
     <string name="txmm_menubut">&#9750;</string>
+    <string name="txmm_trybuthint">Try again</string>
+    <string name="txmm_menubuthint">Home page</string>
 
     <string name="adwa_onlyreceiver">This will be ONLY your RECEIVING address. Here you\'ll receive your deposit back in case of need.
                 You can change this anytime.</string>
@@ -226,5 +228,18 @@
     <string name="dr_exit">Exit</string>
 
     <string name="not_title">Notifications</string>
+
+    <string name="exbo_title">Book a bike</string>
+    <string name="exbo_uknow">Do you know this store?</string>
+    <string name="exbo_book">Available bikes</string>
+
+    <string name="adbo_title">Book this bike</string>
+    <string name="adbo_msg">Do you want to book the selected bike for the next 3 hours?</string>
+
+    <string name="cdbk_nop">Unable to complete the action</string>
+    <string name="cdbk_yep">Bike successfully booked</string>
+    <string name="exbo_stars">Rating saved!</string>
+
+    <string name="bkbk_nobookings">No bookings yet</string>
 
 </resources>

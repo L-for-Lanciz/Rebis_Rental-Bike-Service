@@ -78,7 +78,7 @@ public class custom_dialogCR extends Dialog implements android.view.View.OnClick
         //api.payTransaction(c, payobk);
 
         //METAMASK DEEPLINK
-        String contract_address = "0x86e43bf70244816Df7DA68471daB0C68f5A553D8";
+        String contract_address = "0xB5b86278B448922CfA09C11B6a27B22c27Aa80b3";
 
         double value = payobj.getRentalItem().getFee() + payobj.getRentalItem().getDeposit();
         String DEEP_LINK_URL = "https://metamask.app.link/send/pay-" + contract_address + "@3?value=SPLIT" + value;// + "e18";

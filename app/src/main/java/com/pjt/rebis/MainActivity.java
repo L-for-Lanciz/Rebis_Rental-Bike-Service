@@ -22,9 +22,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.pjt.rebis.authentication.Login;
 import com.pjt.rebis.notification.NotificationActivity;
+import com.pjt.rebis.ui.booking.Booking;
 import com.pjt.rebis.ui.profile.online_identification;
 import com.pjt.rebis.ui.profile.profile_handler_frag;
 import com.pjt.rebis.ui.profile.walletMagnifier;
@@ -47,6 +50,14 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
 /* This is the Main Activity. It hosts the bottom navigation view, and almost every fragment.
     *  It also computes operations needed in the backend to speed up or enhance processes. */
 public class MainActivity extends AppCompatActivity {
@@ -56,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView propic;
     private BottomNavigationView navView;
     private int currentItem;
-    public static Location current_location = new Location(LocationManager.GPS_PROVIDER);;
+    //public static Location current_location = new Location(LocationManager.GPS_PROVIDER);;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
             this.getSupportFragmentManager().popBackStack("welcomy", FragmentManager.POP_BACK_STACK_INCLUSIVE);
             goToWelcome();
 
-            getLocation();
+            //getLocation();
 
             if (NotifySender.mutex)
                 new NotifySender(this, this).checkForNotificationToPrompt();
@@ -296,6 +307,54 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
+    private void checkBookingTimeout() {
+        DatabaseReference datab = FirebaseDatabase.getInstance().getReference().child("BOOKINGS");
+        Query dbquery;
+        if (SaveSharedPreference.getUserType(this).equals("customer"))
+            dbquery = datab.orderByChild("customer").equalTo(SaveSharedPreference.getUserName(this));
+        else
+            dbquery = datab.orderByChild("renter").equalTo(SaveSharedPreference.getUserName(this));
+
+        dbquery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                try {
+                    ArrayList<Booking> bookingList = (ArrayList<Booking>) snapshot.getValue();
+                    Booking booking = bookingList.get(0);
+Log.e("#ITEM0", snapshot.toString());
+Log.e("#ITEM", booking.toString());
+                    //String key = (String) booking.keySet().toArray()[0];
+//Log.e("#KEY", booking.keySet().toArray()[0].toString());
+                    //Booking value = (Booking) booking.get(key);
+                    Calendar current = Calendar.getInstance();
+Log.e("DATE0", current.toString());
+Log.e("DATE00", booking.getTime());
+                    SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ITALIAN);
+                    Calendar old = Calendar.getInstance();
+Log.e("DATE1", old.toString());
+                    old.setTime(sdf.parse(booking.getTime()));
+Log.e("DATE2", old.toString());
+                    old.add(Calendar.HOUR_OF_DAY, 3);
+                    if (old.before(current)) {
+                        DatabaseReference brob = FirebaseDatabase.getInstance().getReference().child("BOOKINGS").child(String.valueOf(booking.getKey()));
+                        brob.child("customer").removeValue();
+                        brob.child("renter").removeValue();
+                    }
+
+                } catch (Exception ezghe) {
+                    ezghe.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+/*
     private void getLocation() {
         FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         fusedLocationClient.getLastLocation()
@@ -310,7 +369,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-
+*/
     @Override
     public void onBackPressed() {
         int count = getSupportFragmentManager().getBackStackEntryCount();

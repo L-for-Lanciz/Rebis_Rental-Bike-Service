@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.pjt.rebis.MainActivity;
 import com.pjt.rebis.R;
 import com.pjt.rebis.ui.history.RentalItem;
@@ -18,6 +21,8 @@ import org.web3j.utils.Convert;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+
+import static android.text.Layout.JUSTIFICATION_MODE_INTER_WORD;
 
 
 public class Transaction_metamask extends AppCompatActivity {
@@ -29,6 +34,11 @@ public class Transaction_metamask extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction_metamask);
+
+        TextView text = findViewById(R.id.txmm_result);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            text.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+        }
 
         //https://metamask.app.link/send/pay-PUT_TO_ADDRESS@3?value=PUT_VALUEe18
         DEEP_LINK_URL0 = getIntent().getStringExtra("DEEPLINK");
@@ -105,6 +115,7 @@ Log.d("DEEP", "LINK: "+DEEP_LINK_URL);
                 finish();
             }
         });
+        menu.setHint(R.string.txmm_menubuthint);
 
         Button retry = findViewById(R.id.txmm_tryagain);
         retry.setOnClickListener(new View.OnClickListener() {
@@ -117,6 +128,7 @@ Log.d("DEEP", "LINK: "+DEEP_LINK_URL);
                 finish();
             }
         });
+        retry.setHint(R.string.txmm_trybuthint);
 
         ImageView loading = findViewById(R.id.txmm_imbuffer);
         animation =(AnimationDrawable) loading.getDrawable();

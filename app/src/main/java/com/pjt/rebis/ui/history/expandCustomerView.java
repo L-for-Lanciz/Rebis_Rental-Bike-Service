@@ -250,6 +250,12 @@ public class expandCustomerView extends Fragment {
 
         closeFrag();
     }
+
+    private void closeFrag() {
+        NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+        navController.navigate(R.id.navigation_history);
+    }
+
 /*
     private String getMnemonic(String address) {
         String encryptedKey = InternalStorage.getWalletKey(getContext(), currentuser);
@@ -259,8 +265,4 @@ public class expandCustomerView extends Fragment {
         return mnemo;
     }
 */
-    private void closeFrag() {
-        NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-        navController.navigate(R.id.navigation_history);
-    }
 }

@@ -3,6 +3,7 @@ package com.pjt.rebis.ui.bikes;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,12 +31,19 @@ import com.pjt.rebis.MainActivity;
 import com.pjt.rebis.R;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+
 public class bikesFragment extends Fragment {
     private FirebaseRecyclerAdapter<Bicicletta, PassViewHolder> mBikesRVAdapter;
     private StorageReference mStorageRef;
     private Button ava, unava, all;
     private static int querier = 0;
     private Button addNew;
+    private String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     public bikesFragment() {
     }
@@ -54,7 +62,7 @@ public class bikesFragment extends Fragment {
         textView.setText(getString(R.string.title_bikes));
 
         mStorageRef = FirebaseStorage.getInstance().getReference();
-        String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
         RecyclerView mBikesRV = (RecyclerView) root.findViewById(R.id.bk_Recyc);
 
         ava = (Button) root.findViewById(R.id.bk_qrAVAB);
@@ -104,7 +112,7 @@ public class bikesFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getActivity());
         mBikesRV.setLayoutManager(linearLayoutManager);
 
-        FirebaseRecyclerOptions personsOptions = new FirebaseRecyclerOptions.Builder<Bicicletta>().setQuery(bikesQuery, Bicicletta.class).build();
+        final FirebaseRecyclerOptions personsOptions = new FirebaseRecyclerOptions.Builder<Bicicletta>().setQuery(bikesQuery, Bicicletta.class).build();
 
         mBikesRVAdapter = new FirebaseRecyclerAdapter<Bicicletta, PassViewHolder>(personsOptions) {
             @Override
@@ -114,11 +122,11 @@ public class bikesFragment extends Fragment {
                     holder.setStatus(model.getStatus().toUpperCase());
                     holder.setModel(model.getBrand());
                     holder.setYear(model.getYear() + "");
-                    holder.setValue("Value(ETH): " + model.getValue());
+                    holder.setValue("Value: " + model.getValue()+"€");
                     holder.setCounter("rented: " + model.getRentedCNT());
                     holder.setImage(model.getImage());
-                    if (model.getStatus().equals("unavailable"))
-                        holder.setCustomer(model.getCustomer());
+                    if (!model.getStatus().equals("available"))
+                        holder.setCustomer(model.getCustomer(), model.getBikeIDRef(),currentuser);
 
                     holder.mView.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -184,6 +192,8 @@ public class bikesFragment extends Fragment {
             ImageView bk_status = (ImageView) mView.findViewById(R.id.bk_status);
             if (bS.equals("AVAILABLE"))
                 bk_status.setBackgroundResource(R.color.strong_green);
+            else if (bS.equals("BOOKED"))
+                bk_status.setBackgroundResource(R.color.arancius);
             else
                 bk_status.setBackgroundResource(R.color.strong_red);
         }
@@ -214,11 +224,56 @@ public class bikesFragment extends Fragment {
             bk_counter.setText(bC);
         }
 
-        public void setCustomer(String bR) {
-            TextView bk_customer = (TextView) mView.findViewById(R.id.bk_customer);
-            String cippa[] = bR.split("#@&@#");
-            String output = "[ "+cippa[0]+" - "+cippa[1]+" ]";
-            bk_customer.setText(output);
+        public void setCustomer(String bR, String bikeref, String rentRef) {
+            final TextView bk_customer = (TextView) mView.findViewById(R.id.bk_customer);
+            final String cippa[] = bR.split("#@&@#");
+            String output;
+            if (cippa[1].length() < 15) {
+                output = "[ " + cippa[0] + " - " + cippa[1] + " ]";
+                bk_customer.setText(output);
+            }
+            else {
+                try {
+                    Date date = new Date();
+                    Calendar current = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
+                    current.setTime(date);
+                    SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM d HH:mm:ss zz yyyy", Locale.ENGLISH);
+                    Calendar old = Calendar.getInstance();
+                    Date stringdata = sdf.parse(cippa[1]);
+                    old.setTime(stringdata);
+                    old.add(Calendar.HOUR_OF_DAY, 3);
+
+                    if (old.before(current)) {
+                        DatabaseReference bbab = FirebaseDatabase.getInstance().getReference().child("USERS").child(rentRef)
+                                .child("Bikes").child(bikeref);
+                        bbab.child("customer").setValue(" ");
+                        bbab.child("status").setValue("available");
+                    }
+
+                    long timeinmillis = old.getTimeInMillis() - current.getTimeInMillis();
+                    new CountDownTimer(timeinmillis, 1000) {
+                        public void onTick(long millisUntilFinished) {
+
+                            int seconds = (int) millisUntilFinished / 1000;
+                            int minutes = seconds / 60;
+                            seconds = seconds % 60;
+                            int hours = minutes / 60;
+                            minutes = minutes % 60;
+                            hours = hours % 60;
+                            String timerToBePrinted = hours + "h:" + minutes + "m:" + seconds + "s";
+                            bk_customer.setText("[ " + cippa[0] + " - " + timerToBePrinted);
+                        }
+
+                        public void onFinish() {
+                            bk_customer.setText("[ " + cippa[0] + " - " + "expired");
+                        }
+                    }.start();
+
+                } catch (Exception exs) {
+                    exs.printStackTrace();
+                }
+            }
+
         }
 
     }

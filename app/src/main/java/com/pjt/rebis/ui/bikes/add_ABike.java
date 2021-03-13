@@ -119,14 +119,15 @@ public class add_ABike extends Fragment {
                     StorageReference picRef = mStorageRef.child(tmp);
                     uploadImage(getFirstURI(), picRef);
 
-                    DatabaseReference bikeRef = FirebaseDatabase.getInstance().getReference().child("USERS").child(currentuser)
-                            .child("Bikes").child(tmp);
+                    DatabaseReference bikeRef = FirebaseDatabase.getInstance().getReference().child("USERS")
+                            .child(currentuser).child("Bikes").child(tmp);
                     bikeRef.child("brand").setValue(marca);
                     bikeRef.child("name").setValue(modello); //CORRESPONDS TO 'MODEL'
                     bikeRef.child("rentedCNT").setValue(0);
                     bikeRef.child("status").setValue("available");
                     bikeRef.child("value").setValue(_value);
                     bikeRef.child("year").setValue(_year);
+                    bikeRef.child("bikeIDRef").setValue(tmp);
 
                     exitFrg();
                }

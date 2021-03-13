@@ -8,6 +8,7 @@
     android:layout_marginTop="0dp"
     android:background="@color/dark_theme"
     android:orientation="vertical"
+    android:clickable="true"
     tools:context=".ui.welcomeFrag">
 
     <TextView

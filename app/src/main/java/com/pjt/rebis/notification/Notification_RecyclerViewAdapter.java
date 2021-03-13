@@ -171,14 +171,14 @@ public class Notification_RecyclerViewAdapter extends RecyclerView.Adapter<Notif
                     int width = fullconstr.getLayoutParams().width;
                     if (ping == 0) {
                         expanser.setVisibility(View.VISIBLE);
-                        expand.setBackgroundResource(R.drawable.dropdown_iconrib);
+                        expand.setBackgroundResource(R.drawable.dropdown_iconrib2);
                         setData(type, robj, mRef);
                         int heigth = 650;
                         fullconstr.setLayoutParams(new FrameLayout.LayoutParams(width, heigth));
                         ping = 1;
                     } else {
                         expanser.setVisibility(View.GONE);
-                        expand.setBackgroundResource(R.drawable.dropdown_icon2);
+                        expand.setBackgroundResource(R.drawable.dropdown_icon);
                         int heigth = 320;
                         fullconstr.setLayoutParams(new FrameLayout.LayoutParams(width, heigth));
                         ping = 0;

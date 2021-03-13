@@ -71,6 +71,10 @@ public class QRcodeRenter extends Fragment implements AdapterView.OnItemSelected
                             String parent = childSnapshot.getKey();
                             _parent.add(parent);
                             bikes.add(parent.substring(3));
+                        } else if (childSnapshot.child("status").getValue().equals("booked")) {
+                            String parent = childSnapshot.getKey();
+                            _parent.add(parent);
+                            bikes.add("[B] "+parent.substring(3));
                         }
                     } catch (Exception e23e) {}
                 }

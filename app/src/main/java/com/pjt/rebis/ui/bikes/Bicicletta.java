@@ -3,15 +3,15 @@ package com.pjt.rebis.ui.bikes;
 import java.util.Date;
 
 public class Bicicletta {
-    String name, brand, status, image, customer;
+    String name, brand, status, image, customer, bikeIDRef;
     double value;
     int year, rentedCNT;
 
     public Bicicletta() {
     }
 
-    public Bicicletta(String name, String brand, String status,
-                      double value, int year, int rentedCNT, String image, String customer) {
+    public Bicicletta(String name, String brand, String status, double value,
+                      int year, int rentedCNT, String image, String customer, String bikeIDRef) {
         this.name = name;
         this.brand = brand;
         this.status = status;
@@ -20,6 +20,7 @@ public class Bicicletta {
         this.rentedCNT = rentedCNT;
         this.image = image;
         this.customer = customer;
+        this.bikeIDRef = bikeIDRef;
     }
 
     public String getName() {
@@ -84,5 +85,13 @@ public class Bicicletta {
 
     public void setCustomer(String customer) {
         this.customer = customer;
+    }
+
+    public String getBikeIDRef() {
+        return bikeIDRef;
+    }
+
+    public void setBikeIDRef(String bikeIDRef) {
+        this.bikeIDRef = bikeIDRef;
     }
 }

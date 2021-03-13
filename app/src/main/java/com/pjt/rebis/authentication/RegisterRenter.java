@@ -112,10 +112,11 @@ public class RegisterRenter extends AppCompatActivity {
                                                     DatabaseReference uniqueRef = FirebaseDatabase.getInstance().getReference().child("unicity").child("usernames").child(storename);
                                                     uniqueRef.child("name").setValue(storename);
 
-                                                    DatabaseReference currentRef = FirebaseDatabase.getInstance().getReference().child("USERS").child(mCurrentUser.getUid())
-                                                            .child("Credentials");
-                                                    currentRef.child("Username").setValue(storename);
-                                                    currentRef.child("Usertype").setValue("renter");
+                                                    DatabaseReference currentRef = FirebaseDatabase.getInstance().getReference().child("USERS").child(mCurrentUser.getUid());
+                                                    currentRef.child("Credentials").child("Username").setValue(storename);
+                                                    currentRef.child("Credentials").child("Usertype").setValue("renter");
+                                                    currentRef.child("type").setValue("renter");
+
 
                                                     db.collection("USERS")
                                                             .document(mCurrentUser.getUid())
