@@ -222,9 +222,9 @@ public class expandCustomerView extends Fragment {
             api.endTransaction(getContext(), pitm, currentuser);
         else {
             //METAMASK DEEPLINK
-            String contract_address = "0x86e43bf70244816Df7DA68471daB0C68f5A553D8";
+            String contract_address = "0xB5b86278B448922CfA09C11B6a27B22c27Aa80b3";
             double value = pitm.getRentalItem().getDeposit();
-            String DEEP_LINK_URL = "https://metamask.app.link/send/pay-" + contract_address + "@3?value=" + value + "e18";
+            String DEEP_LINK_URL = "https://metamask.app.link/send/pay-" + contract_address + "@3?value=SPLIT" + value;// + "e18";
 
             String[] array = new String[] {
                     pitm.getRentalItem().getRenter(),

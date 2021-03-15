@@ -35,11 +35,6 @@ public class Transaction_metamask extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction_metamask);
 
-        TextView text = findViewById(R.id.txmm_result);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            text.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
-        }
-
         //https://metamask.app.link/send/pay-PUT_TO_ADDRESS@3?value=PUT_VALUEe18
         DEEP_LINK_URL0 = getIntent().getStringExtra("DEEPLINK");
         PAYLOAD_OBJECT = getIntent().getStringArrayExtra("PAYLOAD_OBJECT");
@@ -87,10 +82,11 @@ public class Transaction_metamask extends AppCompatActivity {
         BigDecimal valueandNonce1 = Convert.toWei(linktemps[1], Convert.Unit.ETHER);
         String converted = valueandNonce1.toString();
 Log.d("CNV1", "inWei: "+converted);
-        String tmpval = ((converted).substring(0, converted.length()-7)).concat(tempID);//.concat(".00");
+        String[] probfix = converted.split("\\.");
+        String tmpval = (probfix[0].substring(0, probfix[0].length()-4)).concat(tempID);//.concat(".00");
 Log.d("CNV2", "inWei+ID: "+tmpval);
         BigDecimal valueandNonce = (Convert.fromWei(tmpval, Convert.Unit.ETHER));
-        BigDecimal valuenNonnDep = valueandNonce.add(new BigDecimal(rentobj.getDeposit()));
+        BigDecimal valuenNonnDep = valueandNonce;//.add(new BigDecimal(rentobj.getDeposit()));
 Log.d("CNV3", "inEth: "+valuenNonnDep);
         DEEP_LINK_URL = linktemps[0] + valuenNonnDep + "e18";
 Log.d("DEEP", "LINK: "+DEEP_LINK_URL);
@@ -135,8 +131,5 @@ Log.d("DEEP", "LINK: "+DEEP_LINK_URL);
         animation.start();
     }
 
-    private void fixDecimals(String _value, String _nonce) {
-
-    }
 
 }

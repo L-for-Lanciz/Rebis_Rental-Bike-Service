@@ -12,9 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:layout_gravity="center_vertical"
-        android:background="@drawable/singleadwa_bg"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:layout_marginRight="10dp"
+        android:background="@drawable/bbbk">
 
         <TextView
             android:id="@+id/rose_title"
@@ -63,7 +63,7 @@
             android:layout_height="50dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="30dp"
-            android:background="@drawable/choice_butt"
+            android:background="@drawable/choice_butt_acc"
             android:fontFamily="@font/merienda_one"
             android:text="@string/rose_ch1"
             android:textColor="@color/panna"
@@ -78,7 +78,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="10dp"
-            android:background="@drawable/choice_butt"
+            android:background="@drawable/choice_butt_acc"
             android:fontFamily="@font/merienda_one"
             android:text="@string/rose_ch2"
             android:textColor="@color/panna"

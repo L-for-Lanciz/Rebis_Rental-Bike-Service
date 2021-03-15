@@ -49,8 +49,9 @@
 
     <Button
         android:id="@+id/txmm_tryagain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="90dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="55dp"
         android:layout_marginEnd="100dp"
         android:background="@drawable/rounded_corner"
@@ -70,10 +71,10 @@
 
     <ImageView
         android:id="@+id/txmm_imbuffer"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="75dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txmm_divider"
         app:srcCompat="@drawable/loading_animation" />
@@ -82,8 +83,13 @@
         android:id="@+id/txmm_result"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="@color/rebis_transp"
         android:fontFamily="sans-serif-medium"
+        android:paddingVertical="10dp"
         android:text="@string/txmm_desc"
         android:textAlignment="center"
         android:textColor="@color/avorio"
@@ -94,10 +100,11 @@
 
     <Button
         android:id="@+id/txmm_toMenu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="90dp"
+        android:layout_height="50dp"
         android:layout_marginStart="100dp"
         android:layout_marginTop="55dp"
+        android:layout_marginEnd="5dp"
         android:background="@drawable/rounded_corner"
         android:backgroundTint="@color/colorAccent"
         android:fontFamily="sans-serif"

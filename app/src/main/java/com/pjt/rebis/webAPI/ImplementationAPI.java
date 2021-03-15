@@ -34,7 +34,7 @@ public class ImplementationAPI {
     public ImplementationAPI() {
         //Gson gson = new GsonBuilder().setLenient().create();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.102:3100/") //local url ipv4: http://192.168.1.x:3000
+                .baseUrl("http://192.168.1.15:3100/") //local url ipv4: http://192.168.1.x:3000
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         api = retrofit.create(InterfaceAPI.class);
@@ -142,7 +142,7 @@ public class ImplementationAPI {
     }
 
     private void updRentalOnEndingOnDatabase(RentalItem item, String currentuser) {
-        DatabaseReference endRef = FirebaseDatabase.getInstance().getReference().child("RENTALS").child(item.getID() + "");
+        //DatabaseReference endRef = FirebaseDatabase.getInstance().getReference().child("RENTALS").child(item.getID() + "");
         //endRef.child("State").setValue("ended");      NOW DONE AT SERVER SIDE
 
         DatabaseReference bikeRef = FirebaseDatabase.getInstance().getReference().child("USERS").child(currentuser)
