@@ -244,6 +244,7 @@ public class expandCustomerView extends Fragment {
             Intent trxInt = new Intent(getContext(), Transaction_metamask.class);
             trxInt.putExtra("DEEPLINK", DEEP_LINK_URL);
             trxInt.putExtra("PAYLOAD_OBJECT", array);
+            trxInt.putExtra("TYPE", "END");
             getActivity().startActivity(trxInt);
             getActivity().finish();
         }

@@ -101,6 +101,7 @@ public class custom_dialogCR extends Dialog implements android.view.View.OnClick
         Intent trxInt = new Intent(c, Transaction_metamask.class);
         trxInt.putExtra("DEEPLINK", DEEP_LINK_URL);
         trxInt.putExtra("PAYLOAD_OBJECT", array);
+        trxInt.putExtra("TYPE", "START");
         c.startActivity(trxInt);
         c.finish();
     }

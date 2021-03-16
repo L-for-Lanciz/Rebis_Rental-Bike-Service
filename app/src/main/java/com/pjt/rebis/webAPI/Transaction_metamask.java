@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.pjt.rebis.MainActivity;
 import com.pjt.rebis.R;
 import com.pjt.rebis.ui.history.RentalItem;
@@ -26,9 +27,10 @@ import static android.text.Layout.JUSTIFICATION_MODE_INTER_WORD;
 
 
 public class Transaction_metamask extends AppCompatActivity {
-    private String DEEP_LINK_URL, DEEP_LINK_URL0;
+    private String DEEP_LINK_URL, DEEP_LINK_URL0, TYPE;
     private String[] PAYLOAD_OBJECT;
     private AnimationDrawable animation;
+    private String currentuser =  FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class Transaction_metamask extends AppCompatActivity {
         setContentView(R.layout.activity_transaction_metamask);
 
         //https://metamask.app.link/send/pay-PUT_TO_ADDRESS@3?value=PUT_VALUEe18
+        TYPE = getIntent().getStringExtra("TYPE");
         DEEP_LINK_URL0 = getIntent().getStringExtra("DEEPLINK");
         PAYLOAD_OBJECT = getIntent().getStringArrayExtra("PAYLOAD_OBJECT");
         RentalItem rentobj = new RentalItem(
@@ -95,7 +98,10 @@ Log.d("DEEP", "LINK: "+DEEP_LINK_URL);
 
         // send data to the server
         ImplementationAPI api = new ImplementationAPI();
-        api.payTransaction(this, payobj);
+        if (TYPE.equals("START"))
+            api.payTransaction(this, payobj);
+        else
+            api.endTransaction(this, payobj, currentuser);
 
         // DEEP LINK INTENT : START METAMASK TRANSACTION
         Intent intent = new Intent(Intent.ACTION_VIEW);
